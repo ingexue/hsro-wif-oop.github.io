@@ -63,6 +63,7 @@
 - 5/23
 	+ Java Bibliothek: List, Set, Map, Iterator, Comparator
 	+ filter-map-reduce
+	+ forEach
 	+ Übung: Trump Tweet
 - 5/30
 	+ Klassen und UML
