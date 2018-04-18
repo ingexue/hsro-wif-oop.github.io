@@ -199,7 +199,7 @@ class ArrayList<T> implements List<T> {
 	class MyIterator implements Iterator<T> {
 		int pos = 0;
 		public boolean hasNext() {
-			return pos < length - 1;
+			return pos < length;
 		}
 		public T next() {
 			if (!hasNext())
