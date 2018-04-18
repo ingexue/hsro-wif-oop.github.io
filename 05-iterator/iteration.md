@@ -53,7 +53,7 @@ for (int i = 0; i < a.length; i++)
 ```
 
 Zu Anfang dieses Semesters hatten wir die [Liste](/02-linked-list/) als sequenzielle Datenstruktur kennengelernt, welche wir dann einmal mit einem Array (`ArrayList`, [Quelle](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/java/ch05/ArrayList.java)) und einmal mit verketteter Liste (`LinkedList`, [Quelle](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/java/ch05/LinkedList.java)) implementiert hatten.
-Beide Klasse implementieren dabei die selbe Schnittstelle:
+Beide Klassen implementieren dabei die selbe Schnittstelle:
 
 ```java
 interface List<T> {
