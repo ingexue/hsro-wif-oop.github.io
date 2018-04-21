@@ -355,7 +355,7 @@ Es setzt die beiden Schnittstellen `Iterable` und `Iterator` in Beziehung, die w
 Der Iterator verwendet dabei das Factory Method Pattern.
 
 
-# Iteration für Maps
+# Iteration für Sets
 
 Die Iteration ist also ein abstraktes Konzept für sequenziellen Zugriff auf Datenstrukturen.
 Da auch das _Set_ eine Datenstruktur ist, sollte man auch für dieses alle Elemente aufzählen können; gewünscht ist also eine Erweiterung des Interfaces `Set`:
