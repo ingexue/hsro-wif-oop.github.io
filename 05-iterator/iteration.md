@@ -471,6 +471,127 @@ Dann verhält sich die Agenda (`[]`) bei den `.iterator()` bzw. `.next()` Aufruf
 ```
 
 
+# Übersicht: Klassensyntax
+
+Wir haben in den letzten Kapiteln nun verschiedene _Arten_ von Klassen in Java kennen gelernt:
+
+- (normale) Klasse: Gewöhnliche Implementierung, verwende `implements` zur Interfaceerfüllung
+- _innere_ Klasse: Modellierung von Klassen, welche Teilfunktionalität für eine einschließende Klasse erbringen, z.B. `Element` bei verketteter Liste oder Binärbaum.
+- _statische innere_ Klasse: Wie _innere_, aber wenn Objekte unabhängig der äußeren Klasse existieren können.
+- _anonyme innere_ Klasse: Eine Kurzschreibweise um Instanzen zu Interfaces zu erzeugen; häufig verwendet um `Iterator`- oder `Comparator`-Instanzen zu erstellen.
+
+
+## (Normale) Klassen
+
+```java
+class MeineKlasse {
+	// Attribute
+}
+```
+
+- **Eine** normale, nicht-statische Klasse pro `.java` Datei
+- Klassenname muss gleich dem Dateinamen sein; Übersetzung von `MeineKlasse.java` in `MeineKlasse.class` (Bytecode).
+- Kann beliebig viele innere Klassen enthalten
+
+## Innere Klassen
+
+```java
+class MeineKlasse {
+	private MeineInnere {
+		
+	}
+
+	private static MeineStatischeInnere {
+
+	}
+}
+```
+
+- Beliebig viele innere Klassen
+- Sichtbarkeit und Gültigkeit analog zu Attributen
+- **Innerhalb** einer normalen Klasse, **ausserhalb** von Methoden
+- `Innere` kann **nur** in Instanz von `Aeussere` existieren
+- Im Prinzip beliebig schachtelbar (innere in inneren in inneren, ...)
+
+
+## (Nicht-statische) Innere Klasse
+
+```java
+class Aeussere {
+	private String attribut = "A";
+	private static String ATTRIBUT = "B";
+
+	class Innere {
+		String attribut = "X";
+		
+		// Compilerfehler! Innere können keine static haben
+		static String ATTRIBUT = "Y";
+		
+		void zugriff() {
+			System.out.println(this.attribut);  // "X"
+			System.out.println(Aeussere.this.attribut);  // "A"
+		}
+	}	
+}
+```
+
+- Zugriff auf alle Attribute der `Aeussere` Instanz
+- Bei Namenskonflikten mit `<KlassenName>.this.*` disambiguieren
+- keine `static` Attribute in inneren Klassen
+
+
+## Statische Innere Klasse
+
+```java
+class Aeussere {
+	Strint attribut = "A";
+	static class Statische {
+		String attribut = "Z";
+		void zugriff() {
+			System.out.println(attribut);  // "Z"
+
+			// Compilerfehler! Statische Innere hat keinen Aeussere-Scope
+			System.out.println(Aeussere.this.attribut);
+		}
+	}
+}
+```
+
+- Können ohne Instanz der äußeren Klasse verwendet werden
+
+```java
+Aeussere.Statische inst = new Aeussere.Statische();
+```
+
+- Folglich kein direkter Zugriff auf die Attribute der äußeren Klasse
+
+
+## Anonyme Innere Klasse
+
+```java
+interface Intf {
+	void methode();
+}
+```
+```java
+final int aussen = 10;
+Intf inst = new Intf() {
+	int attr;
+	{
+		// Konstruktor, wenn nötig
+		attr = aussen;  // Zugriff nur auf quasi-final!
+	}
+	public void methode() {
+		System.out.println(attr);
+	}
+};
+```
+
+- Erstellt ein Objekt das ein Interface implementiert
+- Klassendefinition aber zur Laufzeit unbekannt ("anonym")
+- Zugriff auf äußere Attribute nur, wenn diese quasi-final sind.
+
+
 # Zusammenfassung
 
 - Die **Iteration** für Containerstrukturen (wie z.B. Listen oder Sets) ist eine Abstraktion, welche dem Benutzer sequenziellen Zugriff auf die enthaltenen Elemente gibt, ohne die innere Struktur zu kennen.
