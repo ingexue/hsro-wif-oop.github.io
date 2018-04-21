@@ -53,7 +53,7 @@ for (int i = 0; i < a.length; i++)
 ```
 
 Zu Anfang dieses Semesters hatten wir die [Liste](/02-linked-list/) als sequenzielle Datenstruktur kennengelernt, welche wir dann einmal mit einem Array (`ArrayList`, [Quelle](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/java/ch05/ArrayList.java)) und einmal mit verketteter Liste (`LinkedList`, [Quelle](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/java/ch05/LinkedList.java)) implementiert hatten.
-Beide Klasse implementieren dabei die selbe Schnittstelle:
+Beide Klassen implementieren dabei die selbe Schnittstelle:
 
 ```java
 interface List<T> {
@@ -68,7 +68,7 @@ Wollten wir nun alle Elemente der Liste besuchen, gingen wir analog zum Array vo
 ```java
 List<String> li = ...;
 for (int i = 0; i < li.size(); i++)
-	System.out.println(li.get(0));
+	System.out.println(li.get(i));
 ```
 
 Wir erinnern uns dabei aber, dass `ArrayList.get` sehr viel effizienter als `LinkedList.get` implementiert ist, nämlich in $O(1)$ statt $O(n)$):
@@ -118,7 +118,7 @@ for (int i = 0; i < li.length(); i++)
 Die `ArrayList` ist hier mit 19ms um zwei Größenordnungen **schneller** als die `LinkedList` mit 1369ms -- logisch: ist ja `get` bei ersterer mit $O(1)$ nach _n_ Aufrufen im ganzen $O(n)$, so ist letztere $O(n^2)$ da für jeden `get` Aufruf von vorne bis zur Zielposition gelaufen werden muss.
 
 Nun ist die Iteration über eine Datenstruktur eine sehr häufige Geschichte.
-Wie könnte man wohl für eine verkettete Liste wie im obigen Beispiel beschleunigen?
+Wie könnte man diese wohl für eine verkettete Liste wie im obigen Beispiel beschleunigen?
 
 
 # Iterator 
@@ -137,7 +137,7 @@ while (it != null) {
 }
 ```
 
-Nun ist aber zum einen die innere Klasse sowie das `head` Element i.d.R. `private`.
+Nun ist aber sowohl die innere Klasse als auch das `head` -Element i.d.R. `private`.
 Und weiterhin sollte man ja immer nur gegen Schnittstellen, also unabhängig von der tatsächlichen Realisierung programmieren -- und das Interface `List` kennt eben gerade nur die Operationen auf einer Liste, aber nicht die Struktur.
 
 Wir suchen also eine Abstraktion für die Iteration.
@@ -153,7 +153,7 @@ interface Iterator<T> {
 
 > Hinweis: Der in der Java API definierte `java.util.Iterator` ([Quelle](https://docs.oracle.com/javase/9/docs/api/java/util/Iterator.html)) verfügt noch über weitere Methoden, auf die wir hier aber nicht eingehen wollen.
 
-Angenommen wir hätten also so ein `Iterator` Objekt, so könnten wir wie folgt iterieren:
+Angenommen wir hätten also so ein `Iterator` -Objekt, so könnten wir wie folgt iterieren:
 
 ```java
 Iterator<Integer> it = ???;  // dazu später...
@@ -182,7 +182,7 @@ Der Iterator übernimmt also die zwei zentralen Aufgaben der Iteration:
 1. Er liefert das nächste Element, und
 2. er merkt sich die aktuelle Position.
 
-In der Regel braucht der Iterator Kenntnis der und Zugriff auf die innere Struktur, und ist daher als (anonyme) innere Klasse realisiert.
+In der Regel braucht der Iterator Kenntnis der (und Zugriff auf) die innere Struktur und ist daher als (anonyme) innere Klasse realisiert.
 
 
 ### Iterator für ArrayList
@@ -190,8 +190,8 @@ In der Regel braucht der Iterator Kenntnis der und Zugriff auf die innere Strukt
 Wie sieht nun ein Iterator für die `ArrayList` aus?
 
 - Die aktuelle Position ist ein Index, also z.B. ein `int`.
-- Es gibt noch ein weiteres Element, wenn die aktuelle Position um eins kleiner ist, als die Liste lang ist.
-- Zum nächsten Element gelangt man, in dem man die aktuelle Position um eins erhöht.
+- Es gibt noch ein weiteres Element, wenn die aktuelle Position um mindestens eins kleiner ist als die Listenlänge.
+- Zum nächsten Element gelangt man, indem man die aktuelle Position um eins erhöht.
 
 ```java
 class ArrayList<T> implements List<T> {
@@ -199,7 +199,7 @@ class ArrayList<T> implements List<T> {
 	class MyIterator implements Iterator<T> {
 		int pos = 0;
 		public boolean hasNext() {
-			return pos < length - 1;
+			return pos < length;
 		}
 		public T next() {
 			if (!hasNext())
@@ -217,7 +217,7 @@ class ArrayList<T> implements List<T> {
 }
 ```
 
-Wir stellen dabei folgendes fest:
+Wir stellen dabei Folgendes fest:
 
 - Die innere Klasse `MyIterator` kann auf das `length` Attribut der `ArrayList` zugreifen; das macht den `hasNext`-Check einfach.
 - In `next` wird zunächst das aktuelle Element in `h` gespeichert, dann die Position um eins erhöht, und abschließend `h` zurück gegeben.
@@ -237,8 +237,8 @@ while (it.hasNext())
 
 Für die verkettete Liste sind nur kleine Änderungen notwendig:
 
-1. Die aktuelle Position ist immer eine Referenz auf ein `Element`; zu beginn ist diese `head`.
-2. Es gibt nun kein weiteres Element, wenn die aktuelle Position `null` ist (sprich: "man hinten hinausgefallen ist").
+1. Die aktuelle Position ist immer eine Referenz auf ein `Element`; zu Beginn ist diese `head`.
+2. Es gibt nun kein weiteres Element, wenn die aktuelle Position `null` (sprich: "man hinten hinausgefallen") ist.
 
 An diesem Beispiel können wir auch noch die _anonyme_ innere Klasse wiederholen:
 
@@ -291,7 +291,7 @@ interface Iterable<T> {
 }
 ```
 
-Implementiert eine Klasse also (unter anderem) obige Schnittstelle, so kann man für sie entsprechend einen Iterator erhalten.
+Implementiert eine Klasse also (unter Anderem) obige Schnittstelle, so kann man für sie entsprechend einen Iterator erhalten.
 Tatsächlich ist es auch in unserem Beispiel so, dass jede Liste einen Iterator liefern können sollte.
 Um dieses syntaktisch ausdrücken zu können gibt es nun das Schlüsselwort `extends`.
 Übertragen auf unser Beispiel bedeutet das: die Schnittstelle `List` _erweitert_ (engl. extends) die Schnittstelle `Iterable`, bzw. in Java:
@@ -476,5 +476,5 @@ Dann verhält sich die Agenda (`[]`) bei den `.iterator()` bzw. `.next()` Aufruf
 - Die **Iteration** für Containerstrukturen (wie z.B. Listen oder Sets) ist eine Abstraktion, welche dem Benutzer sequenziellen Zugriff auf die enthaltenen Elemente gibt, ohne die innere Struktur zu kennen.
 - Der **Iterator** als **Verhaltensmuster** (behavioral pattern) beschreibt dabei den Zusammenhang der Interfaces `Iterator<T>` und `Iterable<T>`.
 - Die **Fabrikmethode** (factory method) ist ein **Erstellungsmuster** (creation pattern) welches sich auch im Iterator Muster wiederfindet.
-- **Iteratoren für sequenzielle Datenstrukturen** sind im Allgemeinen einfach zu implementieren: sie erinnern die aktuelle Position.
+- **Iteratoren für sequenzielle Datenstrukturen** sind im Allgemeinen einfach zu implementieren: sie merken sich die aktuelle Position.
 - **Iteratoren für Baumstrukturen**, also Datenstrukturen deren Elemente mehr als einen Nachfolger haben, verwenden hingegen eine **Agenda:** eine Liste von noch zu besuchenden Elementen.
