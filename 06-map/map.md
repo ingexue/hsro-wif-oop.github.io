@@ -222,6 +222,13 @@ class TreeMap<K extends Comparable<K>, V> implements Map<K, V> {
 }
 ```
 
+## Weitere nützliche Funktionen
+
+- `remove`: Löscht einen Schlüssel und den zugehörigen Wert
+- `size`: Anzahl der Einträge in der Map
+- `containsValue`: Prüft ob ein _Wert_ (nicht Schlüssel) enthalten ist
+- `clear`: Löscht alle Schlüssel und zugehörigen Werte
+
 
 # Exkurs: Effizienz durch Hashing
 
