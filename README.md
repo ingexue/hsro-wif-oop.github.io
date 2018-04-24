@@ -61,7 +61,7 @@ Der Leistungsnachweis ist aufgeteilt in eine
 	Arrays und Listen verfügen über einen Indexoperator (`[]` bzw. `get(int)`) welcher verwendet werden kann um alle Elemente zu besuchen.
 	Der _Iterator_ abstrahiert dieses Prinzip: Bereitgestellt vom Container selbst, ist er ein Hilfsobjekt mit dem jedes Element des Containers besucht werden kann.
 
-- **25. April: Map als generischer assoziativer Container ([Skript](/06-map/))**
+- **25. April: Map als generischer assoziativer Container ([Skript](/06-map/), [Folien](/06-map/slides/), [Übung](https://github.com/hsro-wif-prg2/uebung05))**
 
 	Eine Liste ist sequenziell mit potentiellen Duplikaten, ein Set ist duplikatfrei, aber ohne Reihenfolge.
 	Eine _Map_ (aus dem engl. _map_: Abbildung) ist ein assoziativer Container, welcher einem Schlüssel (_key_) eindeutig einen Wert (_value_) zuordnet.

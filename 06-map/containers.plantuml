@@ -1,0 +1,125 @@
+@startuml containers
+
+interface java.lang.Iterable<E> {
+	Iterator<E> iterator();
+}
+
+package java.util {
+
+	interface Iterator<E> {
+		+hasNext(): boolean
+		+next(): E
+	}
+
+	java.lang.Iterable ... Iterator
+
+	interface Collection<E> extends java.lang.Iterable {
+		+add(element: E)
+		+contains(element: E): boolean
+		+remove(element: E): boolean
+		+size(): int
+	}
+
+
+
+	interface List<E> extends Collection {
+		+add(index: int, element: E)
+		+remove(index: int)
+	}
+
+	interface Set<E> extends Collection {
+
+	}
+
+	note right of Set: "Same signature,\ndifferent semantics!"
+
+	interface Map<K, V> {
+		+get(key: K): V
+		+put(key: K, value: V)
+		+entrySet(): Set<Entry<K, V>>
+		+keySet(): Set<K>
+	}
+
+	interface Map.Entry<K, V> {
+		+getKey(): K
+		+getValue(): V
+	}
+
+	Map +-- Map.Entry
+}
+
+@enduml
+
+@startuml containers-api
+
+interface java.lang.Iterable<E> {
+	Iterator<E> iterator();
+}
+
+package java.util {
+
+	interface Iterator<E> {
+		+hasNext(): boolean
+		+next(): E
+	}
+
+	java.lang.Iterable ... Iterator
+
+	interface Collection<E> extends java.lang.Iterable {
+		+add(element: E)
+		+contains(element: E): boolean
+		+remove(element: E): boolean
+		+size(): int
+	}
+
+	interface List<E> extends Collection {
+		+add(index: int, element: E)
+		+remove(index: int)
+	}
+
+	class ArrayList<E> implements List {
+
+	}
+
+	class LinkedList<E> implements List {
+
+	}
+
+	class Stack<E> implements List {
+
+	}
+
+	interface Set<E> extends Collection {
+
+	}
+
+	class HashSet<E> implements Set {
+
+	}
+
+	class TreeSet<E> implements Set {
+
+	}
+
+	interface Map<K, V> {
+		+get(key: K): V
+		+put(key: K, value: V)
+		+entrySet(): Set<Entry<K, V>>
+		+keySet(): Set<K>
+	}
+
+	class HashMap<K, V> implements Map {
+
+	}
+
+	class TreeMap<K, V> implements Map {
+
+	}
+
+	note "K implements Comparable<K>\noder mit Comparator<K>" as n1
+
+	n1 ..up.. TreeSet
+	n1 ..up.. TreeMap
+}
+
+@enduml

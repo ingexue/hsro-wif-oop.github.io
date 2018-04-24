@@ -1,0 +1,236 @@
+---
+title: Einführung
+permalink: /06-map/slides/
+layout: presentation
+---
+
+layout: true
+
+<footer>
+	<span class="icon github">
+	<svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+	</svg>
+	</span>
+	<a href="https://github.com/sikoried"><span class="username">sikoried</span></a>
+</footer>
+
+---
+
+# Map
+
+Korbinian Riedhammer
+
+---
+
+# Objektgleichheit mit `equals`
+
+In Java können zwei Objekte mit `equals` auf _inhaltliche Gleichheit_ verglichen werden:
+
+```java
+String s1 = "Hans", s2 = "Dampf"
+System.out.println(s1.equals(s2));  // "false"
+```
+
+**Daher:** Bei eigenen Klassen `equals` überschreiben:
+
+```java
+class MeineKlasse {
+	int attribut;
+	public boolean equals(Object o) {
+		if (o == this)// 1. Das_selbe_ Objekt?
+			return true;
+
+		if (!(o instanceof MeineKlasse)) // 2. Passt die Klasse?
+			return false;
+		
+		MeineKlasse other = (MeineKlasse) o;  // umwandeln...
+		if (this.attribut != other.attribut)  // 3. Attribute vergleichen
+			return false;
+		return true;
+	}
+}
+```
+
+---
+
+# Objektvergleich mit `compareTo`
+
+```java
+public interface Comparable<T> {
+	/**
+	 * @return 0 bei Gleichheit, 
+	 * 		negativ wenn `o` groesser als `this`, 
+	 * 		positiv wenn `o` kleier als `this` ist.
+	 */
+	int compareTo(T o);
+}
+```
+
+```java
+class MeineKlasse implements Comparable<MeineKlasse> {
+	int attribut;
+	public int compareTo(MeineKlasse other) {
+		// 0 bei Gleichheit, negativ wenn kleiner als other
+		if (this.attribut == other.attribut)
+			return 0;
+		else if (this.attribut < other.attribut)
+			return -1;
+		else
+			return 1;
+
+		// `alternativ sehr viel kuerzer:`
+		return this.attribut - other.attribut;
+	}
+}
+```
+
+---
+
+# Exkurs: Effizienz durch Hashing
+
+- Verwende Array wegen schnellem Direktzugriff
+- Hashfunktion um von Schlüssel zu "Schublade" zu gelanden
+
+<img alt="hashing" src="{{site.baseurl}}/06-map/hash-table.svg" style="width: 60%">
+
+.right[
+Quelle: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Hash_table_3_1_1_0_1_0_0_SP.svg)
+]
+
+---
+
+# Hashfunktion
+
+## Schlüsselobjekte
+
+- `Object.hashCode` ([Doku](https://docs.oracle.com/javase/10/docs/api/java/lang/Object.html#hashCode))
+- Definiert für alle API Klassen (String, Double, etc.)
+- Für eigene Klassen: `hashCode` implementieren:
+
+```java
+class MeineKlasse {
+	int a;
+	String s;
+	public int hashCode() {
+		return s.hashCode() + a;  // zum Beispiel...
+	}
+}
+```
+
+---
+
+# Hashfunktion
+
+## Schlüsselobjekte
+
+- In der Praxis: Verwendung von Hilfsbibliothek
+- `org.apache.commons.lang3.builder.HashCodeBuilder`
+
+```java
+class MeineKlasse {
+	int a;
+	String s;
+	public int hashCode() {
+		// wähle zwei beliebige ungerade Zahlen
+		HashCodeBuilder b = new HashCodeBuilder(17, 19);
+
+		// füge alle wichtigen Elemente an
+		b.append(a).append(s);
+
+		return b.hashCode();
+	}
+}
+```
+
+---
+
+# Hashfunktion
+
+## Abbildung auf Array Index
+
+- Hash des Schlüssels berechnen (mit `hashCode`)
+- Rechenvorschrift Hash zu Arrayindex (`0..bins.length-1`)
+- Verwende Zweierpotenzen als Arraygrößen, Bitmasking (`&`) für Index
+
+```java
+class HashMap<K, V> implements Map<K, V> {
+	Map.Entry<K, V>[] bins = new Map.Entry<> [32];  // Multiple von 2	
+	public V get(K key) {
+		// & bit-weises UND, daher bleiben genau 0..bins.length-1
+		int index = (bins.length - 1) & key.hashCode();
+		return bins[index];
+	}
+	public V put(K key, V value) {
+		int index = (bins.length - 1) & key.hashCode();
+		return bins[index] = value;
+	}
+}
+```
+
+---
+
+# Kollisionen
+
+<img alt="Collision Resolution" src="{{site.baseurl}}/06-map/hash-table-coll.svg" style="width: 90%">
+
+.right[
+Quelle: [Wikipedia](https://en.wikipedia.org/wiki/File:Hash_table_5_0_1_1_1_1_0_LL.svg)
+]
+
+- Indizes aus Hash können _kollidieren_
+- Verwende Liste statt einzelne Elemente
+
+---
+
+# Hashes in Java
+
+- Warum?
+	+ Nicht immer kann sinnvoll verglichen werden
+	+ `hashCode` oft einfacher zu implementieren als Vergleich
+- Java API: `HashMap` und `HashSet`
+
+```java
+Set<String> set = new HashSet<>();
+
+set.add("Hans");  // String implementiert hashCode()
+```
+
+```java
+Map<Integer, String> map = new HashMap<>();
+
+map.put(31337, "Hans");  // ...Integer ebenso
+```
+
+
+---
+
+# Container in Java
+
+<img src="{{site.baseurl}}/06-map/containers.svg" style="width: 90%">
+
+---
+
+# Container in Java
+
+- [`List`](https://docs.oracle.com/javase/10/docs/api/java/util/List.html) als sequenzielle Datenstruktur
+- [`Set`](https://docs.oracle.com/javase/10/docs/api/java/util/Set.html) als duplikatfreie (ungeordnete) Datenstruktur
+- `List` und `Set` erweitern `Collection`, was wiederum `Iterable` erweitert, d.h. alle sind iterierbar via `iterator`
+- [`Map`](https://docs.oracle.com/javase/10/docs/api/java/util/Map.html) als assoziative Datenstruktur
+- Realisierungen in der Java API:
+	+ [`ArrayList`](https://docs.oracle.com/javase/10/docs/api/java/util/ArrayList.html) und [`LinkedList`](https://docs.oracle.com/javase/10/docs/api/java/util/LinkedList.html)
+	+ [`TreeSet`](https://docs.oracle.com/javase/10/docs/api/java/util/TreeSet.html) und [`HashSet`](https://docs.oracle.com/javase/10/docs/api/java/util/HashSet.html)
+	+ [`TreeMap`](https://docs.oracle.com/javase/10/docs/api/java/util/TreeMap.html) und [`HashMap`](https://docs.oracle.com/javase/10/docs/api/java/util/HashMap.html)
+
+---
+
+# Zusammenfassung
+
+- Liste, Set und Map sind die grundlegenden Datenstrukturen der Informatik
+- Entwickeln Sie nach Möglichkeit immer gegen diese _Schnittstellen_
+- Verwenden Sie dazu _Instanzen_ von Klassen der Java API
+- Beispiel: `Set<String> s = new TreeSet<String>()`
+- Gute Praxis: Code bleibt unabhängig von der tatsächlichen Realisierung
+- Überschreiben Sie bei eigenen Klassen mindestens die `equals` Methode, besser auch noch `hashCode`
+- `Collections` sind `Iterable`, man kann diese also in `for-each` Schleifen verwenden, oder einen `Iterator` zur Traversierung erhalten.

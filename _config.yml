@@ -7,6 +7,7 @@ exclude:
   - "LICENSE"
   - "Remarks.md"
   - "*.plantuml"
+  - examples
 github_username: ["sikoried"]
 
 # Build settings

@@ -1,30 +1,32 @@
 package ch06;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 class Datenstrukturen {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-
-		System.out.println("How many entries?");
-		int howMany = Integer.parseInt(sc.nextLine());
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		List<String> entries = new LinkedList<>();
 		Set<String> set = new TreeSet<>();
-		for (int i = 0; i < howMany; i++) {
-			System.out.println("Please enter entry " + (i+1) + ":");
-			String e = sc.nextLine();
+		while (true) {
+			System.out.print("Eingabe: ");
+			String line = br.readLine();
 
-			if (set.contains(e)) {
+			if (line == null)
+				break;
+
+			if (set.contains(line)) {
 				System.out.println("Sorry, already in use; please try again.");
-				i--;
 				continue;
 			}
 
-			entries.add(e);
-			set.add(e);
+			entries.add(line);
+			set.add(line);
 		}
 
-		System.out.println("You entered: " + entries);
+		System.out.println("\nYou entered: " + entries);
 	}
 }

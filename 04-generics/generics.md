@@ -312,7 +312,7 @@ Der raw type ist nötig, damit die neue JVM (5 und neuer) abwärtskompatibel zu 
 **Es wird aber wärmstens empfohlen, Datenstrukturen und Algorithmen wo immer möglich generisch zu implementieren.**
 
 
-## Bounds für Generics
+## Einschränkungen für Typparameter
 
 Letzte Woche hatten wir als weitere grundlegende Datenstruktur das Set (realisiert durch einen Baum) kennen gelernt.
 Dieses können wir nun ebenso generisch formulieren:
@@ -366,6 +366,47 @@ Den Semantikfehler an Stelle 1, den Test auf Gleichheit (nicht Identität `==`),
 
 Der Compilerfehler an Stelle 2, der Vergleich der Objekte, ob links oder rechts abgestiegen werden soll, ist in dieser Form aber syntaktisch nicht möglich.
 
+
+## Objektgleichheit mit equals
+
+In Java können zwei Objekte mit `equals` auf _inhaltliche Gleichheit_ verglichen werden:
+
+```java
+String s1 = "Hans";
+String s2 = "Dampf";
+
+System.out.println(s1.equals(s2));  // "false"
+```
+
+Verwendet man `equals` um Objekte selbst entwickelter Klassen zu vergleichen, so muss die Methode wie bei Interfaces _überschrieben_ werden.
+Dies geschieht immer nach dem selben Schema:
+
+```java
+class MeineKlasse {
+	int attribut;
+	public boolean equals(Object o) {
+		// 1. Das_selbe_ Objekt?
+		if (o == this)
+			return true;
+
+		// 2. Wenn die Klasse nicht passt...
+		if (!(o instanceof MeineKlasse))
+			return false;
+
+		// 3. erzwungene Typumwandlung
+		MeineKlasse other = (MeineKlasse) o;
+
+		// 4. Attribute vergleichen
+		if (this.attribut != other.attribut)
+			return false;
+
+		return true;
+	}
+}
+```
+
+## Objektvergleich mit compareTo
+
 In der [Übung 2](https://github.com/hsro-wif-prg2/uebung02) haben Sie bereits das `StringSet` implementiert -- und dabei festgestellt, dass die Klasse `String` eine Methode `int compareTo(String other)` bereitstellt.
 Ein Blick in die [Dokumentation](https://docs.oracle.com/javase/9/docs/api/java/lang/String.html) zeigt gleich oben, unter "All Implemented Interfaces": `Comparable<String>`.
 
@@ -373,11 +414,17 @@ In der Tat handelt es sich bei `Comparable` um ein generisches Interface ([Dokum
 
 ```java
 public interface Comparable<T> {
+	/**
+	 * @return 0 bei Gleichheit, negativ wenn `o` groesser, positiv wenn `o` kleier ist.
+	 */
 	int compareTo(T o);
 }
 ```
 
 Da die Klasse `String` das _parametrisierte_ Interface `Comparable<String>` implementiert, verfügt sie über eine entsprechende Methode `compareTo(String o)`, welche zum Vergleich verwendet werden kann.
+Diese soll `0` zurückgeben, wenn beide Objekte (inhalts-)gleich sind, einen negativen Wert wenn `o` groesser bzw. einen positiven Wert, wenn `o` kleiner ist.
+
+## Bounds
 
 Übertragen auf unser generisches Set heisst das doch: Das Set soll zwar generisch sein, aber bitte nur für solche Datentypen `T`, welche das Interface `Comparable<T>` (also den Vergleich mit Elementen gleichen Typs) implementieren.
 
@@ -459,6 +506,9 @@ Dieses [Interface](https://docs.oracle.com/javase/9/docs/api/java/util/Comparato
 
 ```java
 interface Comparator<T> {
+	/**
+	 * @return 0 bei Gleichheit, negativ wenn `a` kleiner `b`, positiv wenn `a` groesser `b`
+	 */
 	int compare(T a, T b);
 }
 ```
@@ -567,3 +617,6 @@ class Aeussere<T> {
 Wir haben hier nur einen kleinen Teil von Generics besprochen, welcher aber bereits für sehr viele Anwendungen ausreicht.
 Insbesondere mit Vererbung können Generics allerdings noch deutlich komplizierter werden, und je nach Anwendung sogenannte [Wildcards](https://docs.oracle.com/javase/tutorial/java/generics/wildcards.html) (`?`) und _upper_ (`extends`) bzw. _lower_ (`super`) Bounds erfordern.
 Dieses geht aber weit über diese Veranstaltung hinaus, darum darf ich Sie für genauere Informationen auf die [offizielle Dokumentation](https://docs.oracle.com/javase/tutorial/java/generics/index.html) verweisen.
+
+
+<p style="text-align: right">&#8718;</p>
