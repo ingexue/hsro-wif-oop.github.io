@@ -50,30 +50,30 @@ Der Leistungsnachweis ist aufgeteilt in eine
 	Ein _Set_ (aus dem engl. _set:_ Menge, Gruppe) ist ein Containertyp, welcher der mathematischen Menge nachempfunden ist: jedes Element kann genau einmal vorkommen, und es gibt keine Ordnung (Reihenfolge); ein Element ist entweder enthalten oder nicht.
 	Zur Implementierung lernen wir den Binärbaum kennen, eine weitere wichtige Datenstruktur der Informatik.
 
-- **11. April: Generics ([Skript](/04-generics/), [Übung](https://github.com/hsro-wif-prg2/uebung03))**
+- **11. April: Generics** ([Skript](/04-generics/), [Übung](https://github.com/hsro-wif-prg2/uebung03))
 
 	Bisher waren die Containerklassen entweder für genau einen Datentyp, oder für die `Object`, welche für jedes Objekt verwendet werden kann.
 	_Generics_ erlauben es nun mit beliebigen _aber festgelegten_ Datentypen zu arbeiten.
 	Wir lernen ausserdem die Interfaces `Comparable` und `Comparator` kennen.
 
-- **18. April: Iteratoren ([Skript](/05-iterator/), [Folien](/05-iterator/slides/), [Übung](https://github.com/hsro-wif-prg2/uebung04))**
+- **18. April: Iteratoren** ([Skript](/05-iterator/), [Folien](/05-iterator/slides/), [Übung](https://github.com/hsro-wif-prg2/uebung04))
 
 	Arrays und Listen verfügen über einen Indexoperator (`[]` bzw. `get(int)`) welcher verwendet werden kann um alle Elemente zu besuchen.
 	Der _Iterator_ abstrahiert dieses Prinzip: Bereitgestellt vom Container selbst, ist er ein Hilfsobjekt mit dem jedes Element des Containers besucht werden kann.
 
-- **25. April: Map als generischer assoziativer Container ([Skript](/06-map/), [Folien](/06-map/slides/), [Übung](https://github.com/hsro-wif-prg2/uebung05))**
+- **25. April: Map als generischer assoziativer Container** ([Skript](/06-map/), [Folien](/06-map/slides/), [Übung](https://github.com/hsro-wif-prg2/uebung05))
 
 	Eine Liste ist sequenziell mit potentiellen Duplikaten, ein Set ist duplikatfrei, aber ohne Reihenfolge.
 	Eine _Map_ (aus dem engl. _map_: Abbildung) ist ein assoziativer Container, welcher einem Schlüssel (_key_) eindeutig einen Wert (_value_) zuordnet.
 
-- **2. Mai: Annotationen; Einführung in die PStA**
-	
-	Nach einem kurzen Exkurs zum Thema Annotationen und deren Einsatzgebiete gibt es eine kurze Einführung in die PStA.
-
-- **9. Mai: Rekursion**
+- **2. Mai: Rekursion** ([Skript](/07-rekursion/), [Übung](https://github.com/hsro-wif-prg2/uebung06))
 
 	Ging es um das Abarbeiten von Daten bzw. implementieren von Algorithmen, so gingen wir bisher meist iterativ vor, also mit `for` bzw. `while`.
 	Rekursion ist nun ein Mittel, bei der eine Methode sich selbst wieder (mit veränderten Argumenten) aufrufen, und so ohne `for` bzw. `while` auskommen.
+
+- **9. Mai: Annotationen; Einführung in die PStA**
+	
+	Nach einem kurzen Exkurs zum Thema Annotationen und deren Einsatzgebiete gibt es eine kurze Einführung in die PStA.
 
 - **16. Mai: Sortieren**
 	
@@ -85,15 +85,13 @@ Der Leistungsnachweis ist aufgeteilt in eine
 	Wir lernen die Containerklassen der Java Bibliothek kennen, und wie man sie nutzt um schnell (und übersichtlich) Daten zu verarbeiten.
 	Klassischerweise ist die Datenverarbeitung hier in drei Schritten zu machen: filtern, abbilden und reduzieren.
 
-- **30. Mai: Rückblick**
-	
-	Wir fassen die wichtigsten Datenstrukturen, Algorithmen und Konzepte zusammen und besprechen weitere Beispiele.
-
-- **6. Juni: Vererbung**
+- **30. Mai: Vererbung**
 
 	Bisher waren unsere Klassenbeziehungen vorwiegend strukturell bzw. funktional: Ein Monat besteht aus Tagen, ein Auto aus Bauteilen, usw.
 	_Vererbung_ erlaubt es nun verwandschaftliche Beziehungen zu modellieren, und so Gemeinsamkeiten in Oberklassen zu bündeln.
 	So sind z.B. sowohl Audis als auch BMWs im Grunde genommen _Autos_, doch gibt es sowohl geteilte Eigenschaften als auch spezielle.
+
+- _6. Juni: Vorlesungen und Übungen entfallen._
 
 - **13. Juni: Abstrakte Basisklassen**
 	

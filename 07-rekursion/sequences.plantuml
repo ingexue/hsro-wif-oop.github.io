@@ -1,0 +1,54 @@
+@startuml seq-fac
+
+actor User
+
+participant t1 as "fakultaet\nTiefe 1"
+participant t2 as "fakultaet\nTiefe 2"
+participant t3 as "fakultaet\nTiefe 3"
+participant t4 as "fakultaet\nTiefe 4"
+
+User --> t1 : fakultaet(4)
+t1 --> t2 : fakultaet(3)
+t2 --> t3 : fakultaet(2)
+t3 --> t4 : fakultaet(1)
+t4 --> t3 : return 1
+note right: Terminalfall
+t3 --> t3 : 2 * 1 = 2
+t3 --> t2 : return 2
+t2 --> t2 : 3 * 2 = 6
+t2 --> t1 : return 6
+t1 --> t1 : 4 * 6
+t1 --> User : return 24
+
+@enduml
+
+@startuml seq-ggt
+
+actor User
+
+participant t1 as "ggT\nTiefe 1"
+participant t2 as "ggT\nTiefe 2"
+participant t3 as "ggT\nTiefe 3"
+participant t4 as "ggT\nTiefe 4"
+participant t5 as "ggT\nTiefe 5"
+participant t6 as "ggT\nTiefe 6"
+participant t7 as "ggT\nTiefe 7"
+
+
+User --> t1 : ggT(16, 38)
+t1 --> t2 : ggT(16, 22)
+t2 --> t3 : ggT(16, 6)
+t3 --> t4 : ggT(10, 6)
+t4 --> t5 : ggT(4, 6)
+t5 --> t6 : ggT(4, 2)
+t6 --> t7 : ggT(2, 2)
+t7 --> t6 : return 2
+note right: Terminalfall
+t6 --> t5 : return 2
+t5 --> t4 : return 2
+t4 --> t3 : return 2
+t3 --> t2 : return 2
+t2 --> t1 : return 2
+t1 --> User : return 2
+
+@enduml

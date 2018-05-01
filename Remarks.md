@@ -59,7 +59,7 @@
 	+ insert/select
 	+ merge
 	+ Ausblick: quick
-	+ Übung: PriorityQueue (sortiert einfügen)
+	+ Übung: Comparator und Comparable
 - 5/23
 	+ Java Bibliothek: List, Set, Map, Iterator, Comparator
 	+ filter-map-reduce
