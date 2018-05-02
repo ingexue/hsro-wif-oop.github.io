@@ -38,15 +38,4 @@ class Liste<T> {
 				return 1 + next.size();
 		}
 	}
-
-	public static void main(String[] args) {
-		Liste<Integer> li = new Liste<>();
-
-		System.out.println(li.size());
-		li.add(1);
-		li.add(1);
-		li.add(1);
-
-		System.out.println(li.size());
-	}
 }
