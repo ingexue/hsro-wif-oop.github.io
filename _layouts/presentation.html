@@ -34,6 +34,19 @@
       }
       pre {tab-size: 3;}
     </style>
+
+    {% if page.jquery  or page.mathjax %}
+    <script src="{{site.baseurl}}/assets/jquery-3.2.1.min.js"></script>
+    {% endif %}
+
+    {% if page.mathjax %}
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    {% endif %}
   </head>
   <body>
     <textarea id="source">

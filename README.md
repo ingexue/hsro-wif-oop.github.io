@@ -66,7 +66,7 @@ Der Leistungsnachweis ist aufgeteilt in eine
 	Eine Liste ist sequenziell mit potentiellen Duplikaten, ein Set ist duplikatfrei, aber ohne Reihenfolge.
 	Eine _Map_ (aus dem engl. _map_: Abbildung) ist ein assoziativer Container, welcher einem Schlüssel (_key_) eindeutig einen Wert (_value_) zuordnet.
 
-- **2. Mai: Rekursion** ([Skript](/07-rekursion/), [Übung](https://github.com/hsro-wif-prg2/uebung06))
+- **2. Mai: Rekursion** ([Skript](/07-rekursion/), [Folien](/07-rekursion/slides/), [Übung](https://github.com/hsro-wif-prg2/uebung06))
 
 	Ging es um das Abarbeiten von Daten bzw. implementieren von Algorithmen, so gingen wir bisher meist iterativ vor, also mit `for` bzw. `while`.
 	Rekursion ist nun ein Mittel, bei der eine Methode sich selbst wieder (mit veränderten Argumenten) aufrufen, und so ohne `for` bzw. `while` auskommen.

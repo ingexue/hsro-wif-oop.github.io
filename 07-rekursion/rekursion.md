@@ -331,8 +331,8 @@ Eine verkettete Liste ist, vom UML Diagram ausgehend, i.d.R. eine "rekursive Str
 
 Möchte man nun die Größe (`size`) der Liste bestimmen, so muss man wieder Terminal- und Rekursionsfälle betrachten.
 
-1. Eine Liste welche kein erstes Element hat ist leer (`size() => 0`)
-2. Hat man ein erstes Element, so kann man dieses Fragen wie lang es denn ist.
+1. Eine Liste welche kein erstes Element hat ist leer.
+2. Gibt es ein erstes Element, so kann man dieses Fragen wie lang es denn ist.
 3. Ein Element ist in jedem Fall mind. 1 lang; gibt es einen `next` Nachfolger, so muss man dazu noch die Länge des Nachfolgers addieren.
 
 ```java
@@ -364,13 +364,12 @@ class Liste<T> {
 
 ## Rekursion für Bäume
 
-Das obige Beispiel (Liste) ist zugegebener Maßen nicht umbedingt das einleuchtenste.
-Klarer sollte der Vorteil von Rekursion sein, wenn man auf Baumartigen Strukturen arbeitet.
-Hier brauchen wir nun keine Agenda, es reicht die rekursive Formulierung:
+Das obige Beispiel (Liste) ist zugegebener Maßen nicht umbedingt sehr intuitiv.
+Klarer sollte der Vorteil von Rekursion sein, wenn man auf baumartigen Strukturen arbeitet.
+Hier können wir z.B. die Größe (`size`) rekursiv definieren:
 
-1. Terminalfall: Ist der Baum leer, so erstellen wir den ersten Knoten.
-2. Terminalfall: Man müsste absteigen, aber den Teilbaum gibt es noch nicht (daher: neu einfügen!)
-3. Rekursionsfälle: In den linken bzw. rechten Teilbaum absteigen.
+1. Terminalfall: Gibt es keinen Wurzelknoten, so ist der Baum leer.
+2. Rekursionsfall: Gibt es einen Wurzelknoten, so ist die Baumgröße mind. 1 (Terminalfall), sowie zusätzlich die Größe des linken und rechten Teilbaums (Rekursion, sofern vorhanden).
 
 
 ```java
@@ -379,39 +378,31 @@ public class Baum<T extends Comparable<T>> {
 		T value;
 		Element left, right;
 		Element(T value) { this.value = value; }
-		void add(T value) {
-			int c = value.compareTo(this.value);
-			if (c == 0)
-				return;
-			else if (c < 0) {
-				if (left == null)
-					left = new Element(value);  // Terminalfall!
-				else
-					left.add(value);  // Rekursursionsfall
-			} else {
-				if (right == null)
-					right = new Element(value);  // Dito.
-				else
-					right.add(value);
-			}
+		int size() {
+			return 1 +
+				(left == null ? 0 : left.size()) +
+				(right == null ? 0 : right.size());
 		}
 	}
 
 	Element root;
 
-	void add(T obj) {
+	int size() {
 		if (root == null) {
-			root = new Element(obj);
-			return;
+			return 0;
 		} else {
-			root.add(obj);
+			return root.size();
 		}
 	}
 }
 ```
 
+Man sieht, dass diese Definition bzw. Implementierung deutlich intuitiver ist, als iterativ mit Agenda.
+
 
 # Kochrezept für rekursive Funktionen
+
+Wie geht man also im Allgemeinen mit Rekursion um, wie erstellt man eine rekursive Lösung?
 
 1. Terminalfälle bestimmen. Wann ist die Lösung trivial?
 2. Rekursionsfälle bestimmen. Wie kann ich das Problem auf ein kleineres runterbrechen?
@@ -434,7 +425,7 @@ int rekursiv(...) {
 
 # Arten der Rekursion
 
-Wir haben oben nun eine Reihe von verschiedenen Rekursionen gesehen.
+Wir haben oben nun eine Reihe von verschiedenen Rekursionsarten gesehen.
 
 - Lineare Rekursion: genau ein rekursiver Aufruf, z.B. Fakultät.
 - Repetetive Rekursion (Rumpfrekursion, engl. _tail recursion_): Spezialfall der linearen Rekursion, bei der der rekursive Aufruf die letzte Rechenanweisung ist.
@@ -447,9 +438,9 @@ Wir haben oben nun eine Reihe von verschiedenen Rekursionen gesehen.
 
 # Zusammenfassung
 
-- Eine **rekursive Methode** ist eine Methode, die sich selbst wieder aufruft; characteristisch sind die Abwesenheit von `for` und `while`, sowie klare `if-else` Anweisungen, welche Terminalfall von Rekursion unterscheiden.
-- Bei **kaskadenartigen** Rekursionen, also mehr als ein rekursiver Aufruf pro Durchlauf, können Caches die Berechnung enorm effizienter gestalten.
-- **Repetitive Rekursion** ist wünschenswert, da diese effektiv als `for`/`while` Schleife realisiert werden könnten.
+- Eine **rekursive Methode** ist eine Methode, die sich selbst wieder aufruft; charakteristisch sind die Abwesenheit von `for` und `while`, sowie klare `if-else` Anweisungen, welche Terminal- von Rekursionsfall unterscheiden.
+- Bei **kaskadenartigen** Rekursionen, also mehr als ein rekursiver Aufruf pro Durchlauf, können je nach Problemstellung Caches die Berechnung enorm effizienter gestalten.
+- **Repetitive Rekursion** ist wünschenswert, da diese effektiv als `for` bzw. `while` Schleife realisiert werden könnten.
 - Für obige braucht man oft Variablen, welche die Zwischenergebnisse im rekursiven Aufruf codieren.
 
 

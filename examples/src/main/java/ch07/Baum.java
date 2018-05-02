@@ -5,32 +5,53 @@ public class Baum<T extends Comparable<T>> {
 		T value;
 		Element left, right;
 		Element(T value) { this.value = value; }
-		void add(T value) {
-			int c = value.compareTo(this.value);
-			if (c == 0)
-				return;
-			else if (c < 0) {
-				if (left == null)
-					left = new Element(value);  // Terminalfall!
-				else
-					left.add(value);  // Rekursursionsfall
-			} else {
-				if (right == null)
-					right = new Element(value);  // Dito.
-				else
-					right.add(value);
-			}
+		int size() {
+			return 1 +
+					(left == null ? 0 : left.size()) +
+					(right == null ? 0 : right.size());
 		}
 	}
 
 	Element root;
 
-	void add(T obj) {
+	int size() {
 		if (root == null) {
-			root = new Element(obj);
-			return;
+			return 0;
 		} else {
-			root.add(obj);
+			return root.size();
+		}
+	}
+
+	/**
+	 * Fügt ein Element in den Baum ein.
+	 */
+	void add(T value) {
+		if (root == null) {
+			root = new Element(value);
+			return;
+		}
+
+		Element it = root;
+		while (it != null) {
+			int c = it.value.compareTo(value);
+
+			if (c == 0)
+				return;
+			else if (c < 0) {
+				if (it.left == null) {
+					it.left = new Element(value);
+					return;
+				} else {
+					it = it.left;
+				}
+			} else {
+				if (it.right == null) {
+					it.right = new Element(value);
+					return;
+				} else {
+					it = it.right;
+				}
+			}
 		}
 	}
 }
