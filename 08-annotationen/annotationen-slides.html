@@ -1,0 +1,318 @@
+---
+title: Annotationen
+permalink: /08-annotationen/slides/
+layout: presentation
+mathjax: true
+---
+
+layout: true
+
+<footer>
+	<span class="icon github">
+	<svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+	</svg>
+	</span>
+	<a href="https://github.com/sikoried"><span class="username">sikoried</span></a>
+</footer>
+
+---
+
+# Annotationen
+
+Korbinian Riedhammer
+
+---
+
+# Annotationen
+
+### **Annotationen** sind Metainformationen, d.h. Informationen _über Informationen_
+
+- Spezielles syntaktisches Element: `@`, z.B. `@Override`, `@Test`
+- Können an Klassen, Attribute, Methoden und Argumente geheftet werden.
+- Stellen zusätzliche semantische Informationen zum Programm bereit.
+- Semantik wird vom Compiler nicht direkt bearbeitet, d.h. sie haben keinen direkten Einfluss auf den Programmablauf
+- Annotationen beeinflussen die Semantik von "Dingen," die diese Elemente verwenden
+
+
+---
+
+# Verwendung von Annotationen
+
+### Informationen für den Compiler
+
+- Programmierfehler erkennen, Warnungen erzeugen
+
+### Informationen für Werkzeuge (Toolkits)
+
+- Für Toolkits, welche auf dem Quelltext arbeiten
+- Zum Übersetzungszeitpunkt (engl. _compile time_), z.B. zur automatischen Codegenerierung
+- Zum Deploymentzeitpunkt (engl. _deployment time_), z.B. zur Verifizierung von Anforderungen
+- Zur Laufzeit (engl. _run time_), z.B. zum analysieren von Objekten. (&rarr; Reflection)
+
+---
+
+# Beispiele für Annotationen
+
+### Vordefinierte Annotationen
+
+Für Sprachfeatures und häufige Verwendung
+
+### Objekt-relationale Abbildung
+
+Speicherung von Objekten mit der Java Persistence API (JPA)
+
+### Testframeworks
+
+Testen mit JUnit 5
+
+---
+
+# Vordefinierte Annotationen
+
+### `@Override`
+
+Typischer Fehler: **überladen** statt **überschreiben**
+
+```java
+class MeineKlasse {
+	// falsch, aber unentdeckt
+	public boolean equals(MeineKlasse m) { /* ... */ }
+
+	// so wäre es richtig gewesen!
+	public boolean equals(Object o) { /* ... */ }
+}
+```
+
+Durch die Annotation mit `@Override` kann der Compiler fehler erkennen:
+
+```java
+class MeineKlasse {
+	@Override
+	public boolean equals(MeineKlasse m) { /* ... */ }  // Compilerfehler!
+
+	@Override
+	public boolean equals(Object o) { /* ... */ } // ok
+}
+```
+
+---
+
+# Vordefinierte Annotationen
+
+### `@SuppressWarnings`
+
+- Aktuelle Java Compiler erzeugen sehr viele Warnungen
+- Viele sind berechtigt und weisen auf Programmierfehler hin
+- Einige sind jedoch manchmal unvermeidbar
+- Warnungen abschalten &amp; gleichzeitig dokumentieren
+- Art der zu unterdrückenden Warnung ist Parameter (und compilerspezifisch)
+
+```java
+@SuppressWarnings("unchecked")
+public void methodWithScaryWarning() {
+	List rawList = new ArrayList();
+
+	// das gäbe normalerweise eine Warnung:
+	List<String> stringList = (List<String>)rawList;
+}
+```
+
+---
+
+# Vordefinierte Annotationen
+
+### `@Deprecated`
+
+- Hinweis an den Programmierer, eine Methode/Klasse/etc. nicht (mehr) zu verwenden
+- Oft bei Update von Toolkits bzw. Bibliotheken
+- Warnung bei Verwendung von Elementen die mit `@Deprecated` annotiert sind
+
+
+```java
+class AlteKlasse {
+	@Deprecated
+	public static void doofeAlteMethode() { /* ... */ }
+}
+```
+```java
+class NeueKlasse {
+    public boolean meineNeueMethode() {
+        doofeAlteMethode();  // Compiler Warning
+    }
+}
+```
+
+---
+
+# Definition von neuen Annotationen
+
+- Annotationen werden ähnlich wie Interfaces definiert, jedoch mit dem `@`-Zeichen vor dem Schlüsselwort Interface:
+- In der Definition einer Annotation können Methoden deklariert werden, die Elemente der Annotation beschreiben.
+	+ Methoden in Annotationen besitzen keine Parameter.
+	+ Erlaubte Rückgabetypen: `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `Class`, `Annotation` und `Enumeration` sowie Felder über diese Typen
+	+ Definition von Defaultwerten möglich.
+
+**Beispiel:** Annotation `@BugFix` um anzuzeigen, wer wann welchen Fehler zu beheben versucht hat.
+
+
+```java
+public @interface BugFix {
+    String author();
+    String date();
+    String bugsFixed() default "" ;
+}
+```
+
+---
+
+# Verwendung von Annotationen
+
+```java
+@BugFix(author="riko493", date="04.05.2018")
+public void tolleFunktion() {
+	// ...
+}
+```
+
+- Hier als Methodenannotation
+- Drittes Argument (`bugsFixed`) ist leer &rarr; Defaultwert (`""`)!
+
+---
+
+# Schreibvereinfachungen 
+
+### Annotationen ohne Methoden: **Markerannotationen**
+
+- Runde Klammern können entfallen
+- Beispiele: `@Override`, `@Deprecated`
+
+### Annotationen mit genau einer Methode: **Value-Annotationen**
+
+- Nur eine einzige Methode mit Namen `value`
+- Bezeichner `value` kann bei Verwendung weggelassen werden
+
+```java
+public @interface ReleaseVersion { 
+	String value() ;
+}
+```
+```java
+@ReleaseVersion("1.2.5")
+public class Calculator { /* ... */ }
+```
+
+---
+
+# Vordefinierte Meta-Annotationen
+
+- Meta-Annotationen annotieren Annotationen. ¯\\_(ツ)_/¯
+- `@Target`
+	+ Legt fest, auf welche Elemente die Annotation anwendbar ist
+	+ Beispiel: `@Target({ElementType.FIELD, ElementType.METHOD})`
+- `@Retention`
+	+ Legt fest, ob eine Annotation nur im Quelltext ist, oder auch in der `.class` Datei und zur Laufzeit
+	+ Beispiele
+		* `@Retention(RetentionPolicy.RUNTIME)`
+		* `@Retention(RetentionPolicy.CLASS)`
+		* `@Retention(RetentionPolicy.SOURCE)`
+- `@Inherited`
+	+ Legt fest, ob eine Annotation durch Vererbung oder Implementierung weitergegeben wird.
+
+---
+
+# Annotationen in der Praxis
+
+### Häufig verwenden, selten definieren
+
+### Reflection API
+
+- Erlaubt das Abfragen von Annotationen zur Laufzeit eines Java-Programms.
+- Interface `AnnotatedElement` 
+	+ Von den Reflection-Klassen `Class`, `Method`, `Field` etc. implementiert 
+	+ Enthält Methoden zum Zugriff auf die Annotationen (wie `getAnnotations` oder `isAnnotationPresent` etc.)
+
+
+---
+
+# Annotationen für JUnit5
+
+### `@Test`
+
+Markiert eine Methode als Testmethode &rarr; Ausführung als Testcase in IntelliJ oder `gradle test`.
+
+### `@BeforeEach`, `@BeforeAll`, `@AfterEach`, `@AfterAll`
+
+Markiert Methoden, welche vor oder nach Testcases ausgeführt werden soll, um z.B. Datenstrukturen zu initialisieren.
+
+### `@Disabled`
+
+Markiert einen Testcase als zu ignorieren.
+
+---
+
+# Annotations für JUnit5
+
+```java
+class MeineTestSammlung {
+    @BeforeAll
+    static void initAll() { 
+    	/* wird einmal vor allen ausgeführt */
+    }
+
+    @BeforeEach
+    void init() { 
+    	/* wird vor jedem Test ausgeführt */
+    }
+
+    @Test
+    void einTestFall() {
+    	// ...
+    }
+
+    @AfterEach
+    void tearDown() { 
+    	/* nach jedem Test ausgeführt */
+    }
+
+    @AfterAll
+    static void tearDownAll() { 
+    /* wird einmal am Ende ausgeführt */
+	}
+}
+```
+---
+
+# Testen mit JUnit5
+
+- Neue Testklasse erstellen
+- Testcasemethoden mit `@Test` annotieren
+- Hilfsmethoden zum Testen ([mehr Info](https://junit.org/junit5/docs/current/user-guide/#writing-tests-assertions))
+	+ `assertEquals(expected, actual)`
+	+ `assertTrue(actual)`
+	+ `assertFalse(actual)`
+	+ `assertThrows(exception, lambda)`
+	+ `assertArrayEquals(expected, actual)`
+
+```java
+@Test
+void exceptionTesting() {
+    Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+        throw new IllegalArgumentException("a message");
+    });
+    assertEquals("a message", exception.getMessage());
+}
+```
+
+---
+
+# Toolkits die Annotationen verwenden
+
+- [JUnit5](https://junit.org/junit5/)
+- [Java Persistence API](https://docs.oracle.com/javaee/5/tutorial/doc/?wp406143&PersistenceIntro.html#wp78460)
+- <https://spring.io/>
+- <http://square.github.io/retrofit/>
+- <http://jakewharton.github.io/butterknife/>
+- <https://github.com/chalup/microorm/>
+

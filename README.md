@@ -71,9 +71,9 @@ Der Leistungsnachweis ist aufgeteilt in eine
 	Ging es um das Abarbeiten von Daten bzw. implementieren von Algorithmen, so gingen wir bisher meist iterativ vor, also mit `for` bzw. `while`.
 	Rekursion ist nun ein Mittel, bei der eine Methode sich selbst wieder (mit veränderten Argumenten) aufrufen, und so ohne `for` bzw. `while` auskommen.
 
-- **9. Mai: Annotationen; Einführung in die PStA**
+- **9. Mai: [Annotationen](/08-annotationen/slides/) und [Einführung in die PStA](/psta/slides/)**
 	
-	Nach einem kurzen Exkurs zum Thema Annotationen und deren Einsatzgebiete gibt es eine kurze Einführung in die PStA.
+	Nach einem kurzen Exkurs zum Thema Annotationen und deren Einsatzgebiete gibt es eine Einführung in die PStA.
 
 - **16. Mai: Sortieren**
 	
