@@ -127,7 +127,7 @@ public void methodWithScaryWarning() {
 
 - Hinweis an den Programmierer, eine Methode/Klasse/etc. nicht (mehr) zu verwenden
 - Oft bei Update von Toolkits bzw. Bibliotheken
-- Warnung bei Verwendung von Elementen die mit `@Deprecated` annotiert sind
+- Warnung bei Verwendung von Elementen, die mit `@Deprecated` annotiert sind
 
 
 ```java
@@ -263,7 +263,7 @@ class MeineTestSammlung {
 
     @BeforeEach
     void init() { 
-    	/* wird vor jedem Test ausgeführt */
+    	/* wird vor jedem Test erneut ausgeführt */
     }
 
     @Test
@@ -273,7 +273,7 @@ class MeineTestSammlung {
 
     @AfterEach
     void tearDown() { 
-    	/* nach jedem Test ausgeführt */
+    	/* nach jedem Test erneut ausgeführt */
     }
 
     @AfterAll
@@ -307,7 +307,7 @@ void exceptionTesting() {
 
 ---
 
-# Toolkits die Annotationen verwenden
+# Toolkits, welche Annotationen verwenden
 
 - [JUnit5](https://junit.org/junit5/)
 - [Java Persistence API](https://docs.oracle.com/javaee/5/tutorial/doc/?wp406143&PersistenceIntro.html#wp78460)
