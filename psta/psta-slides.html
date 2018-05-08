@@ -46,8 +46,8 @@ Korbinian Riedhammer
 	+ System zum Hochladen und Bewerten der Lösungen (automatisiert)
 	+ Benutzername und Passwort per Email (Hochschuladdresse!)
 - Contest live von **9.5. (heute) um 09:30 Uhr** bis **3.7. 18:00 (s.t.)**
-- Es gibt **36** kleine Aufgaben ("problems"), mit unterschiedlicher Schwierigkeit
-- Es müssen **32** Aufgaben gelöst werden, um zu bestehen
+- Es gibt **34** kleine Aufgaben ("problems"), mit unterschiedlicher Schwierigkeit
+- Es müssen **30** Aufgaben gelöst werden, um zu bestehen
 
 
 ---
@@ -78,7 +78,101 @@ Korbinian Riedhammer
 
 ---
 
-# Was tun bei Rejects?
+<div class="center">
+<img style="width: 100%" src="{{site.baseurl}}/psta/dj01-login.png">
+</div>
+
+---
+
+<div class="center">
+<img style="width: 100%" src="{{site.baseurl}}/psta/dj02-overview.png">
+</div>
+
+---
+
+<div class="center">
+<img style="width: 100%" src="{{site.baseurl}}/psta/dj03-problems.png">
+</div>
+
+---
+
+<div class="center">
+<img style="width: 100%" src="{{site.baseurl}}/psta/dj04-problem.png">
+</div>
+
+
+---
+
+# Problem `p3`
+
+#### Beschreibung
+
+Schreiben Sie ein Programm, welches eine feste Anzahl an Namen einliest, und diese dann begrüßt.
+
+#### Beispieltest
+
+Eingabe:
+
+```
+1
+World
+```
+
+Ausgabe:
+
+```
+Hello, World!
+```
+
+---
+
+# 1. Versuch
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Greeter {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int anz = Integer.parseInt(br.readLine());
+		for (int i = 0; i < anz; i++) {
+			String name = br.readLine();
+			System.out.println("Hello, " + name);
+		}
+	}
+}
+```
+
+---
+
+<div class="center">
+<img style="width: 100%" src="{{site.baseurl}}/psta/dj05-submit.png">
+</div>
+
+---
+
+<div class="center">
+<img style="width: 100%" src="{{site.baseurl}}/psta/dj06-fail.png">
+</div>
+
+---
+
+<div class="center" style="padding-top: 10%;">
+<img style="width: 70%" src="{{site.baseurl}}/psta/minion-what.gif">
+</div>
+
+---
+
+<div class="center" style="padding-top: 10%;">
+<img style="width: 70%" src="{{site.baseurl}}/psta/office-no.gif">
+</div>
+
+---
+
+# Was tun bei WRONG-ANSWER?
 
 - Lesen Sie die Angabe **sehr** genau!
 - Die Testcases sind alle mehrfach überprüft
@@ -87,6 +181,45 @@ Korbinian Riedhammer
 - Sind Sie der Meinung, dass Ihre Lösung aber richtig ist, so können Sie eine **Clarification** beantragen.
 	+ in 99.9% der Fällen ist die Antwort: "Lösung falsch" :-)
 
+---
+
+<div class="center">
+<img style="width: 100%" src="{{site.baseurl}}/psta/dj07-fail-detail.png">
+</div>
+
+---
+
+# 2. Versuch
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Greeter {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int anz = Integer.parseInt(br.readLine());
+		for (int i = 0; i < anz; i++) {
+			String name = br.readLine();
+			System.out.println("Hello, " + name + "!");
+		}
+	}
+}
+```
+
+---
+
+<div class="center">
+<img style="width: 100%" src="{{site.baseurl}}/psta/dj08-win.png">
+</div>
+
+---
+
+<div class="center">
+<img style="width: 100%" src="{{site.baseurl}}/psta/dj09-scoreboard.png">
+</div>
 
 ---
 
@@ -112,31 +245,8 @@ class MySolution {
 
 ---
 
-# Problem `p1`
+# Viel Erfolg!
 
-#### Beschreibung
-
-Input: "foo"
-
-Output: "Hello foo!"
-
-
-#### Beispieltest
-
-Eingabe:
-
-```
-3
-world
-Jan
-SantaClaus
-```
-
-Ausgabe:
-
-```
-Hello world!
-Hello Jan!
-Hello SantaClaus!
-```
-
+<div class="center">
+<img style="width: 70%" src="{{site.baseurl}}/psta/headbang.gif">
+</div>
