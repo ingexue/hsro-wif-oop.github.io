@@ -91,7 +91,7 @@ Der Leistungsnachweis ist aufgeteilt in eine
 	_Vererbung_ erlaubt es nun verwandschaftliche Beziehungen zu modellieren, und so Gemeinsamkeiten in Oberklassen zu bündeln.
 	So sind z.B. sowohl Audis als auch BMWs im Grunde genommen _Autos_, doch gibt es sowohl geteilte Eigenschaften als auch spezielle.
 
-- _6. Juni: Vorlesungen und Übungen entfallen._
+- _6. Juni: Vorlesungen entfällt, Übungen: PStA Q&A_
 
 - **13. Juni: Abstrakte Basisklassen**
 	
