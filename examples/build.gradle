@@ -24,6 +24,9 @@ repositories {
 dependencies {
     compile("org.apache.commons:commons-lang3:${commons_lang3_version}")
 
+    /* Gson (Annotationen) */
+    compile("com.google.code.gson:gson:${gson_version}")
+
     /* JUnit 5 */
     testCompile("org.junit.jupiter:junit-jupiter-api:${junit_jupiter_version}")
     testCompile("org.apache.logging.log4j:log4j-core:${log4j_version}")
