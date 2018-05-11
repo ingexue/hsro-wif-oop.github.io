@@ -10,10 +10,12 @@ _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.fh-rose
 
 **Kommunikation**: via [Mattermost](https://inf-mattermost.fh-rosenheim.de/wif-prg2/channels/town-square) ([einschreiben](https://inf-mattermost.fh-rosenheim.de/signup_user_complete/?id=wp3dau8xmigxtmf93z5ixur1ta))
 
+**PStA**: via [domgjudge](http://domjudge.inf.fh-rosenheim.de) (**Achtung**: nur übers `fhintern` Netz (WLAN oder Kabel), oder über das VPN)
+
 **Wichtige Termine**:
 
 - **20.-30. April:** Prüfungsanmeldung im OSC (incl. PStA)
-- **25. Mai:** Einführung in das Contestsystem der PStA (persönliche Anwesenheit erforderlich!)
+- **9. Mai:** Einführung in das Contestsystem der PStA (persönliche Anwesenheit erforderlich!)
 - **4. Juli.:** Testat zur PStA (statt Übung)
 
 
