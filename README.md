@@ -77,7 +77,7 @@ Der Leistungsnachweis ist aufgeteilt in eine
 	
 	Nach einem kurzen Exkurs zum Thema Annotationen und deren Einsatzgebiete gibt es eine Einführung in die PStA.
 
-- **16. Mai: Sortieren**
+- **16. Mai: Sortieren** ([Skript](/09-sortieren/), [Übung](https://github.com/hsro-wif-prg2/uebung07)
 	
 	Gewappnet mit Datenstrukturen, Iteration und Rekursion erarbeiten wir Algorithmen zum Sortieren von Daten.
 	Wir begegnen wieder den Interfaces `Comparable<T>` und `Comparator<T>`, welche die Vergleichsoperation abstrahieren.
