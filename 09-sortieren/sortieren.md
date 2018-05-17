@@ -157,8 +157,28 @@ Heute wenden wir Rekursion auf das Sortierproblem an, um die Probleme einfacher 
 
 Möchte man Sortieren rekursiv beschreiben, so stellt man fest:
 
-- Ein leeres oder einelementiges Array ist bereits sortier (Terminalfall).
+- Ein leeres oder einelementiges Array ist bereits sortiert (Terminalfall).
 - Ein mehrelementiges Array teilt man in zwei Teile, sortiert diese (Rekursion), und fügt diese dann zusammen.
+
+```
+      [38 27 43 3|9 82 10]
+                / \     <------- teilen (Rekursion)
+    [38 27|43 3]   [9 82|10]
+         / \             / \ <-- teilen
+  [38|27]   [43|3] [8|82]   10   Terminalfall!
+    / \       / \   / \  <--|--- teilen 
+   38 27    43  3  8   82   |    Terminalfall!
+------------------------------
+    \ /       \ /   \ /  <--|--- zusammenführen
+  [27 38]   [3 43] [8 82]   |
+         \ /             \ / <-- zusammenführen
+    [3 27 38 43]   [9 10 82]
+                \ /  <---------- zusammenführen
+      [3 9 10 27 38 44 82]
+```
+
+In Java realisieren wir diese Rekursion wie folgt; das Zusammenführen (`merge`) ist hier der Übersicht halber ausgelagert.
+
 
 ```java
 class Sortieren {
