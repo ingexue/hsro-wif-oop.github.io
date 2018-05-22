@@ -4,8 +4,15 @@ import javax.persistence.Column;
 import java.util.Map;
 
 public class Spiel {
-	private Spiel() {
-
+	public Spiel(int Spiel_ID, int Spieltag, String Datum, String Uhrzeit, int Heim, int Gast, int Tore_Heim, int Tore_Gast) {
+		this.id = Spiel_ID;
+		this.spieltag = Spieltag;
+		this.isodatum = Datum;
+		this.isouhrzeit = Uhrzeit;
+		this.heim = Heim;
+		this.gast = Gast;
+		this.toreHeim = Tore_Heim;
+		this.toreGast = Tore_Gast;
 	}
 
 	@Column(name="Spiel_ID")
@@ -80,21 +87,5 @@ public class Spiel {
 				.append(isodatum + " " + isouhrzeit).append(" ")
 				.append(vereine.get(heim).getName()).append(" gegen ").append(vereine.get(gast).getName()).append(" ")
 				.append(toreHeim).append(":").append(toreGast).toString();
-	}
-
-	public static Spiel fromCSV(String[] vals) {
-		// Spiel_ID;Spieltag;Datum;Uhrzeit;Heim;Gast;Tore_Heim;Tore_Gast;
-
-		Spiel s = new Spiel();
-		s.id = Integer.parseInt(vals[0]);
-		s.spieltag = Integer.parseInt(vals[1]);
-		s.isodatum = vals[2];
-		s.isouhrzeit = vals[3];
-		s.heim = Integer.parseInt(vals[4]);
-		s.gast = Integer.parseInt(vals[5]);
-		s.toreHeim = Integer.parseInt(vals[6]);
-		s.toreGast = Integer.parseInt(vals[7]);
-
-		return s;
 	}
 }

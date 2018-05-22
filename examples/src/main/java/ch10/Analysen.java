@@ -11,44 +11,6 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class Analysen {
-	public static void main(String[] args) throws IOException {
-		Bundesliga bl = Bundesliga.loadFromResource();
-
-		final int team = 8; // VfB Stuttgart
-		Pair<Integer, Integer> scores = bl.spiele.stream()
-				// nur Spiele mit Stuttgart
-				.filter(s -> s.getHeim() == team || s.getGast() == team)
-				// bilde Spiel anb auf Paar von Punktgewinn und Tordifferenz (pro Spiel)
-				.map(new Function<Spiel, Pair<Integer, Integer>> () {
-					public Pair<Integer, Integer> apply(Spiel s) {
-						boolean heimspiel = (s.getHeim() == team);
-
-						// Punkte: 0-1-3 fuer Niederlage, Unentschieden, Sieg
-						int punkte = 0;
-						if (s.getToreHeim() == s.getToreGast())
-							punkte = 1;
-						else if ((heimspiel && s.getToreHeim() > s.getToreGast()) ||
-								!heimspiel && s.getToreGast() > s.getToreHeim())
-							punkte = 3;
-
-						// Punktedifferenz -- Achtung: ist das Team Host/Gast?
-						int diff = heimspiel
-								? s.getToreHeim() - s.getToreGast()
-								: s.getToreGast() - s.getToreHeim();
-
-						// System.out.println(s.toString(bl.vereine) + " " + punkte + " " +  diff);
-
-						return Pair.of(punkte, diff);
-					}
-				})
-				// Jetzt Punkte (left) und Differenzen (right) aufaddieren, fuer Gesamtpunkte und -differenz.
-				.reduce(Pair.of(0, 0),
-						(a, b) -> Pair.of(a.getLeft()+b.getLeft(), a.getRight()+b.getRight()),
-						(a, b) -> Pair.of(a.getLeft()+b.getLeft(), a.getRight()+b.getRight()));
-
-		System.out.println(scores);
-	}
-
 	public static void sortieren() throws IOException {
 		Bundesliga b = Bundesliga.loadFromResource();
 
@@ -118,5 +80,54 @@ public class Analysen {
 		for (Triple<String, String, String> p : paarungen) {
 			System.out.println(p);
 		}
+	}
+
+	public static void reduzieren() throws IOException {
+		Bundesliga b = Bundesliga.loadFromResource();
+
+		int tore = 0;
+		for (Spiel s : b.spiele) {
+			tore = tore + s.getToreGast() + s.getToreHeim();
+		}
+
+		System.out.println("Es fielen insgesamt " + tore + " Tore in " + b.spiele.size() + " Spielen");
+	}
+
+	public static void tabellenStandStuttgartStreams() throws IOException {
+		Bundesliga bl = Bundesliga.loadFromResource();
+
+		final int team = 8; // VfB Stuttgart
+		Pair<Integer, Integer> scores = bl.spiele.stream()
+				// nur Spiele mit Stuttgart
+				.filter(s -> s.getHeim() == team || s.getGast() == team)
+				// bilde Spiel anb auf Paar von Punktgewinn und Tordifferenz (pro Spiel)
+				.map(new Function<Spiel, Pair<Integer, Integer>> () {
+					public Pair<Integer, Integer> apply(Spiel s) {
+						boolean heimspiel = (s.getHeim() == team);
+
+						// Punkte: 0-1-3 fuer Niederlage, Unentschieden, Sieg
+						int punkte = 0;
+						if (s.getToreHeim() == s.getToreGast())
+							punkte = 1;
+						else if ((heimspiel && s.getToreHeim() > s.getToreGast()) ||
+								!heimspiel && s.getToreGast() > s.getToreHeim())
+							punkte = 3;
+
+						// Punktedifferenz -- Achtung: ist das Team Host/Gast?
+						int diff = heimspiel
+								? s.getToreHeim() - s.getToreGast()
+								: s.getToreGast() - s.getToreHeim();
+
+						// System.out.println(s.toString(bl.vereine) + " " + punkte + " " +  diff);
+
+						return Pair.of(punkte, diff);
+					}
+				})
+				// Jetzt Punkte (left) und Differenzen (right) aufaddieren, fuer Gesamtpunkte und -differenz.
+				.reduce(Pair.of(0, 0),
+						(a, b) -> Pair.of(a.getLeft()+b.getLeft(), a.getRight()+b.getRight()),
+						(a, b) -> Pair.of(a.getLeft()+b.getLeft(), a.getRight()+b.getRight()));
+
+		System.out.println(scores);
 	}
 }

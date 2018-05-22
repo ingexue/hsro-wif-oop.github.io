@@ -3,8 +3,10 @@ package ch10;
 import javax.persistence.Column;
 
 public class Verein {
-	private Verein() {
-
+	public Verein(int V_ID, String name, int liga) {
+		this.id = V_ID;
+		this.name = name;
+		this.liga = liga;
 	}
 
 	@Column(name="V_ID")
@@ -22,17 +24,5 @@ public class Verein {
 
 	public String toString() {
 		return id + " " + name + " (" + liga + ")";
-	}
-
-	public static Verein fromCSV(String[] vals) {
-		// V_ID;Name;Liga;
-
-		Verein v = new Verein();
-
-		v.id = Integer.parseInt(vals[0]);
-		v.name = vals[1];
-		v.liga = Integer.parseInt(vals[2]);
-
-		return v;
 	}
 }

@@ -11,5 +11,8 @@ class BundesligaTest {
 	@Test
 	void loadFromResource() throws IOException, URISyntaxException {
 		Bundesliga bl = Bundesliga.loadFromResource();
+
+		System.out.println(bl.vereine.values());
+		System.out.println(bl.spiele);
 	}
 }

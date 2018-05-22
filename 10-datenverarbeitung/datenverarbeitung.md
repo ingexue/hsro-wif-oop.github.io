@@ -1,6 +1,7 @@
 ---
 title: "Datenverarbeitung"
 permalink: /10-datenverarbeitung/
+mathjax: true
 ---
 
 # Datenverarbeitung
@@ -171,25 +172,29 @@ Wir wollen nun versuchen, für die folgenden Fragestellungen die entsprechende D
 Jede dieser Datenverarbeitungsflüsse (engl. _pipelines_) wird dabei je nach Fragestellung Sortieren, Filtern, Abbilden und/oder Reduzieren.
 
 1. Torstatistiken.
-	- Wie viele Tore fallen durchschnittlich in jedem Spiel?
-	- Wie viele Tore fallen durchschnittlich in einem Spiel der 1. Liga?
-	- Wie viele Tore fallen durchschnittlich an einem Spieltag der 2. Liga?
+	1. Wie viele Tore fallen durchschnittlich in jedem Spiel?
+	2. Wie viele Tore fallen durchschnittlich in einem Spiel der 1. Liga?
+	3. Wie viele Tore fallen durchschnittlich an einem Spieltag der 2. Liga?
 2. Vereine.
-	- Wie viele Tore hat der FC Bayern München (Verein 1) erzielt?
-	- Wie viele Tore hat der FC Schalke 04 (Verein 2) erhalten?
-	- Wie viele Punkte hat der 1. FC Nürnberg (Verein 20)? Ein Sieg zählt 3 Punkte, ein Unentschieden 1, eine Niederlage 0 Punkte.
-	- Was ist das Torverhältnis des VfL Bochum (Verein 26)?
-3. Liga.
-	- Wie ist der aktuelle Tabellenstand? Die Tabelle wird als Vereinsname, gefolgt von Punkten und Torverhältnis definiert.
-	- Wie ist der Tabellenstand nach dem 10. Spieltag?
-	- Wie ist der Tabellenplatzverlauf des Hamburger SV (Verein 18) über alle Spieltage?
-	- Wer hat die [Rote Laterne](https://de.wikipedia.org/wiki/Lanterne_Rouge) in jeweils der 1., 2. und 3. Liga?
+	1. Wie viele Tore hat der FC Bayern München (Verein 1) erzielt?
+	2. Wie viele Tore hat der FC Schalke 04 (Verein 2) erhalten?
+	3. Wie viele Punkte hat der 1. FC Nürnberg (Verein 20)? Ein Sieg zählt 3 Punkte, ein Unentschieden 1, eine Niederlage 0 Punkte.
+	4. Was ist das Torverhältnis des VfL Bochum (Verein 26)?
+3. 1. Liga.
+	1. Wie ist der aktuelle Tabellenstand? Die Tabelle wird als Vereinsname, gefolgt von Punkten und Torverhältnis definiert.
+	2. Wie ist der Tabellenstand nach dem 10. Spieltag?
+	3. Wie ist der Tabellenplatzverlauf des Hamburger SV (Verein 18) über alle (32) Spieltage?
+	4. Wer hat die [Rote Laterne](https://de.wikipedia.org/wiki/Lanterne_Rouge) in jeweils der 1., 2. und 3. Liga?
 
 Für die systematische Bearbeitung dieser Fragestellungen sollten Sie für jede dieser Fragestellungen zuerst die folgenden Fragen beantworten:
 
 1. Was sind die **Eingabedaten**, und in welcher Datenstruktur liegen diese vor?
 2. Was sind die **Ausgabedaten**, und in welcher Datenstruktur bzw. form soll/en diese vorliegen?
 3. Welche Operationen (sortieren, filtern, abbilden, reduzieren) sind nötig, und in welcher Reihenfolge? Was sind die Zwischenprodukte?
+
+Verwenden Sie die Klasse `Bundesliga` sowie die Fabrikmethode `Bundesliga.loadFromResource()`; die Attribute `List<Spiel> spiele` und `Map<Integer, Verein> vereine` sind öffentlich sichtbar (wie bereits den obigen Beispielen zu entnehmen).
+
+Die Musterlösungen zu obigen Aufgaben finden Sie in der Klasse [`ch10.AnalysenTest`](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/test/java/ch10/AnalysenTest.java) sowie [unten an dieses Kapitel angehängt](#lösungen-zu-den-beispielen).
 
 
 ## Verallgemeinerung der Operationen
@@ -463,3 +468,21 @@ Für Streams gibt es noch weitere nützliche Funktionen:
 - Java Streams sind eine Variante, bei der nur die eigentliche Logik zu implementieren ist; die Iterationslogik ist versteckt.
 
 <p style="text-align: right">&#8718;</p>
+
+
+### Lösungen zu den Beispielen
+
+1. Torstatistiken.
+	1. 2.645
+	2. 2.746
+	3. 24.968
+2. Vereine.
+	1. 88
+	2. 36
+	3. 57
+	4. $35-36=-1$
+3. 1. Liga.
+	1. [Lösung](https://www.fussballdaten.de/bundesliga/2018/32/)
+	2. [Lösung](https://www.fussballdaten.de/bundesliga/2018/10/)
+	3. 8, 3, 7, 8, 12, 15, 16, 15, 16, 16, 15, 15, 15, 15, 15, 16, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18, 18, 17, 17, 17, 17
+	4. Köln, Kaiserslautern, Erfurt

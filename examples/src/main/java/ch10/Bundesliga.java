@@ -30,19 +30,15 @@ class Bundesliga {
 		Reader reader2 = new InputStreamReader(classLoader.getResourceAsStream("bundesliga_Spiel.csv"));
 		List<Spiel> spiele = CsvParser
 				.separator(';')
-				//.mapTo(Spiel.class)  <-- warum geht das nicht?! :-(
-				.skip(1)
+				.mapTo(Spiel.class)
 				.stream(reader2)
-				.map(Spiel::fromCSV)
 				.collect(Collectors.toList());
 
 		Reader reader1 = new InputStreamReader(classLoader.getResourceAsStream("bundesliga_Verein.csv"));
 		Map<Integer, Verein> vereine = CsvParser
 				.separator(';')
-				//.mapTo(Verein.class)  <-- gleiches Problem wie oben...
-				.skip(1)
+				.mapTo(Verein.class)
 				.stream(reader1)
-				.map(Verein::fromCSV)
 				.collect(Collectors.toMap(Verein::getId, Function.identity()));
 
 		return new Bundesliga(vereine, spiele);
