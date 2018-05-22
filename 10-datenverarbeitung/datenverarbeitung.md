@@ -10,9 +10,9 @@ permalink: /10-datenverarbeitung/
 Wir haben in den vergangenen Wochen die wichtigsten Datenstrukturen und Sortieralgorithmen kennengelernt.
 Die Beispiele dazu waren aber meistens knapp und eher abstrakt -- in den wenigsten Fällen aber wirklich anschaulich.
 
-Heute wollen wir üben, das gelernte praxisnah anzuwenden, in dem wir exemplarisch einige typische Problemstellungen in der Datenverarbeitung durchgehen.
-Als Datenbasis nehmen wir die Bundesligaergebnisse der Saison 2017/2018, bis einschließlich Spieltag 28 (Quelle: [fussballdaten.de](https://www.fussballdaten.de), [Spiele]({{site.baseurl}}/examples/src/main/resources/bundesliga_Spiel.csv), [Vereine]({{site.baseurl}}/examples/src/main/resources/bundesliga_Verein.csv)).
-Es liegen Daten aus der 1. (18 Vereine), 2. (18 Vereine) und 3. Bundesliga (20 Vereine) vor, bis zum 32. Spieltag in der 1. und 2. Liga, sowie dem 36. Spieltag der 3. Liga.
+Heute wollen wir üben, das Gelernte praxisnah anzuwenden, in dem wir exemplarisch einige typische Problemstellungen in der Datenverarbeitung durchgehen.
+Als Datenbasis nehmen wir die Bundesligaergebnisse der Saison 2017/2018 (Quelle: [fussballdaten.de](https://www.fussballdaten.de), [Spiele](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/resources/bundesliga_Spiel.csv), [Vereine](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/resources/bundesliga_Verein.csv)).
+Es liegen Daten aus der 1. (18 Vereine), 2. (18 Vereine) und 3. Bundesliga (20 Vereine) vor, aus der 1. und 2. Liga bis einschließlich des 32. Spieltags und aus der 3. Liga bis einschließlich des 36. Spieltags.
 
 ![Datenmodell]({{site.baseurl}}/10-datenverarbeitung/datenmodell.svg)
 
@@ -28,15 +28,15 @@ Es liegen Daten aus der 1. (18 Vereine), 2. (18 Vereine) und 3. Bundesliga (20 V
 | 2    | FC Schalke 04     | 1 |
 
 Man sieht, dass die Vereine `Heim` und `Gast` in der Spieltabelle als _foreign key_ auf die Vereinstabelle aufzulösen sind.
-Für unsere heutigen Beispiele können wir die Fabrikmethode `Bundesliga.loadFromResource()` verwenden, um die die Daten aus den beiliegenden CSV Dateien einzulesen.
+Für unsere heutigen Beispiele können wir die Fabrikmethode `Bundesliga.loadFromResource()` verwenden, um die Daten aus den beiliegenden CSV Dateien einzulesen.
 
 
 ## Grundoperationen
 
-Datenverarbeitung beruht im wesentlichen auf vier Grundoperationen:
+Datenverarbeitung beruht im Wesentlichen auf vier Grundoperationen:
 
 - Sortieren, also die Daten in eine gewünschte Reihenfolge bringen;
-- Filtern, also gewisse Daten zu entfernen, bzw. nur gewisse Daten zu behalten;
+- Filtern, also das Entfernen gewisser Daten, bzw. das Behalten von nur gewissen Daten;
 - Abbilden, also Daten von einem Format auf ein anderes umzurechnen;
 - Reduzieren, also Daten zusammenzufassen.
 
@@ -46,7 +46,7 @@ Datenverarbeitung beruht im wesentlichen auf vier Grundoperationen:
 Oft ist die Reihenfolge, in der man Daten zur Verfügung gestellt bekommt, nicht die Reihenfolge, in welcher man diese darstellen oder weiterverarbeiten möchte.
 
 In unserem Beispiel sind die Vereine nach aktuellem Tabellenplatz und nach Liga sortiert.
-Möchte man aber die Sortierung nach Vereinsnamen, so muss man diese Liste entsprechend _sortieren_ (siehe [Kapitel 9: Sortieren](/09-sortieren/)).
+Möchte man aber die Liste aufsteigend nach Vereinsnamen sortiert haben, so muss man diese Liste entsprechend _sortieren_ (siehe [Kapitel 9: Sortieren](/09-sortieren/)).
 
 ```java
 Bundesliga b = Bundesliga.loadFromResource();
@@ -63,7 +63,7 @@ nachName.sort(new Comparator<Verein>() {
 });
 ```
 
-Möchte man zwar nach Namen, aber insgesamt auch nach Liga sortieren, so muss man nach eben diesen beiden Kriterien sortieren:
+Möchte erst nach Liga und dann nach Namen sortieren, so muss man einen Comperator schreiben, der dieses Verhalten erfüllt:
 
 ```java
 Bundesliga b = Bundesliga.loadFromResource();
@@ -116,7 +116,7 @@ Wir werfen nun einen Blick auf die Spieltabelle.
 | 2 | 1 | 2017-08-19 | 15:30:00 | 7 | 12 | 1 | 0 |
 
 Jeder Eintrag (Klasse `Spiel`) hat also die vollständige Spielinformation.
-Wenn wir nun aber nur an den _Spielpaarungen_ interessiert sind, also an welchem Datum welche Mannschaften gegeneinander spielen, so müssen wir ein `Spiel` abbilden auf ein Tripel bestehend aus Datum sowie den Namen der Heim- und Gastvereine.
+Wenn wir nun aber nur an den _Spielpaarungen_ interessiert sind, also an welchem Datum welche Mannschaften gegeneinander spielen, so müssen wir ein `Spiel` auf ein Tripel abbilden, welches aus Datum sowie den Namen von jeweils Heim- und Gastverein besteht.
 Wir wollen also eine `List<Spiel>` in eine `List<Triple<String, String, String>>` abbilden.
 
 ```java
@@ -134,12 +134,12 @@ for (Spiel s : b.spiele) {
 }
 ```
 
-Die Klassen [`org.apache.commons.lang3.tuple.Pair`](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/tuple/Pair.html) und [`org.apache.commons.lang3.tuple.Triple`](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/tuple/Triple.html) sind generische Klassen für Paare und Triple, welche mit den Fabrikmethoden `Pair.of(...)` sowie `Triple.of(...)` einfach instanziiert werden können.
+Die Klassen [`org.apache.commons.lang3.tuple.Pair`](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/tuple/Pair.html) und [`org.apache.commons.lang3.tuple.Triple`](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/tuple/Triple.html) sind generische Klassen für Paare und Tripel, welche mit den Fabrikmethoden `Pair.of(...)` sowie `Triple.of(...)` einfach instanziiert werden können.
 
 
 ### Reduzieren
 
-Abbilden bedeutet also immer eine Liste in eine andere Liste umzuwandeln.
+Abbilden bedeutet also immer das Umwandeln einer Liste in eine andere Liste.
 _Reduzieren_ bedeutet, eine Liste von Werten auf einen einzigen Wert zu reduzieren.
 Ein einfaches Beispiel wäre das Aufsummieren von Werten in einem Array:
 
@@ -168,7 +168,7 @@ System.out.println("Es fielen insgesamt " + tore + " Tore in " + b.spiele.size()
 ## Beispiele
 
 Wir wollen nun versuchen, für die folgenden Fragestellungen die entsprechende Datenverarbeitung zu programmieren.
-Jede dieser Datenverarbeitungsflüsse (engl. _pipelines_) wird dabei je nach Fragestellung Sortieren, Filtern, Abbilden und/oder Reduzieren.
+Jeder dieser Datenverarbeitungsflüsse (engl. _pipelines_) soll dabei je nach Fragestellung Sortieren, Filtern, Abbilden und/oder Reduzieren.
 
 1. Torstatistiken.
 	- Wie viele Tore fallen durchschnittlich in jedem Spiel?
@@ -176,9 +176,9 @@ Jede dieser Datenverarbeitungsflüsse (engl. _pipelines_) wird dabei je nach Fra
 	- Wie viele Tore fallen durchschnittlich an einem Spieltag der 2. Liga?
 2. Vereine.
 	- Wie viele Tore hat der FC Bayern München (Verein 1) erzielt?
-	- Wie viele Tore hat der FC Schalke 04 (Verein 2) erhalten?
+	- Wie viele Tore hat der FC Schalke 04 (Verein 2) kassiert?
 	- Wie viele Punkte hat der 1. FC Nürnberg (Verein 20)? Ein Sieg zählt 3 Punkte, ein Unentschieden 1, eine Niederlage 0 Punkte.
-	- Was ist das Torverhältnis des VfL Bochum (Verein 26)?
+	- Was ist das Torverhältnis des VfL Bochum (Verein 26), also die Rate von erzielten zu kassierten Toren?
 3. Liga.
 	- Wie ist der aktuelle Tabellenstand? Die Tabelle wird als Vereinsname, gefolgt von Punkten und Torverhältnis definiert.
 	- Wie ist der Tabellenstand nach dem 10. Spieltag?
@@ -188,7 +188,7 @@ Jede dieser Datenverarbeitungsflüsse (engl. _pipelines_) wird dabei je nach Fra
 Für die systematische Bearbeitung dieser Fragestellungen sollten Sie für jede dieser Fragestellungen zuerst die folgenden Fragen beantworten:
 
 1. Was sind die **Eingabedaten**, und in welcher Datenstruktur liegen diese vor?
-2. Was sind die **Ausgabedaten**, und in welcher Datenstruktur bzw. form soll/en diese vorliegen?
+2. Was sind die **Ausgabedaten**, und in welcher Datenstruktur bzw. Form sollen diese vorliegen?
 3. Welche Operationen (sortieren, filtern, abbilden, reduzieren) sind nötig, und in welcher Reihenfolge? Was sind die Zwischenprodukte?
 
 
@@ -268,8 +268,8 @@ for (Spiel s : b.spiele) {
 ```
 
 Hier wird eine `List<Spiel>` auf eine `List<Triple<String, String, String>>` abgebildet.
-Es wird wie beim Filtern die gesamte Liste durchlaufen, und dann für einen Eintrag ein neuer Eintrag in der Zielliste erstellt.
-Diese Operation kann man generalisieren als eine Methode, welche ein Argument eines Typs `T` entgegen nimmt, und ein Objekt vom Typ `R` (_return_) zurückgibt.
+Es wird wie beim Filtern die gesamte Liste durchlaufen, um dann für jeden Eintrag einen neuen Eintrag in der Zielliste zu erstellen.
+Diese Operation kann man als eine Methode generalisieren, welche ein Argument eines Typs `T` entgegennimmt und ein Objekt vom Typ `R` (_return_) zurückgibt.
 Analog zum `Comparator` und `Predicate` wird diese Methode im Rahmen eines Interfaces übergeben:
 
 ```java
@@ -313,8 +313,8 @@ for (Integer v : a)
 	summe = summe + a;
 ```
 
-Es wird also as Array _reduziert_, indem ein aktueller Zwischenwert mit dem nächsten Element aus dem Array addiert wird.
-Die Addition ist dabei ein _binärer Operator_, da er zwei Operatoren entgegen nimmt (`summe` und `a`) um das Ergebnis zu berechnen.
+Es wird also ein Array _reduziert_, indem ein aktueller Zwischenwert mit dem nächsten Element aus dem Array addiert wird.
+Die Addition ist dabei ein _binärer Operator_, da er zwei Operatoren entgegennimmt (`summe` und `a`) um das Ergebnis zu berechnen.
 Abstrahiert man diese Operation, so kann man die Reduktion allgemein fassen:
 
 ```java
@@ -383,11 +383,11 @@ Wir hatten dazu `Comparator<T>`, `Predicate<T>`, `Function<T, R>` sowie `BinaryO
 
 Wir haben an den obigen Beispielen auch gesehen, dass die Datenverarbeitung oft als Datenfluss mit Modifikatoren bzw. Operationen realisiert wird: Ausgehend von einer Liste werden verschiedene Zwischenergebnisse erstellt und abschließend das eigentliche Ergebnis in Form einer neuen Liste oder eines reduzierten Werts zurück gegeben.
 Solche Datenströme können in Java seit der Version 8 mit dem [Streamkonzept](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html) implementiert werden.
-Herzstück dieser Methodik ist die Klasse [`java.util.Stream`](ps://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html), welche einen Datenfluss modelliert, welcher nun unter anderem mit den folgenden Methoden bearbeitet werden kann:
+Herzstück dieser Methodik ist die Klasse [`java.util.Stream`](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html), welche einen Datenfluss modelliert, welcher nun unter anderem mit den folgenden Methoden bearbeitet werden kann:
 
 - `Stream<T> sorted()` bzw. `Stream<T> sorted(Comparator<T> comparator)` zum Sortieren;
-- `Stream<T> filter(Predicate<T> pred)` um einen Stream zu erstellen, welcher mit `pred` positiv getestete Elemente nicht mehr enthält;
-- `Stream<R> map(Function<T, R> mapper)` um eine Stream von `T` in einen Stream von `R` umzuwandeln; und
+- `Stream<T> filter(Predicate<T> pred)` um einen Stream zu erstellen, welcher nur noch Elemente enthält, welche mit `pred` positiv getestetet wurden;
+- `Stream<R> map(Function<T, R> mapper)` um einen Stream von `T` in einen Stream von `R` umzuwandeln; und
 - `T reduce(T identity, BinaryOperator<T> op)` bzw. `U reduce(U identity, BiFunction<U, T, U> acc, BinaryOperator<U> comb)` um einen Stream auf einen einzelnen Wert zu reduzieren.
 
 Solche Streams können z.B. von Arrays oder Listen erstellt werden:
@@ -400,11 +400,11 @@ List<String> liste = Arrays.asList("Hans", "Dampf");
 Stream<String> strings = liste.stream();
 ```
 
-Um mit Streams nun den aktuellen Punktestand sowie Tordifferenz für Stuttgart (Verein 8) auszurechnen, können wir den originalen Datenstrom _Spiele_ (`bl.spiele.stream()`)
+Um mit Streams nun den aktuellen Punktestand sowie die Tordifferenz für Stuttgart (Verein 8) auszurechnen, können wir den originalen Datenstrom _Spiele_ (`bl.spiele.stream()`)...
 
-1. auf Spiele mit Stuttgart filtern;
-2. dann auf ein Paar von Punkten und Tordifferenz abbilden (hierzu beachten, ob Stuttgart Gast oder Gastgeber ist);
-3. den Stream von solchen Paaren nun reduzieren, indem jeweils die linken und rechten Teile der Paare aufaddiert werden.
+1. ...auf Spiele mit Stuttgart filtern;
+2. ...dann auf ein Paar von Punkten und Tordifferenz abbilden (hierzu beachten, ob Stuttgart Gast oder Gastgeber ist);
+3. ...den Stream von solchen Paaren nun reduzieren, indem jeweils die linken und rechten Teile der Paare aufaddiert werden.
 
 ```java
 Bundesliga bl = Bundesliga.loadFromResource();
@@ -454,7 +454,7 @@ Für Streams gibt es noch weitere nützliche Funktionen:
 
 # Zusammenfassung
 
-- Datenverarbeitung besteht meist aus einer Komnbination von Sortieren, Filtern, Abbilden und Reduzieren
+- Datenverarbeitung besteht meist aus einer Kombination von Sortieren, Filtern, Abbilden und Reduzieren
 - _Sortieren_ ändert die Reihenfolge der Objekte, und wird oft mit `Comparator<T>`-Objekten realisiert.
 - _Filtern_ entfernt Objekte, welche nicht positiv mit einem `Predicate<T>` getestet werden.
 - _Abbilden_ heißt Objekte eines Typs (z.B. `Spiel`) in Objekte eines anderen Typs (z.B. `Pair<Integer, Integer>` für Punkte und Tordifferenz) umzuwandeln.
