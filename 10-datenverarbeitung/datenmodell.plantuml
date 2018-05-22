@@ -1,0 +1,30 @@
+@startuml datenmodell
+
+class Verein {
+	-id: int
+	-name: String
+	-liga: int
+}
+
+class Spiel {
+	-id: int
+	-spieltag: int
+	-isodatum: String
+	-isouhrzeit: String
+	-heim: int
+	-gast: int
+	-toreHeim: int
+	-toreGast: int
+}
+
+class Bundesliga {
+	-spiele: List<Spiel>
+	-vereine: Map<Integer, Verein>
+	+static fromCSV(): Bundesliga
+}
+
+Verein --o Spiel
+Verein --o Bundesliga
+Spiel --o Bundesliga
+
+@enduml

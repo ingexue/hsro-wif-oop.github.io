@@ -27,6 +27,11 @@ dependencies {
     /* Gson (Annotationen) */
     compile("com.google.code.gson:gson:${gson_version}")
 
+    /* CSV parser */
+    compile("org.simpleflatmapper:sfm-csv:${sfm_version}")
+    compile ("javax.persistence:persistence-api:${jpa_version}")
+
+
     /* JUnit 5 */
     testCompile("org.junit.jupiter:junit-jupiter-api:${junit_jupiter_version}")
     testCompile("org.apache.logging.log4j:log4j-core:${log4j_version}")
