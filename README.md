@@ -82,7 +82,7 @@ Der Leistungsnachweis ist aufgeteilt in eine
 	Gewappnet mit Datenstrukturen, Iteration und Rekursion erarbeiten wir Algorithmen zum Sortieren von Daten.
 	Wir begegnen wieder den Interfaces `Comparable<T>` und `Comparator<T>`, welche die Vergleichsoperation abstrahieren.
 
-- **23. Mai: Datenverarbeitung** ([Skript](/10-datenverarbeitung/), [Übung](https://github.com/hsro-wif-prg2/uebung08))
+- **23. Mai: Datenverarbeitung** ([Skript](/10-datenverarbeitung/), [Folien](/10-datenverarbeitung/slides/), [Übung](https://github.com/hsro-wif-prg2/uebung08))
 
 	Wir verwenden die Containerklassen der Java Bibliothek kennen um effizient und übersichtlich Daten zu verarbeiten.
 	Klassischerweise ist die Datenverarbeitung hier in drei Schritten zu machen: filtern, abbilden und reduzieren.

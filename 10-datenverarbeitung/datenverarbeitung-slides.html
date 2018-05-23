@@ -1,0 +1,217 @@
+---
+title: Datenverarbeitung
+permalink: /10-datenverarbeitung/slides/
+layout: presentation
+---
+
+layout: true
+
+<footer>
+	<span class="icon github">
+	<svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+	</svg>
+	</span>
+	<a href="https://github.com/sikoried"><span class="username">sikoried</span></a>
+</footer>
+
+---
+
+# Datenverarbeitung
+
+Korbinian Riedhammer
+
+---
+
+# Datenmodell
+
+<div style="text-align: center">
+<img src="{{site.baseurl}}/10-datenverarbeitung/datenmodell.svg" style="width: 30%" alt="Datenmodell">
+</div>
+
+---
+
+# Datenmodell
+
+## Verein
+
+| V_ID | Name | Liga |
+|------|------|------|
+| 1    | FC Bayern München | 1 |
+| 2    | FC Schalke 04     | 1 |
+
+
+## Spiel
+
+| Spiel\_ID | Spieltag | Datum | Uhrzeit | Heim | Gast | Tore\_Heim | Tore\_Gast |
+|-----------|----------|-------|---------|------|------|------------|------------|
+| 1 | 1 | 2017-08-18 | 20:30:00 | 1 | 5 | 3 | 1 |
+| 2 | 1 | 2017-08-19 | 15:30:00 | 7 | 12 | 1 | 0 |
+
+---
+
+# Grundoperationen
+
+## Sortieren
+
+#### Vereinsliste aufsteigend nach Vereinsname?
+
+#### Zuerst nach Liga, dann nach Vereinsname?
+
+---
+
+# Grundoperationen
+
+## Filtern
+
+#### Gegeben: Liste aller Vereine
+
+#### Gesucht: Liste aller 2.-Liga-Vereine
+
+#### ...und sortiert nach Vereinsname?
+
+---
+
+# Grundoperationen
+
+## Abbilden
+
+#### Gegeben: Liste der Spiele
+
+#### Gesucht: Liste der Spielpaarungen (Datum, Heim, Gast)
+
+---
+
+# Grundoperationen
+
+## Reduzieren
+
+#### Gegeben: Liste der Spiele
+
+#### Gesucht: Wie viele Tore wurden insgesamt geschossen?
+
+---
+
+# Aufgaben
+
+## Torstatistiken
+
+1. Wie viele Tore fallen durchschnittlich in jedem Spiel?
+2. Wie viele Tore fallen durchschnittlich in einem Spiel der 1. Liga?
+3. Wie viele Tore fallen durchschnittlich an einem Spieltag der 2. Liga?
+
+---
+
+# Aufgaben
+
+## Vereine
+
+1. Wie viele Tore hat der FC Bayern München (Verein 1) erzielt?
+2. Wie viele Tore hat der FC Schalke 04 (Verein 2) kassiert?
+3. Wie viele Punkte hat der 1. FC Nürnberg (Verein 20)? Ein Sieg zählt 3 Punkte, ein Unentschieden 1, eine Niederlage 0 Punkte.
+4. Was ist das Torverhältnis des VfL Bochum (Verein 26), also die Rate von erzielten zu kassierten Toren?
+
+---
+
+# Aufgaben
+
+## 1. Liga
+
+1. Wie ist der aktuelle Tabellenstand? Die Tabelle wird als Vereinsname, gefolgt von Punkten und Torverhältnis definiert.
+2. Wie ist der Tabellenstand nach dem 10. Spieltag?
+3. Wie ist der Tabellenplatzverlauf des Hamburger SV (Verein 18) über alle 32 Spieltage?
+4. Wer hat die [Rote Laterne](https://de.wikipedia.org/wiki/Lanterne_Rouge) in jeweils der 1., 2. und 3. Liga?
+
+---
+
+# Verallgemeinerungen
+
+# Filtern
+
+```java
+interface Predicate<T> {
+	boolean test(T t);
+}
+```
+```java
+static <T> List<T> filtern(Collection<T> liste, Predicate<T> pred) {
+	// neue Liste erstellen
+	List<T> gefiltert = new LinkedList<>();
+
+	// iterieren...
+	for (T v : liste) {
+		// Bedingung prüfen...
+		if (pred.test(v))
+			gefiltert.add(v);
+	}
+
+	return gefiltert;
+}
+```
+
+---
+
+# Verallgemeinerungen
+
+# Abbilden
+
+```java
+interface Function<T, R> {
+	R apply(T t);
+}
+```
+```java
+static <T, R> List<R> abbilden(List<T> liste, Function<T, R> func) {
+	List<R> abgebildet = new LinkedList<>();
+
+	for (T v : liste)
+		abgebildet.add(func.apply(v));
+
+	return abgebildet;
+}
+```
+
+---
+
+# Verallgemeinerungen
+
+# Reduzieren (Version 1)
+
+```java
+interface BinaryOperator<T> {
+	T apply(T a, T b);
+}
+```
+```java
+static <T> T reduzieren(List<T> liste, T identity, BinaryOperator<T> op) {
+	T a = identity;
+	for (T t : liste)
+		a = op.apply(a, t);
+	return a;
+}
+```
+
+---
+
+# Verallgemeinerungen
+
+# Reduzieren (Version 2)
+
+```java
+interface BiFunction<A, B, C> {
+	C apply(A a, B b);
+}
+```
+```java
+static <T, U> U reduzieren(List<T> liste, U identity, BiFunction<U, T, U> op) {
+	U a = identity;
+	
+	for (T t : liste)
+		a = op.apply(a, t);
+	
+	return a;
+	
+}
+```
+

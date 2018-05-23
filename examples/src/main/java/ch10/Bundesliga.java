@@ -6,15 +6,12 @@ import org.simpleflatmapper.csv.CsvWriter;
 import org.simpleflatmapper.map.property.RenameProperty;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-class Bundesliga {
+public class Bundesliga {
 	Map<Integer, Verein> vereine;
 	List<Spiel> spiele;
 
@@ -23,7 +20,7 @@ class Bundesliga {
 		this.spiele = spiele;
 	}
 
-	static Bundesliga loadFromResource() throws IOException {
+	public static Bundesliga loadFromResource() throws IOException {
 
 		ClassLoader classLoader = Bundesliga.class.getClassLoader();
 
