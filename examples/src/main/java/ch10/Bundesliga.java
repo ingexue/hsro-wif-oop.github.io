@@ -12,8 +12,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Bundesliga {
-	Map<Integer, Verein> vereine;
-	List<Spiel> spiele;
+	public Map<Integer, Verein> vereine;
+	public List<Spiel> spiele;
 
 	private Bundesliga(Map<Integer, Verein> vereine, List<Spiel> spiele) {
 		this.vereine = vereine;
