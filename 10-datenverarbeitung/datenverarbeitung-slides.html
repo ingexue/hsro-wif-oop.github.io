@@ -2,6 +2,7 @@
 title: Datenverarbeitung
 permalink: /10-datenverarbeitung/slides/
 layout: presentation
+mathjax: true
 ---
 
 layout: true
@@ -132,6 +133,40 @@ Korbinian Riedhammer
 
 # Verallgemeinerungen
 
+Wie kann man die Grundoperationen (Iterieren, Filtern, Sortieren, Abbilden, Reduzieren) verallgemeinern?
+
+$\rightarrow$ Trennung von Iterations- und Verarbeitungscode!
+
+---
+
+# Iterieren (zum Verbrauch)
+
+```java
+interface Consumer<T> {
+	void accept(T t);
+}
+```
+
+```java
+static <T> void fuerJedes(Collection<T> coll, Consumer<T> cons) {
+	for (T t : coll)
+		cons.accept(t);
+}
+```
+
+Beispiel: Jedes Element auf `System.out` ausgeben.
+
+```java
+List<Integer> li = Arrays.asList(3, 1, 3, 3, 7);
+fuerJedes(li, new Consumer<Integer>() {
+	public void accept(Integer i) {
+		System.out.println(i);
+	}
+});
+```
+
+---
+
 # Filtern
 
 ```java
@@ -157,8 +192,6 @@ static <T> List<T> filtern(Collection<T> liste, Predicate<T> pred) {
 
 ---
 
-# Verallgemeinerungen
-
 # Abbilden
 
 ```java
@@ -179,8 +212,6 @@ static <T, R> List<R> abbilden(List<T> liste, Function<T, R> func) {
 
 ---
 
-# Verallgemeinerungen
-
 # Reduzieren (Version 1)
 
 ```java
@@ -189,7 +220,7 @@ interface BinaryOperator<T> {
 }
 ```
 ```java
-static <T> T reduzieren(List<T> liste, T identity, BinaryOperator<T> op) {
+static <T> T reduzieren(Collection<T> liste, T identity, BinaryOperator<T> op) {
 	T a = identity;
 	for (T t : liste)
 		a = op.apply(a, t);
@@ -199,8 +230,6 @@ static <T> T reduzieren(List<T> liste, T identity, BinaryOperator<T> op) {
 
 ---
 
-# Verallgemeinerungen
-
 # Reduzieren (Version 2)
 
 ```java
@@ -209,7 +238,7 @@ interface BiFunction<A, B, C> {
 }
 ```
 ```java
-static <T, U> U reduzieren(List<T> liste, U identity, BiFunction<U, T, U> op) {
+static <T, U> U reduzieren(Collection<T> liste, U identity, BiFunction<U, T, U> op) {
 	U a = identity;
 	
 	for (T t : liste)
@@ -220,3 +249,74 @@ static <T, U> U reduzieren(List<T> liste, U identity, BiFunction<U, T, U> op) {
 }
 ```
 
+---
+
+# Lambdaausdrücke
+
+```java
+Predicate<Integer> istGerade = new Predicate<Integer> () {
+	@Override
+	public boolean test(Integer i) {
+		return i % 2 == 0;
+	}
+};
+```
+
+**Bedingung:** 
+
+- Interface mit genau einer Methode
+- Interface annotiert mit `@FunctionalInterface`
+
+```java
+Predicate<Integer> istGerade = (i) -> { return i % 2 == 0; };
+
+// wenn 1 Argument, 1 Anweisung: noch kompakter!
+Predicate<Integer> istGerade = i -> i % 2 == 0;
+```
+
+---
+
+# Lambdaausdrücke
+
+- drastische **Reduktion** von Code!
+- drastische **Steigerung** der Lesbarkeit!
+
+## Was macht folgender Code?
+
+```java
+List<Integer> li = Arrays.asList(3, 2, 4, 1, 9, 7, 6);
+
+for (Integer i) {
+	if (i < 8) {
+		double c = Math.sqrt(i);
+		if (c > 2)
+			System.out.println(c);
+	}
+}
+```
+
+---
+
+# Lambdaausdrücke
+
+## Mit Grundoperationen
+
+```java
+List<Integer> li = Arrays.asList(3, 2, 4, 1, 9, 7, 6);
+
+li = filtern(li, i -> i < 5);
+List<Double> ld = abbilden(li, i -> Math.sqrt(i));
+fuerJedes(li, i -> System.out.println(i));
+```
+
+## Oder als Stream
+
+```java
+Arrays.asList(3, 2, 4, 1, 9, 7, 6).stream()
+	.filter(i -> i < 5)
+	.map(Math::sqrt)
+	.filter(d -> d > 2)
+	.forEach(System.out::println);
+```
+
+Ist das nicht wirklich kurz und prägnant?!

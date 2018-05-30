@@ -1,10 +1,15 @@
 package ch10;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static sun.jvm.hotspot.HelloWorld.e;
@@ -91,6 +96,66 @@ class AnalysenTest {
 	}
 
 	/**
+	 * Stimmt es, dass in den Nachmittagsspielen (15:30:00) im Schnitt mehr Tore fallen, wie in den Abendspielen?
+	 */
+	@Test
+	void torstatistikenToreNachmittagsAbends() throws IOException {
+		Bundesliga bl = Bundesliga.loadFromResource();
+
+		int toreNachmittag = 0;
+		int spieleNachmittag = 0;
+		int toreAbends = 0;
+		int spieleAbends = 0;
+
+		for (Spiel s : bl.spiele) {
+			// Nachmittagsspiel?
+			if (s.getUhrzeit().equals("15:30:00")) {
+				toreNachmittag = toreNachmittag + s.getToreGast() + s.getToreHeim();
+				spieleNachmittag += 1;
+			}else {
+				// ansonsten Abend
+				toreAbends = toreAbends + s.getToreHeim() + s.getToreGast();
+				spieleAbends += 1;
+			}
+		}
+
+		double tn = (double) toreNachmittag / spieleNachmittag;
+		double ta = (double) toreAbends / spieleAbends;
+
+		System.out.println(tn + " " + ta);
+
+		assertTrue(tn > ta);
+	}
+
+	/**
+	 * Stimmt es, dass Vereine der 3. Liga zuhause im Schnitt mehr Tore schießen als auswärts?
+	 */
+	@Test
+	void torstatistikenToreDaheim() throws IOException {
+		Bundesliga bl = Bundesliga.loadFromResource();
+
+		int anzDaheim = 0;
+		int anzAuswaerts = 0;
+		int anzSpiele = 0;
+		for (Spiel s : bl.spiele) {
+			// 3. Liga: Vereine 37...56
+			if (s.getGast() <= 36)
+				continue;
+
+			anzDaheim += s.getToreHeim();
+			anzAuswaerts += s.getToreGast();
+			anzSpiele += 1;
+		}
+
+		double td = (double) anzDaheim / anzSpiele;
+		double ta = (double) anzAuswaerts / anzSpiele;
+
+		System.out.println(td + " " + ta);
+
+		assertTrue(td < ta);
+	}
+
+	/**
 	 * Wie viele Tore hat der FC Bayern München (Verein 1) erzielt?
 	 */
 	@Test
@@ -170,6 +235,77 @@ class AnalysenTest {
 		assertEquals(36, erhalten);
 
 		System.out.println(diff);
+	}
+
+	/**
+	 * Welche drei Vereine haben die meisten Tore zuhause geschossen, und wie viele?
+ 	 */
+	@Test
+	void vereineMeisteToreZuhause() throws IOException {
+		Bundesliga bl = Bundesliga.loadFromResource();
+
+		Map<Integer, Integer> toreZuhause = new HashMap<>();
+
+		for (Spiel s : bl.spiele)
+			toreZuhause.merge(s.getHeim(), 1, (a, b) -> a + b);
+
+		List<Pair<String, Integer>> liste = new LinkedList<>();
+
+		for (Map.Entry<Integer, Integer> e : toreZuhause.entrySet()) {
+			Verein v = bl.vereine.get(e.getKey());
+			Integer tore = e.getValue();
+			liste.add(Pair.of(v.getName(), tore));
+		}
+
+		liste.sort(Comparator.comparingInt(Pair<String, Integer>::getRight).reversed());
+
+		List<Pair<String, Integer>> besteDrei = liste.subList(0, 3);
+
+		System.out.println(besteDrei);
+
+		assertEquals(Pair.of("SV Meppen", 34), besteDrei.get(0));
+		assertEquals(Pair.of("FC Bayern München", 16), besteDrei.get(1));
+		assertEquals(Pair.of("FC Schalke", 16), besteDrei.get(2));
+	}
+
+	/**
+	 * Welcher Verein hat die wenigsten Tore auswärts geschossen, und wie viele?
+	 */
+	@Test
+	void vereineWenigsteToreAuswaerts() throws IOException {
+		Bundesliga bl = Bundesliga.loadFromResource();
+
+		Map<Integer, Integer> toreZuhause = new HashMap<>();
+
+		for (Spiel s : bl.spiele)
+			toreZuhause.merge(s.getHeim(), 1, (a, b) -> a + b);
+
+		List<Pair<String, Integer>> liste = new LinkedList<>();
+
+		// "klassisch"
+//		for (Map.Entry<Integer, Integer> e : toreZuhause.entrySet()) {
+//			Verein v = bl.vereine.get(e.getKey());
+//			Integer tore = e.getValue();
+//			liste.add(Pair.of(v.getName(), tore));
+//		}
+
+		// funktional
+		liste = Abstraktion.abbilden(toreZuhause.entrySet(), new Function<Map.Entry<Integer, Integer>, Pair<String, Integer>>() {
+			@Override
+			public Pair<String, Integer> apply(Map.Entry<Integer, Integer> e) {
+				Verein v = bl.vereine.get(e.getKey());
+				Integer tore = e.getValue();
+				return Pair.of(v.getName(), tore);
+			}
+		});
+
+		liste.sort(Comparator.comparingInt(Pair<String, Integer>::getRight));
+
+		Pair<String, Integer> schlechtester = liste.get(0);
+
+		System.out.println(schlechtester);
+
+		assertEquals(Pair.of("VfR Aalen", 1), schlechtester);
 	}
 
 	/**
@@ -450,7 +586,7 @@ class AnalysenTest {
 				@Override
 				public int compare(Map.Entry<Integer, Triple<Integer, Integer, Integer>> o1, Map.Entry<Integer, Triple<Integer, Integer, Integer>> o2) {
 					// bei Punktegleichstand: Tordifferenz!
-					if (o1.getValue().getLeft() == o2.getValue().getLeft())
+					if (o1.getValue().getLeft().equals(o2.getValue().getLeft()))
 						return Integer.compare(o1.getValue().getMiddle()-o1.getValue().getRight(),
 								o2.getValue().getMiddle()-o2.getValue().getRight());
 					else
@@ -463,5 +599,119 @@ class AnalysenTest {
 
 			assertEquals(laternen[liga-1], tabelle.get(0).getKey());
 		}
+	}
+
+	@Test
+	void ligaTabellenFuehrung() throws IOException {
+		Bundesliga bl = Bundesliga.loadFromResource();
+
+		// erstmal alle Spiele der ersten Liga
+		List<Spiel> spiele = Abstraktion.filtern(bl.spiele, new Predicate<Spiel>() {
+			@Override
+			public boolean test(Spiel spiel) {
+				return bl.vereine.get(spiel.getHeim()).getLiga() == 1;
+			}
+		});
+
+		// sortieren nach Spieltag
+		spiele.sort(new Comparator<Spiel>() {
+			@Override
+			public int compare(Spiel o1, Spiel o2) {
+				return Integer.compare(o1.getSpieltag(), o2.getSpieltag());
+			}
+		});
+
+		// jetzt ueber die Spiele gehen, und immer bei Spieltagwechsel die Tabelle berechnen
+		int spieltag = spiele.get(0).getSpieltag();
+
+		// vereinsId --> (Punkte, Erzielt, Erhalten)
+		Map<Integer, Triple<Integer, Integer, Integer>> nachVerein = new HashMap<>();
+
+		List<Integer> tabellenFuehrer = new LinkedList<>();
+
+		BinaryOperator<Map.Entry<Integer, Triple<Integer, Integer, Integer>>> max = new BinaryOperator<Map.Entry<Integer, Triple<Integer, Integer, Integer>>>() {
+			@Override
+			public Map.Entry<Integer, Triple<Integer, Integer, Integer>> apply(Map.Entry<Integer, Triple<Integer, Integer, Integer>> a, Map.Entry<Integer, Triple<Integer, Integer, Integer>> b) {
+				// nach Punkten
+				int c = Integer.compare(a.getValue().getLeft(), b.getValue().getLeft());
+
+				if (c < 0)
+					return b;
+				else if (c > 0)
+					return a;
+
+				// nach Torverhaeltnis
+				c = Integer.compare(a.getValue().getMiddle()-a.getValue().getRight(), b.getValue().getMiddle()-b.getValue().getRight());
+				if (c < 0)
+					return b;
+				else if (c > 0)
+					return a;
+
+				// nach erzielten Toren
+				c = Integer.compare(a.getValue().getMiddle(), b.getValue().getMiddle());
+				if (c < 0)
+					return b;
+				else if (c > 0)
+					return a;
+
+				// Muenzwurf...
+				if (new Random().nextBoolean())
+					return a;
+				else
+					return b;
+			}
+		};
+
+		for (Spiel s : spiele) {
+			// Spieltagwechsel, berechne Tabelle
+			if (s.getSpieltag() != spieltag) {
+				// aktuelle Punktestaende
+				List<Map.Entry<Integer, Triple<Integer, Integer, Integer>>> tabelle = new LinkedList<>(nachVerein.entrySet());
+
+				// Reduktion auf besten (--> maximumsuche)
+				Map.Entry<Integer, Triple<Integer, Integer, Integer>> tf = Abstraktion.reduzieren(tabelle, tabelle.get(0), max);
+
+				tabellenFuehrer.add(tf.getKey());
+
+				spieltag = s.getSpieltag();
+			}
+
+			// sicherstellen, dass Map "Null"-Werte hat
+			if (!nachVerein.containsKey(s.getHeim()))
+				nachVerein.put(s.getHeim(), Triple.of(0, 0, 0));
+			if (!nachVerein.containsKey(s.getGast()))
+				nachVerein.put(s.getGast(), Triple.of(0, 0, 0));
+
+			// Gastgeber
+			Triple<Integer, Integer, Integer> alt1 = nachVerein.get(s.getHeim());
+			Triple<Integer, Integer, Integer> delta1 = result(s, true);
+			nachVerein.put(s.getHeim(), Triple.of(alt1.getLeft() + delta1.getLeft(),
+					alt1.getMiddle() + delta1.getMiddle(),
+					alt1.getRight() + delta1.getRight()));
+
+			// Gastgeber
+			Triple<Integer, Integer, Integer> alt2 = nachVerein.get(s.getGast());
+			Triple<Integer, Integer, Integer> delta2 = result(s, false);
+			nachVerein.put(s.getGast(), Triple.of(alt2.getLeft() + delta2.getLeft(),
+					alt2.getMiddle() + delta2.getMiddle(),
+					alt2.getRight() + delta2.getRight()));
+		}
+
+		// noch den letzten.
+		List<Map.Entry<Integer, Triple<Integer, Integer, Integer>>> tabelle = new LinkedList<>(nachVerein.entrySet());
+		Map.Entry<Integer, Triple<Integer, Integer, Integer>> tf = Abstraktion.reduzieren(tabelle, tabelle.get(0), max);
+		tabellenFuehrer.add(tf.getKey());
+
+		System.out.println(tabellenFuehrer);
+		List<Integer> uniq = Abstraktion.reduzieren(tabellenFuehrer, new LinkedList<>(), new BiFunction<LinkedList<Integer>, Integer, LinkedList<Integer>>() {
+			@Override
+			public LinkedList<Integer> apply(LinkedList<Integer> objects, Integer integer) {
+				if (objects.size() == 0 || !objects.getLast().equals(integer))
+					objects.add(integer);
+				return objects;
+			}
+		});
+
+		System.out.println(uniq);
 	}
 }

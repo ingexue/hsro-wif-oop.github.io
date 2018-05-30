@@ -4,9 +4,7 @@ permalink: /10-datenverarbeitung/
 mathjax: true
 ---
 
-# Datenverarbeitung
-
-## Arbeiten mit Datenstrukturen
+# Arbeiten mit Datenstrukturen
 
 Wir haben in den vergangenen Wochen die wichtigsten Datenstrukturen und Sortieralgorithmen kennengelernt.
 Die Beispiele dazu waren aber meistens knapp und eher abstrakt -- in den wenigsten Fällen aber wirklich anschaulich.
@@ -32,7 +30,7 @@ Man sieht, dass die Vereine `Heim` und `Gast` in der Spieltabelle als _foreign k
 Für unsere heutigen Beispiele können wir die Fabrikmethode `Bundesliga.loadFromResource()` verwenden, um die Daten aus den beiliegenden CSV Dateien einzulesen.
 
 
-## Grundoperationen
+# Grundoperationen
 
 Datenverarbeitung beruht im Wesentlichen auf vier Grundoperationen:
 
@@ -42,7 +40,7 @@ Datenverarbeitung beruht im Wesentlichen auf vier Grundoperationen:
 - Reduzieren, also Daten zusammenzufassen.
 
 
-### Sortieren
+## Sortieren
 
 Oft ist die Reihenfolge, in der man Daten zur Verfügung gestellt bekommt, nicht die Reihenfolge, in welcher man diese darstellen oder weiterverarbeiten möchte.
 
@@ -83,7 +81,7 @@ nachLigaName.sort(new Comparator<Verein>() {
 ```
 
 
-### Filtern
+## Filtern
 
 Je nach Anwendung kann es aber gut sein, dass wir garnicht an allen Vereinen interessiert sind, sondern nur an den Vereinen der 2. Liga.
 
@@ -107,7 +105,7 @@ zweiteLiga.sort(new Comparator<Verein>() {
 Man sieht hier auch: Es ist sinnvoll _vor_ dem Sortieren zu filtern, da man sonst Daten sortiert, an denen man nicht interessiert ist.
 
 
-### Abbilden
+## Abbilden
 
 Wir werfen nun einen Blick auf die Spieltabelle.
 
@@ -138,7 +136,7 @@ for (Spiel s : b.spiele) {
 Die Klassen [`org.apache.commons.lang3.tuple.Pair`](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/tuple/Pair.html) und [`org.apache.commons.lang3.tuple.Triple`](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/tuple/Triple.html) sind generische Klassen für Paare und Tripel, welche mit den Fabrikmethoden `Pair.of(...)` sowie `Triple.of(...)` einfach instanziiert werden können.
 
 
-### Reduzieren
+## Reduzieren
 
 Abbilden bedeutet also immer das Umwandeln einer Liste in eine andere Liste.
 _Reduzieren_ bedeutet, eine Liste von Werten auf einen einzigen Wert zu reduzieren.
@@ -166,7 +164,7 @@ System.out.println("Es fielen insgesamt " + tore + " Tore in " + b.spiele.size()
 ```
 
 
-## Beispiele
+# Beispiele
 
 Wir wollen nun versuchen, für die folgenden Fragestellungen die entsprechende Datenverarbeitung zu programmieren.
 Jeder dieser Datenverarbeitungsflüsse (engl. _pipelines_) soll dabei je nach Fragestellung Sortieren, Filtern, Abbilden und/oder Reduzieren.
@@ -202,18 +200,83 @@ Verwenden Sie die Klasse `Bundesliga` sowie die Fabrikmethode `Bundesliga.loadFr
 Die Musterlösungen zu obigen Aufgaben finden Sie in der Klasse [`ch10.AnalysenTest`](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/test/java/ch10/AnalysenTest.java) sowie [unten an dieses Kapitel angehängt](#lösungen-zu-den-beispielen).
 
 
-## Verallgemeinerung der Operationen
+# Verallgemeinerung der Operationen
 
 > Hinweis: Die folgenden Verallgemeinerungen sind zwar im Prinzip nicht klausurrelevant, machen die Datenverarbeitung aber klarer und strukturierter.
 > Sie stellen auch eine gute Überleitung zu den ebenso nicht klausurrelevanten Streams (`java.util.Stream`) dar, welche die Datenverarbeitung aber ebenso deutlich übersichtlicher und damit einfacher machen.
 
+Man sieht, dass bei den oben beschriebenen Operationen dir Iteration, also der _Besuch_ der Elemente, und die eigentliche Logik, also die _Verarbeitung_ der Elemente, verquickt sind.
+Das heisst aber auch, der Code zur Iteration immer wieder geschrieben werden, obwohl er immer gleich ist.
+Um die eigentliche Verarbeitung der Daten übersichtlicher zu gestalten, _trennt_ man nun Besuch und Verarbeitung.
 
-### Sortieren
+
+## Iteration als Terminale Operation
+
+Beginnen wir mit der einfachsten Version der Iteration.
+Angenommen man möchte jeden Verein auf `System.out` ausgeben, so haben wir bisher _Iteration_ und _Verabeitung_ gemeinsam programmiert, z.B. mit der `for-each` Schleife:
+
+```java
+for (Verein v : b.vereine.values())  // Iteration
+	System.out.println(v);           // Verarbeitung von `v`
+```
+
+Die Verabeitung (hier: `System.out.println`) ist also eine Methode, welche genau ein Argument (hier vom Typ `Verein`) entgegen nimmt, und keinen Rückgabetyp hat.
+So etwas bezeichnet man als _Consumer_ (Verbraucher), und ist in Java als Schnittstelle verfügbar:
+
+```java
+interface Consumer<T> {
+	void accept(T t);
+}
+```
+
+Mochte man nun die Verabeitung herausnehmen, so könnte man das zunächst wie folgt realisieren:
+
+```java
+// Verarbeitung
+Consumer<Verein> cons = new Consumer<Verein>() {
+	@Override
+	public void accept(Verein v) {
+		System.out.println(v);
+	}
+};
+
+// Iteration
+for (Verein v : b.vereine.values())
+	cons.accept(v);
+```
+Weiterhin kann man nun die Iterationslogik auslagern:
+
+```java
+static <T> void fuerJedes(Collection<T> coll, Consumer<T> cons) {
+	for (T t : coll)
+		cons.accept(t);
+}
+```
+
+Wir setzen die Bausteine zusammen:
+
+```java
+// vorher: iterieren und verarbeiten in einem
+for (Verein v : b.vereine.values())
+	System.out.println(v);
+
+// nacher: nur Verarbeitungslogik, kein Iterationscode
+fuerJedes(b.vereine.values(), new Consumer<Verein>() {
+		public void accept(Verein v) {
+			System.out.println(v);
+		}
+	});
+```
+
+> Genau genommen ist die zweite Version nun zwei Zeilen länger, wir sehen aber im Abschnitt [Lambdaausdrücke](#lambdaausdrücke) wie man anonyme innere Klassen kürzer schreiben kann.
+
+
+## Sortieren
 
 Die allgemeine Form des Sortierens mit Hilfe von `Comparable<T>` bzw. `Comparator<T>` wurde bereits ausführlich im [Kapitel 9: Sortieren](/09-sortieren/) besprochen.
 
 
-### Filtern
+## Filtern
 
 Beim Filtern fällt auf, dass zunächst iteriert wird, und dann nach einem bestimmten Bedingung in eine neue Liste eingefügt wird.
 
@@ -257,10 +320,10 @@ List<Verein> zweiteLiga = filtern(b.vereine.values(), new Predicate<Verein>() {
 		public boolean test(Verein v) {
 			return v.getLiga() == 2;
 		}
-});
+	});
 ```
 
-### Abbilden
+## Abbilden
 
 Beim Abbilden erkennen wir, dass zwar sowohl Ein- als auch Ausgabe Listen sind, allerdings sind die Datentypen i.d.R. verschieden!
 
@@ -302,17 +365,16 @@ Auch hier die Anwendung:
 
 ```java
 List<Triple<String, String, String>> paarungen = abbilden(b.spiele, new Function<Spiel, Triple<String, String, String>>() {
-	@Override
-	public Triple<String, String, String> apply(Spiel spiel) {
-		Verein heim = b.vereine.get(spiel.getHeim());
-		Verein gast = b.vereine.get(spiel.getGast());
-		return Triple.of(spiel.getDatum(), heim.getName(), gast.getName());
-	}
-});
+		public Triple<String, String, String> apply(Spiel spiel) {
+			Verein heim = b.vereine.get(spiel.getHeim());
+			Verein gast = b.vereine.get(spiel.getGast());
+			return Triple.of(spiel.getDatum(), heim.getName(), gast.getName());
+		}
+	});
 ```
 
 
-### Reduzieren
+## Reduzieren
 
 Für die Abstraktion der Reduktion bleiben wir zunächst am einfachen Beispiel:
 
@@ -345,10 +407,10 @@ List<Integer> a = Arrays.asList(1, 2, 3);
 
 // Reduzieren, mit "Null"-Element 0 und Addition als Reduzierer
 Integer summe = reduzieren(a, 0, new BinaryOperator<Integer>() {
-			public Integer apply(Integer a, Integer b) {
-				return a + b;
-			}
-		});
+	public Integer apply(Integer a, Integer b) {
+		return a + b;
+	}
+});
 ```
 
 Im Eingangsbeispiel hatten wir eine Liste von Spielen auf einen Integerwert (die Gesamtsumme der Tore abgebildet).
@@ -377,15 +439,145 @@ Und die Anwendung:
 // Reduzieren mit 0 als "Null"-Element und
 // einem Reduzierer, welcher den aktuellen Torstand mit den Heim- und Gasttoren addiert.
 Integer tore = Abstraktion.reduzieren(b.spiele, 0, new BiFunction<Integer, Spiel, Integer>() {
-			@Override
-			public Integer apply(Integer integer, Spiel spiel) {
-				return integer + spiel.getToreGast() + spiel.getToreHeim();
-			}
-		});
+		@Override
+		public Integer apply(Integer integer, Spiel spiel) {
+			return integer + spiel.getToreGast() + spiel.getToreHeim();
+		}
+	});
+```
+
+
+## Besondere Reduktionen
+
+Es gibt nun einige Algorithmen, die im Kern Reduktionen sind, Ihnen aber vielleicht noch nicht als solche aufgefallen sind.
+
+### Minimum bzw. Maximum
+
+Das Minimum (Maximum) in einer Liste ist ein einziger Wert, man _reduziert_ also eine Liste auf ihr Minimum.
+Als neutrales Element wird hier z.B. das erste Element verwendet, der binäre Operator zur Reduktion ist eine Minimum- bzw. Maximumauswahl.
+
+```java
+List<Integer> li = Arrays.asList(3, 5, 2, 1, 6, 7);
+
+int min = reduzieren(li, li.get(0), new BinaryOperator<Integer> () {
+	public Integer apply(Integer a, Integer b) {
+		return Integer.min(a, b);
+	}
+});
+// "1"
+```
+
+### Duplikatentfernung
+
+Möchte man (konsekutive) Duplikate entfernen, so ist das eine Reduktion von einer Liste auf eine _kürzere_ Liste.
+Das neutrale Element ist hier die leere Liste, der binäre Operator fügt das nächste Element nur dann in die Liste ein, sofern das Element nicht bereits enthalten ist.
+
+```java
+List<Integer> li = Arrays.asList(4, 2, 4, 5, 5, 1, 2, 3);
+
+List<Integer> duplikatfrei = reduzieren(li, new LinkedList<Integer>(), 
+	new BiFunction<LinkedList<Integer>, Integer, LinkedList<Integer>> op) {
+		public LinkedList<Integer> apply(LinkedList<Integer> l, Integer i) {
+			if (!l.contains(i))
+				l.add(i);
+		}
+	});
+// "[4, 2, 5, 1, 3]"
+
+
+// nur keine konsekutiven Duplikate
+List<Integer> konseqdupfrei = reduzieren(li, new LinkedList<Integer>(), 
+	new BiFunction<LinkedList<Integer>, Integer, LinkedList<Integer>> op) {
+		public LinkedList<Integer> apply(LinkedList<Integer> l, Integer i) {
+			// wenn die Liste bisher nicht leer ist, 
+			// oder das vorherige Element anders war
+			if (l.size() == 0 || !l.getLast().equals(i))
+				l.add(i);
+		}
+	});
+// "[4, 2, 4, 5, 1, 2, 3]" (nur "5" nach "5" entfernt)
+```
+
+
+# Lambdaausdrücke
+
+> Nicht klausurrelevant.
+
+Die obigen Beispiele sind auf Grund der vielen anonymen inneren Klassen recht unübersichtlich, und enthalten viel "sinnbefreiten" Code.
+Es fällt insbesondere auf, dass alle der obigen Interfaces nur genau eine Methode vorschreiben:
+
+```java
+interface Consumer<T> {
+	void accept(T t);
+}
+```
+```java
+interface Predicate<T> {
+	boolean test(T t);
+}
+```
+```java
+interface Function<T, R> {
+	R apply(T t);
+}
+```
+```java
+interface BinaryOperator<T> {
+	T apply(T a, T b);
+}
+```
+```java
+interface BiFunction<A, B, C> {
+	C apply(A a, B b);
+}
+```
+
+Diese wurden bisher immer als anonyme innere Klassen instanziiert, z.B.
+
+```java
+// Testet ob eine Zahl gerade ist, also ob die Zahl 
+// ohne Rest durch 2 teilbar ist
+Predicate<Integer> istGerade = new Predicate<Integer> () {
+	@Override
+	public boolean test(Integer i) {
+		return i % 2 == 0;
+	}
+};
+```
+
+Es wurden also (je nach Schreibstil) 6 Zeilen geschrieben, von denen genau eine wichtig war (`return i % 2 == 0`).
+
+Hierzu gibt es seit Java 8 Lambdaausdrücke, eine Kurzschreibweise zur Instanziierung von sog. _funktionalen Schnittstellen_, also Interfaces welche genau eine Methode vorschreiben (und mit `@FunctionalInterface` annotiert sind).
+
+Ein Lambdaausdruck ist definiert als `(Argumente) -> { Anweisungen }`, also am obigen Beispiel:
+
+```java
+Predicate<Integer> istGerade = (i) -> { return i % 2 == 0; };
+```
+
+Weitere Vereinfachungen sind:
+
+- Gibt es genau ein Argument, so können die Klammern weggelassen werden.
+- Gibt es genau nur eine Anweisung (die `return` Anweisung), so können `return`, `{}` sowie `;` weggelassen werden.
+
+```java
+Predicate<Integer> istGerade = i -> i % 2 == 0;
+```
+
+Die Kombination dieser Kurzschreibweise mit den oben erarbeiteten Verallgemeinerungen macht die Datenverarbeitung besonders lesbar bzw. verständlich:
+
+```java
+List<Integer> li = Arrays.asList(4, 2, 1, 5, 3, 6, 8);
+
+li = filtern(li, i -> i % 2 == 0);    // nur gerade Zahlen behalten
+li = abbilden(li, i -> i * i);               // Zahlen quadrieren
+int s = reduzieren(li, 0, (a, b) -> a + b);  // ...und aufsummieren
 ```
 
 
 # Datenströme in Java
+
+> Nicht klausurrelevant.
 
 Die oben erarbeiteten Verallgemeinerungen sind eine Hinführung auf die _funktionale_ Programmierung, in der Funktionen (Methoden) wie normale Objekte verwendet werden können.
 Da Java rein nach Sprachspezifikation keine solche _funktionale_ Sprache ist, behilft man sich hier mit sog. _funktionalen Schnittstellen_, also Interfaces welche genau eine (nicht-default) Methode haben, und deren Zweck einzig darin liegt, eine Funktion als Objekt zu übergeben.
@@ -472,6 +664,7 @@ Für Streams gibt es noch weitere nützliche Funktionen:
 - _Abbilden_ heißt Objekte eines Typs (z.B. `Spiel`) in Objekte eines anderen Typs (z.B. `Pair<Integer, Integer>` für Punkte und Tordifferenz) umzuwandeln.
 - _Reduzieren_ heißt Objekte eines Typs (z.B. `Pair<Integer, Integer>`) auf ein Objekt zu akkumulieren, wozu eine entsprechende Operation definiert werden muss.
 - Die vier Operationen können explizit durch Listengenerierung und Iteration realisiert werden; abstrahiert man die Operationen, so kann man sich auf die Implementierung der eigentlichen Logik konzentrieren.
+- Lambdaausdrücke (`(Argumente) -> { Anweisungen }`) sind eine kompakte Alternative zu anonymen inneren Klassen für funktionale Interfaces (Schnittstellen, die genau eine Methode vorschreiben).
 - Java Streams sind eine Variante, bei der nur die eigentliche Logik zu implementieren ist; die Iterationslogik ist versteckt.
 
 <p style="text-align: right">&#8718;</p>
