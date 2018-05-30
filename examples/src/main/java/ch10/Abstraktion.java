@@ -17,7 +17,7 @@ class Abstraktion {
 		return gefiltert;
 	}
 
-	static <T, R> List<R> abbilden(List<T> liste, Function<T, R> func) {
+	static <T, R> List<R> abbilden(Collection<T> liste, Function<T, R> func) {
 		List<R> abgebildet = new LinkedList<>();
 
 		for (T v : liste)
@@ -26,14 +26,14 @@ class Abstraktion {
 		return abgebildet;
 	}
 
-	static <T> T reduzieren(List<T> liste, T identity, BinaryOperator<T> op) {
+	static <T> T reduzieren(Collection<T> liste, T identity, BinaryOperator<T> op) {
 		T a = identity;
 		for (T t : liste)
 			a = op.apply(a, t);
 		return a;
 	}
 
-	static <T, U> U reduzieren(List<T> liste, U identity, BiFunction<U, T, U> op) {
+	static <T, U> U reduzieren(Collection<T> liste, U identity, BiFunction<U, T, U> op) {
 		U a = identity;
 
 		for (T t : liste)

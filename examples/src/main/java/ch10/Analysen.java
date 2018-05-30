@@ -100,7 +100,7 @@ public class Analysen {
 		Pair<Integer, Integer> scores = bl.spiele.stream()
 				// nur Spiele mit Stuttgart
 				.filter(s -> s.getHeim() == team || s.getGast() == team)
-				// bilde Spiel anb auf Paar von Punktgewinn und Tordifferenz (pro Spiel)
+				// bilde ab: Spiel --> Paar von Punktgewinn und Tordifferenz (pro Spiel)
 				.map(new Function<Spiel, Pair<Integer, Integer>> () {
 					public Pair<Integer, Integer> apply(Spiel s) {
 						boolean heimspiel = (s.getHeim() == team);

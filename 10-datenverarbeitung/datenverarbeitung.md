@@ -175,16 +175,21 @@ Jeder dieser Datenverarbeitungsflüsse (engl. _pipelines_) soll dabei je nach Fr
 	1. Wie viele Tore fallen durchschnittlich in jedem Spiel?
 	2. Wie viele Tore fallen durchschnittlich in einem Spiel der 1. Liga?
 	3. Wie viele Tore fallen durchschnittlich an einem Spieltag der 2. Liga?
+	4. Stimmt es, dass in den Nachmittagsspielen (15:30:00) im Schnitt mehr Tore fallen, wie in den Abendspielen?
+	5. Stimmt es, dass Vereine der 3. Liga zuhause im Schnitt mehr Tore schießen als auswärts?
 2. Vereine.
 	1. Wie viele Tore hat der FC Bayern München (Verein 1) erzielt?
 	2. Wie viele Tore hat der FC Schalke 04 (Verein 2) kassiert?
 	3. Wie viele Punkte hat der 1. FC Nürnberg (Verein 20)? Ein Sieg zählt 3 Punkte, ein Unentschieden 1, eine Niederlage 0 Punkte.
 	4. Was ist das Torverhältnis des VfL Bochum (Verein 26), also die Rate von erzielten zu kassierten Toren?
+	5. Welche drei Vereine haben die meisten Tore zuhause geschossen, und wie viele?
+	6. Welcher Verein hat die wenigsten Tore auswärts geschossen, und wie viele?
 3. 1. Liga.
 	1. Wie ist der aktuelle Tabellenstand? Die Tabelle wird als Vereinsname, gefolgt von Punkten und Torverhältnis definiert.
 	2. Wie ist der Tabellenstand nach dem 10. Spieltag?
 	3. Wie ist der Tabellenplatzverlauf des Hamburger SV (Verein 18) über alle 32 Spieltage?
 	4. Wer hat die [Rote Laterne](https://de.wikipedia.org/wiki/Lanterne_Rouge) in jeweils der 1., 2. und 3. Liga?
+	5. Wie hat sich die Tabellenführung bis zum 32. Spieltag entwickelt? Die Liste soll nicht einen Verein pro Spieltag haben, sondern immer nur wenn ein neuer Verein die Führung übernimmt (d.h. jeder Eintrag ist von dem vorherigen verschieden).
 
 Für die systematische Bearbeitung dieser Fragestellungen sollten Sie für jede dieser Fragestellungen zuerst die folgenden Fragen beantworten:
 
@@ -478,6 +483,8 @@ Für Streams gibt es noch weitere nützliche Funktionen:
 	1. 2.645
 	2. 2.746
 	3. 24.968
+	4. Nein (2.76 nachmittags, 2.60 abends)
+	5. Nein (0.80 daheim, 1.03 auswärts)
 2. Vereine.
 	1. 88
 	2. 36

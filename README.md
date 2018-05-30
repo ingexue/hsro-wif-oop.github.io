@@ -82,33 +82,30 @@ Der Leistungsnachweis ist aufgeteilt in eine
 	Gewappnet mit Datenstrukturen, Iteration und Rekursion erarbeiten wir Algorithmen zum Sortieren von Daten.
 	Wir begegnen wieder den Interfaces `Comparable<T>` und `Comparator<T>`, welche die Vergleichsoperation abstrahieren.
 
-- **23. Mai: Datenverarbeitung** ([Skript](/10-datenverarbeitung/), [Folien](/10-datenverarbeitung/slides/), [Übung](https://github.com/hsro-wif-prg2/uebung08))
+- **23. Mai: Datenverarbeitung (Teil 1)** ([Skript](/10-datenverarbeitung/), [Folien](/10-datenverarbeitung/slides/), [Übung](https://github.com/hsro-wif-prg2/uebung08))
 
 	Wir verwenden die Containerklassen der Java Bibliothek kennen um effizient und übersichtlich Daten zu verarbeiten.
-	Klassischerweise ist die Datenverarbeitung hier in drei Schritten zu machen: filtern, abbilden und reduzieren.
+	Klassischerweise ist die Datenverarbeitung hier in vier Schritten zu machen: filtern, sortieren, abbilden und reduzieren.
 
-- **30. Mai: Vererbung**
+- **30. Mai: Datenverarbeitung (Teil 2)**
+
+- _6. Juni: Vorlesungen entfällt, Übungen: PStA Q&A_
+
+- **13. Juni: Vererbung**
 
 	Bisher waren unsere Klassenbeziehungen vorwiegend strukturell bzw. funktional: Ein Monat besteht aus Tagen, ein Auto aus Bauteilen, usw.
 	_Vererbung_ erlaubt es nun verwandschaftliche Beziehungen zu modellieren, und so Gemeinsamkeiten in Oberklassen zu bündeln.
 	So sind z.B. sowohl Audis als auch BMWs im Grunde genommen _Autos_, doch gibt es sowohl geteilte Eigenschaften als auch spezielle.
 
-- _6. Juni: Vorlesungen entfällt, Übungen: PStA Q&A_
-
-- **13. Juni: Abstrakte Basisklassen**
+- **20. Juni: Abstrakte Basisklassen**
 	
 	Abstrakte Basisklassen sind ein weiteres Syntaxmittel, um verwandschaftliche Beziehungen zu beschreiben.
 	Da abstrakte Klassen nicht instanziiert werden können, sind sie im Grunde ähnlich zu Schnittstellen (_Interfaces_), erlauben aber genauere modellierung der Sichtbarkeiten.
 
-- **20. Juni: Parallele Verarbeitung**
+- **27. Juni: Parallele Verarbeitung**
 	
 	Folgten unsere Programme bisher einem vorgesehenen Ablaufplan, so erlauben _Threads_ die parallele Verarbeitung von Daten.
 	Wir beginnen mit der Basisimplementierung und erarbeiten einige knifflige Situationen.
-
-- **27. Juni: Design Patterns**
-	
-	Professionelle Softwareentwicklung greift oft auf Entwurfsmuster (_design pattern_) zurück.
-	Wir wiederholen einige welche wir bereits kennen gelernt haben, und erarbeiten eine Systematik für weitere Muster.
 
 - **4. Juli: Zusammenfassung**
 
