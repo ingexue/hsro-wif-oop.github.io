@@ -97,12 +97,12 @@ Der Leistungsnachweis ist aufgeteilt in eine
 	_Vererbung_ erlaubt es nun verwandschaftliche Beziehungen zu modellieren, und so Gemeinsamkeiten in Oberklassen zu bündeln.
 	So sind z.B. sowohl Audis als auch BMWs im Grunde genommen _Autos_, doch gibt es sowohl geteilte Eigenschaften als auch spezielle.
 
-- **20. Juni: Abstrakte Basisklassen** ([Folien](/11-vererbung/vererbung-2.pdf))
+- **20. Juni: Abstrakte Basisklassen** ([Folien](/11-vererbung/vererbung-2.pdf), [Übung](https://github.com/hsro-wif-prg2/uebung10))
 	
 	Abstrakte Basisklassen sind ein weiteres Syntaxmittel, um verwandschaftliche Beziehungen zu beschreiben.
 	Da abstrakte Klassen nicht instanziiert werden können, sind sie im Grunde ähnlich zu Schnittstellen (_Interfaces_), erlauben aber genauere Modellierung der Sichtbarkeiten.
 
-- **27. Juni: Parallele Verarbeitung**
+- **27. Juni: Parallele Verarbeitung** ([Folien](/12-parallel/slides/), [Skript](/12-parallel/), [Übung](https://github.com/hsro-wif-prg2/uebung11))
 	
 	Folgten unsere Programme bisher einem vorgesehenen Ablaufplan, so erlauben _Threads_ die parallele Verarbeitung von Daten.
 	Wir beginnen mit der Basisimplementierung und erarbeiten einige knifflige Situationen.

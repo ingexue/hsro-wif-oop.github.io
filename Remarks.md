@@ -79,19 +79,23 @@
 - 6/13 ABC
 	+ Abstrakte Klassen und Interfaces
 	+ Musiker/Auto
-	+ Übung: Zustandsautomat
+	+ Übung: shapes, bremsen
 - 6/20 Threads
 	+ Einfache Threads
 	+ Synchronisierung
 	+ Future
 	+ Consumer/Producer
 	+ Übung: Consumer/Producer
+
+Kassiert:
 - 6/27 --> 7/4
 	+ Design Patterns: Iterator, Factory, Observer, Composite, ...
 	+ Composite
 	+ Observer
 	+ Übung: Android: `OnClick` und Futures? Mensa Plan?
 
+
+ch-11: schlecht; nächstes Semester neu mit Skript+Folien+besseren Beispielen
 
 ## Übungen
 
