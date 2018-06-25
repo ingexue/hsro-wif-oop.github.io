@@ -9,7 +9,7 @@ mathjax: true
 
 # Prozesse
 
-Bis jetzt waren unsere Programme einzelne _Prozesse_, in denen die Instruktionen einzeln, nacheinander und in der Reihenfolge ausgeführt wurden, in der sie geschrieben wurden.
+Bis jetzt waren unsere Programme alleinstehende _Prozesse_, in denen die Instruktionen einzeln, nacheinander und in der Reihenfolge ausgeführt wurden, in der sie geschrieben wurden.
 Das nachfolgende Programm
 
 
@@ -40,21 +40,21 @@ Test: 1
 Test: 2
 ```
 
-Ein _Sequenzdiagramm_ zeigt den Ablauf; Methoden sind dabei als Spalten aufgetragen:
+Ein _Sequenzdiagramm_ zeigt den Programmablauf; Methoden sind dabei als Spalten aufgetragen:
 
 ![single-process](/12-parallel/process.svg)
 
-Dies ist auch das Verhalten im Debugger, wenn wir das Programm schrittweise ausführen (mit der _step-into_ Anweisung).
+Dies entspricht auch der Reihenfolge im Debugger, wenn wir das Programm schrittweise ausführen (mit der _step-into_ Anweisung).
 
 Ein _Prozess_ hat eine isolierte und eigenständige Umgebung.
-Er hat eine vollständige und eigene Menge an Laufzeitressourcen; das gilt insbesondere für den Speicher: Jeder Prozess hat seinenen eigenen Adressraum für Variablen.
+Er hat eine eigene, vollständige Menge an Laufzeitressourcen; das gilt insbesondere für den Speicher: Jeder Prozess hat seinenen eigenen Adressraum für Variablen.
 
 
 # Threads
 
 Die folgende Klasse `BeanCounter` modelliert einen Erbsenzähler.
 Im Konstruktor erhält eine Instanz einen Namen und allokiert ein großes Array von Zahlen.
-Der Aufruf von `run()` (von `Runnable`) sortiert dieses Array.
+Der Aufruf von `run()` (des `Runnable`-Interfaces) sortiert dieses Array.
 
 ```java
 class BeanCounter implements Runnable {
@@ -74,7 +74,7 @@ class BeanCounter implements Runnable {
 }
 ```
 
-Und hier ist ein Beispiel, in dem zwei Erbsenzähler erstellt werden, dann an die Arbeit geschickt werden, und eine abschließende Nachricht ausgegeben wird.
+Und hier ist ein Beispiel, in dem zwei Erbsenzähler erst erstellt und dann an die Arbeit geschickt werden; Abschließend wird eine  End-Nachricht ausgegeben.
 
 ```java
 public static void main(String... args) {
@@ -100,8 +100,8 @@ main() done!
 
 ![bureaucrats-1](/12-parallel/bureaucrats.svg)
 
-Möchte man diese Erbsenzähler nun gleichzeitig (nebenläufig, parallel) arbeiten lassen, so kann man die [`Thread` Klasse](https://docs.oracle.com/javase/9/docs/api/java/lang/Thread.html) verwenden.
-Diese nimmt eine Instanz von `Runnable` entgegen, deren `run()` Methode in einem separaten Ausführungsstrang (engl. _thread_) abläuft, sobald die Methode `start()` des Threads aufgerufen wird.
+Möchte man diese Erbsenzähler nun gleichzeitig (nebenläufig, parallel) arbeiten lassen, so kann man die [`Thread` -Klasse](https://docs.oracle.com/javase/9/docs/api/java/lang/Thread.html) verwenden.
+Diese nimmt eine Instanz von `Runnable` entgegen, deren `run()` -Methode in einem separaten Ausführungsstrang (engl. _thread_) abläuft, sobald die Methode `start()` des Threads aufgerufen wird.
 
 ```java
 public static void main(String[] args) {
@@ -157,7 +157,7 @@ Das obige Codebeispiel hat einen Nachteil: Die `main` Methone ist zu Ende bevor 
 Das erkennt man daran, dass die entsprechende Ausgabe _vor_ den "is done" Ausgaben erscheint.
 Übertragen auf das echte Leben heisst das: man deligiert Arbeit an das Team, meldet aber nach oben sofort, dass alles erledigt ist (obwohl das Team noch arbeitet).
 
-Eine (sehr schlechte) Lösung dafür ist es, _aktiv zu warten_ (engl. _active wait_) bis ein Thread abgeschlossen hat, in dem man wiederholt die `isAlive` Methode aufruft.
+Eine (sehr schlechte) Lösung dafür ist es, _aktiv zu warten_ (engl. _active wait_) bis ein Thread abgeschlossen hat, indem man wiederholt die `isAlive` Methode aufruft.
 
 In folgendem Beispiel soll ein `Runnable` 15 Sekunden schlafen (also nichts tun):
 
@@ -202,7 +202,7 @@ public static void main(String[] args) throws InterruptedException {
 
 Die Methoden `join` und `sleep` können hier Ausnahmen vom Typ `InterruptedException` werfen, welche entsprechend behandelt werden müssen.
 
-> `join` kann immer dann verwendet werden, wenn Zugriff auf die Thread Referenz besteht.
+> `join` kann immer dann verwendet werden, wenn Zugriff auf die Thread-Referenz besteht.
 > So kann man z.B. eine Threadreferenz an einen anderen Thread geben, um z.B. diesen Thread erst nach Ende des anderen Threads starten zu lassen.
 
 
@@ -263,14 +263,14 @@ public static void main(String[] args) {
 Total beans: 400000
 ```
 
-Wir erhalten aber stattdessen eine Ausgabe welche z.B. so aussehen könnte:
+Wir erhalten aber stattdessen eine Ausgabe, welche z.B. so aussehen könnte:
 
 ```
 Total beans: 362537
 ```
 
 Was ist passiert?
-Alle Erbsenzähler teilen sich *die selbe* `Counter` Instanz, verwenden sie aber in jeweils ihren eigenen Ausführungssträngen.
+Alle Erbsenzähler teilen sich *die selbe* `Counter` Instanz, verwenden sie aber jeweils in ihren eigenen Ausführungssträngen.
 Sehen wir uns dazu die `increment` Methode genauer an:
 
 ```java
@@ -291,7 +291,7 @@ void increment() {
 }
 ```
 
-Da nun aber jeder Thread seinen eigenen Ausführungsstrang hat, kann es sein, dass zwei Threads den Instruktionszeiger (also quasi die Zeile im Programm) an verschiedener Position haben, sich aber ja den Speicher teilen.
+Da nun aber jeder Thread seinen eigenen Ausführungsstrang hat, kann es sein, dass zwei Threads den Instruktionszeiger (also quasi die Zeile im Programm) an verschiedener Position haben, sich aber wie oben besprochen den Speicher teilen.
 Es können so also Wechselwirkungen zwischen zwei oder mehreren Threads entstehen:
 
 
@@ -308,8 +308,8 @@ Es können so also Wechselwirkungen zwischen zwei oder mehreren Threads entstehe
 Da Threads den Speicher teilen, lesen beide zunächst den selben Wert von `c` in eine eigene Hilfsvariable (`tmp1` und `tmp2`, zu Beginn `0`).
 Dann erhöhen beide separat ihre Hilfsvariablen, bevor sie die interne Zählvariable `c` mit ihrem (nun falschen) Wert überschreiben.
 
-Um das zu verhindern, müssen wir als Programmierer der JVM mitteilen, welche Programmabschnitte *nur von einem Thread gleichzeitig* betreten werden darf.
-Dieses sogenannte Sperren (engl. _locking_) wird in Uava mit dem Schlüsselwort `synchronized` erreicht, entweder als Modifikator für Methoden, oder als Blockanweisung mit einem Schlüsselobjekt.
+Um das zu verhindern, müssen wir als Programmierer der JVM mitteilen, welche Programmabschnitte *nur von einem Thread gleichzeitig* betreten werden dürfen.
+Dieses sogenannte Sperren (engl. _locking_) wird in Java mit dem Schlüsselwort `synchronized` erreicht, entweder als Modifikator für Methoden, oder als Blockanweisung mit einem Schlüsselobjekt.
 
 
 ```java
@@ -332,7 +332,7 @@ Hierbei ist zu beachten, dass lokale Variablen (im Beispiel oben: `tmp1` und `tm
 Im Gegensatz dazu werden Variablen des Heaps (mit `new` allokierte Objekte, im obigen Beispiel der `Counter`) mit den Threads geteilt (siehe auch [Java VM Spezifikation](https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-2.html#jvms-2.5.2)).
 
 Jeder Thread, welcher einen sog. _kritischen Abschnitt_ (engl. _critical section_) betreten möchte, muss zunächst den Schlüssel (hier: `this`) "an sich nehmen", oder warten, bis dieser wieder verfügbar ist.
-Nach durchlaufen des kritischen Abschnittes wird der Schlüssel wieder freigegeben.
+Nach Durchlaufen des kritischen Abschnittes wird der Schlüssel wieder freigegeben.
 
 Für die Blocksyntax wird das Schlüsselobjekt als Argument zum Schlüsselwort `synchronized` spezifiziert.
 Dieses kann im Prinzip jedes Objekt sein, und ist implizit `this`, wenn `synchronized` als Methodenmodifikator verwendet wird.
@@ -345,14 +345,14 @@ Total beans: 400000
 ## Synchronisierte Methoden vs. Schlüsselobjekte
 
 - Der Vorteil von `synchronized` Methoden ist, dass es oft eine sehr einfache Lösung eines Synchronisierungsproblems ist.
-	Der Nachtei ist, dass der gesamte Methodenblock gesperrt ist.
+	Der Nachteil ist, dass der gesamte Methodenblock gesperrt ist.
 - Der Vorteil der Blockschreibweise (`synchronized (lock) { ... }`) ist dagegen, dass das Sperren nur dann angewendet wird, wenn es wirklich notwendig ist.
 - Es kann zwar jedes Objekt als Schlüssel verwendet werden, jedoch muss die selbe Instanz in allen relevanten Stellen verwendet werden.
 
 
 # Kommunikation
 
-Das `synchronized` Schlüsselwort erlaubt es uns, sicher Werte zu verändern, welche von mehreren Threads verwendet werden.
+Das `synchronized`-Schlüsselwort erlaubt es uns, sicher Werte zu verändern, welche von mehreren Threads verwendet werden.
 Manchmal ist aber ein einfaches Sperren nicht genug, wie das folgende Diagramm veranschaulicht:
 
 ![Deadlock](/12-parallel/threads-deadlock.svg)
@@ -366,20 +366,20 @@ Dieser Mechanismus kann verwendet werden, um Threads nur dann arbeiten zu lassen
 
 ![threads-wait-notify](/12-parallel/threads-wait-notify.svg)
 
-> Hinweis: Diese Methoden sind teil der Java Thread API und sind bereits als `final` Methoden in `Object` definiert.
+> Hinweis: Diese Methoden sind teil der Java Thread API und bereits als `final` Methoden in `Object` definiert.
 
 > Hinweis: `notify()` weckt _einen_ anderen Thread auf, `notifyAll()` entsprechend alle.
 
 
 ## Das Erzeuger-Verbraucher-Problem
 
-Das klassische Beispiel um `wait()` und `notify()` zu demonstrieren, ist das _Erzeuger-Verbraucher-Problem_ (engl. _consumer-producer problem_).
+Das klassische Beispiel zur Demonstation von `wait()` und `notify()` ist das _Erzeuger-Verbraucher-Problem_ (engl. _consumer-producer problem_).
 Ein Erzeuger speichert Daten in eine Warteschlange, ein Verbraucher verarbeitet Daten, so wie sie bereit gestellt werden.
 Eine typische Anwendung dieses Musters ist ein Videostreamplayer: der Erzeuger ist der Decoder, welcher den Datenstrom in Bildsequenzen umrechnet; der Verbraucher ist der Grafiktreiber, welcher die Bilder dann tatsächlich darstellt.
 
 ![consumer-producer](/12-parallel/consumer-producer.png)
 
-Der Puffer stellt die Basisoperationen `put` und `get` zur verfügung, welche jeweils blockieren, wenn der Puffer bereits voll (`put`) bzw. leer (`get`) ist.
+Der Puffer stellt die Basisoperationen `put` und `get` zur Verfügung, welche jeweils blockieren, wenn der Puffer bereits voll (`put`) bzw. leer (`get`) ist.
 
 ```java
 class Buffer<T> {
@@ -387,7 +387,7 @@ class Buffer<T> {
 	final int max = 10;
 
 	synchronized void put(T obj) throws InterruptedException {
-		// warten solange der Puffer noch voll ist
+		// warten, solange der Puffer noch voll ist
 		while (buffer.size() == 10)
 			wait();
 
@@ -398,7 +398,7 @@ class Buffer<T> {
 	}
 
 	synchronized T get() throws InterruptedException {
-		// warten bis wieder etwas im Puffer ist
+		// warten, bis wieder etwas im Puffer ist
 		while (buffer.size() == 0)
 			wait();
 
