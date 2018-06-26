@@ -64,8 +64,6 @@ class BeanCounter implements Runnable {
 		this.name = name;
 		this.data = new double [n];
 	}
-
-	@Override
 	public void run() {
 		System.out.println(name + " is starting...");
 		Arrays.sort(data);
@@ -77,10 +75,8 @@ class BeanCounter implements Runnable {
 public static void main(String... args) {
 	BeanCounter b1 = new BeanCounter("Erbsenzähler 1", 10000);
 	BeanCounter b2 = new BeanCounter("Erbsenzähler 2", 1000);
-
 	b1.run();
 	b2.run();
-
 	System.out.println("main() done!");
 }
 ```
@@ -99,10 +95,8 @@ public static void main(String... args) {
 public static void main(String[] args) {
 	BeanCounter b1 = new BeanCounter("Erbsenzähler 1", 10000);
 	BeanCounter b2 = new BeanCounter("Erbsenzähler 2", 1000);
-
 	new Thread(b1).start();
 	new Thread(b2).start();
-
 	System.out.println("main() done!");
 }
 ```
@@ -148,8 +142,6 @@ public class TeamBeanCounter implements Runnable {
 	TeamBeanCounter(Counter c) {
 		this.c = c;
 	}
-
-	@Override
 	public void run() {
 		for (int i = 0; i < 100000; i++) {
 			c.increment();
@@ -166,7 +158,6 @@ public class TeamBeanCounter implements Runnable {
 ```java
 public static void main(String[] args) {
 	Counter c = new Counter();
-
 	new Thread(new TeamBeanCounter(c)).start();
 	new Thread(new TeamBeanCounter(c)).start();
 	new Thread(new TeamBeanCounter(c)).start();
