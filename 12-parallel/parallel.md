@@ -373,50 +373,96 @@ Dieser Mechanismus kann verwendet werden, um Threads nur dann arbeiten zu lassen
 
 ## Das Erzeuger-Verbraucher-Problem
 
-Das klassische Beispiel zur Demonstation von `wait()` und `notify()` ist das _Erzeuger-Verbraucher-Problem_ (engl. _consumer-producer problem_).
-Ein Erzeuger speichert Daten in eine Warteschlange, ein Verbraucher verarbeitet Daten, so wie sie bereit gestellt werden.
+Das klassische Beispiel zur Demonstation von `wait()` und `notify()` (bzw. `notifyAll()`) ist das _Erzeuger-Verbraucher-Problem_ (engl. _consumer-producer problem_).
+Ein oder mehrere Erzeuger speichern Daten in eine Warteschlange, ein oder mehrere Verbraucher verarbeiten Daten, in der Reihenfolge in der sie bereit gestellt wurden.
 Eine typische Anwendung dieses Musters ist ein Videostreamplayer: der Erzeuger ist der Decoder, welcher den Datenstrom in Bildsequenzen umrechnet; der Verbraucher ist der Grafiktreiber, welcher die Bilder dann tatsächlich darstellt.
 
 ![consumer-producer](/12-parallel/consumer-producer.png)
 
-Der Puffer stellt die Basisoperationen `put` und `get` zur Verfügung, welche jeweils blockieren, wenn der Puffer bereits voll (`put`) bzw. leer (`get`) ist.
+Ein einfaches Beispiel ist eine Erweiterung des bereits betrachteten `Counter`, hier als Klasse `ErzeugerVerbraucher` modelliert.
+Erzeuger rufen nun `erzeugen()` auf, um den internen Zähler zu erhöhen; Verbraucher rufen `verbrauchen()` auf, um ihn zu verringern:
 
 ```java
-class Buffer<T> {
-	List<T> buffer = new LinkedList<>();
-	final int max = 10;
+class ErzeugerVerbraucher {
+	private int c = 0;      // darf nie unter 0!
+	private final int max;  // es muss immer c <= max gelten
 
-	synchronized void put(T obj) throws InterruptedException {
-		// warten, solange der Puffer noch voll ist
-		while (buffer.size() == 10)
-			wait();
-
-		buffer.add(obj);
-
-		// andere Threads (Verbraucher) benachrichtigen
-		notifyAll();
+	ErzeugerVerbraucher(int max) {
+		this.max = max;
 	}
 
-	synchronized T get() throws InterruptedException {
-		// warten, bis wieder etwas im Puffer ist
-		while (buffer.size() == 0)
-			wait();
+	int getVerfuegbar() {
+		return c;
+	}
 
-		T obj = buffer.remove(0);
-		
-		// andere Threads (Erzeuger) benachrichtigen
-		notifyAll();
-		return obj;
+	void erzeugen() {
+		c = c + 1;
+	}
+
+	void verbrauchen() {
+		c = c - 1;
 	}
 }
 ```
 
-So können nun mehrere Verbraucher- und Erzeugerthreads den selben Puffer verwenden.
-Wenn einer `get` auf einem leeren Puffer aufruft, so wird er warten (`wait()`) bis der Puffer gefüllt ist.
-Wenn einer `put` auf einem vollen Puffer aufruft, so wird er warten, bis wieder Platz ist.
+Was passiert nun aber, wenn `c == 0` und `abholen()` aufgerufen wird, oder wenn `c == max` und `bereitstellen()`?
+Dann würde `c` in einen nicht zugelassenen Wertebereich gehen!
 
-All das funktioniert, da immer genau ein Thread gleichzeitig in den kritischen Abschnitten ist.
-Das ist auch der Grund, warum `wait` und `notify` **nur in kritischen Abschnitten** verwendet werden können.
+Eine Möglichkeit wäre es, in den entsprechenden Fällen eine `Exception` zu werfen:
+
+```java
+void erzeugen() {
+	if (c == max)
+		throw new RuntimeException("Kein Platz mehr!!");
+	c = c + 1;
+}
+```
+
+Das hat aber den Nachteil, dass der aufrufende Thread dann zum einen die Ausnahme behandeln muss, und zum anderen nur _aktiv warten_ kann, bis wieder Daten vorhanden sind -- was um jeden Preis vermieden werden soll.
+
+Der Schlüssel liegt in der Abstimmung der Threads untereinander:
+
+- Wenn einer `bereitstellen()` möchte und kein Platz ist, so muss zunächst _gewartet_ werden bis etwas abgeholt wurde.
+- Wenn einer `abholen()` möchte und nichts da ist, so muss zunächst _gewartet_ werden, bis etwas bereitgestellt wurde.
+
+Diese Synchronisierung wird durch `wait` und `notify` (bzw. `notifyAll`) am Schlüsselobjekt und innerhalb der `synchronized` Methode bzw. Blocks realisiert:
+
+```java
+class ErzeugerVerbraucher {
+	// ...
+
+	synchronized void bereitstellen() throws InterruptedException {
+		// solange warten, bis wieder was rein passt
+		while (c >= max)
+			wait();
+
+		// jetzt passt wieder was rein!
+		c = c + 1;
+
+		// andere Threads benachrichtigen, die moeglicherweise warten
+		notifyAll();
+	}
+
+	synchronized void abholen() throws InterruptedException {
+		// solange nicht mind. 1 Element da ist, warten!
+		while (c < 0)
+			wait();
+
+		// es gibt jetzt mind. 1
+		c = c - 1;
+
+		// andere Threads benachrichtigen, die moeglicherweise warten
+		notifyAll();
+	}
+}
+```
+
+So können nun mehrere Verbraucher- und Erzeugerthreads dieselbe `ErzeugerVerbraucher` Instanz verwenden, und dabei einen inkonsistenten Zustand ausschließen.
+Wenn ein Thread `abholen()` aufruft, aber nichts verfügbar ist, so wird er so lange warten (`wait()`) bis etwas bereit gestellt wurde.
+Wenn ein Thread `bereitstellen()` aufruft, aber kein Platz ist, so wird er warten, bis wieder Platz ist.
+
+All das funktioniert, da immer genau ein Thread gleichzeitig in den kritischen Abschnitten aktiv ist.
+Das ist auch der Grund, warum `wait` und `notify` **nur in kritischen Abschnitten**, also innerhalb einer `synchronized` Methode oder eines `synchronized (...)` Blocks, verwendet werden können.
 
 
 # Lebenszyklus von Threads
