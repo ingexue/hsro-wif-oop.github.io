@@ -10,7 +10,7 @@ _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.fh-rose
 
 **Kommunikation**: via [Mattermost](https://inf-mattermost.fh-rosenheim.de/wif-prg2/channels/town-square) ([einschreiben](https://inf-mattermost.fh-rosenheim.de/signup_user_complete/?id=wp3dau8xmigxtmf93z5ixur1ta))
 
-**PStA**: via [domgjudge](http://domjudge.inf.fh-rosenheim.de) (**Achtung**: nur übers `fhintern` Netz (WLAN oder Kabel), oder über das VPN)
+**PStA**: via [domjudge](http://domjudge.inf.fh-rosenheim.de) (**Achtung**: nur übers `fhintern` Netz (WLAN oder Kabel), oder über das VPN)
 
 **Wichtige Termine**:
 
@@ -107,7 +107,7 @@ Der Leistungsnachweis ist aufgeteilt in eine
 	Folgten unsere Programme bisher einem vorgesehenen Ablaufplan, so erlauben _Threads_ die parallele Verarbeitung von Daten.
 	Wir beginnen mit der Basisimplementierung und erarbeiten einige knifflige Situationen.
 
-- **4. Juli: Zusammenfassung**
+- **4. Juli: Zusammenfassung** ([Folien](/13-zusammenfassung/slides/))
 
 
 _Abboniere das [https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io Repository](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io), um bei Updates benachrichtigt zu werden._

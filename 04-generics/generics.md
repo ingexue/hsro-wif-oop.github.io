@@ -439,7 +439,7 @@ interface Set<T extends Comparable<T>> {
 }
 ```
 ```java
-interface SetImpl<T extends Comparable<T>> implements Set<T> {
+class SetImpl<T extends Comparable<T>> implements Set<T> {
 	// ...
 }
 ```
