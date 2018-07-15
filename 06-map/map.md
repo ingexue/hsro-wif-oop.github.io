@@ -355,7 +355,7 @@ Quelle: [Wikipedia](https://en.wikipedia.org/wiki/File:Hash_table_5_0_1_1_1_1_0_
 	+ _definieren_ Sie Variablen als _Schnittstellen_
 	+ _initialisieren_ Sie die Variablen von Klassen der Java API
 	+ z.B. `Set<String> s = new TreeSet<>()`
-	+ Vermeidung von 
+	+ Vermeiden Sie die Verwendung von _raw types_ (unparametrisierten generischen Klassen), verwenden Sie also z.B. immer `List<...>` statt `List`.
 - Werden Datenstrukturen mit eigenen Klassen verwendet, so sollte **unbedingt** 
 	+ `equals` zur Prüfung auf Wertgleichheit implementiert werden
 	+ `hashCode` implementiert Werden, sofern Hashing verwendet word
