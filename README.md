@@ -1,4 +1,6 @@
-# Objektorientierte Programmierung (formerly known as Programmieren 2)
+# Pflichtmodul: Objektorientierte Programmierung (OOP)
+
+**(formerly known as 'Programmieren 2')**
 
 _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rosenheim.de/technik/informatik-mathematik/wirtschaftsinformatik-bachelor/) an der [Hochschule Rosenheim](https://www.th-rosenheim.de)._
 

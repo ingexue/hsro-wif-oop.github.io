@@ -1,14 +1,15 @@
-title: "Programmieren 2 (wif-prg2)"
-email: korbinian.riedhammer@fh-rosenheim.de
-description: "Materialien zum Pflichtmodul Programmieren 2"
+title: "Technische Hochschule Rosenheim"
+domain: "http://th-rosenheim.de"
+email: marcel.tilly@th-rosenheim.de
+description: "Materialien zum Pflichtmodul Objektorientiertes Programmieren (OOP)"
 baseurl: ""
-url: "https://hsro-wif-prg2.github.io"
+url: "https://hsro-wif-oop.github.io"
 exclude:
   - "LICENSE"
   - "Remarks.md"
   - "*.plantuml"
   - examples
-github_username: ["sikoried"]
+github_username: ["matworx"]
 
 # Build settings
 markdown: kramdown
