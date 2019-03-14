@@ -8,7 +8,7 @@ _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rose
 
 **Vorlesungstermin**: Montags, 11:45-13:15 A3.13
 
-**Übungen**: Dienstags, 2./3.4. Stunde, S1.31; Tutor: ???
+**Übungen**: Dienstags, 2./3./4. Stunde, S1.31; Tutor: Daniel Herzinger
 
 **Kommunikation**: via [Mattermost](https://inf-mattermost.th-rosenheim.de/wif-oop-ss19/channels/town-square) ([einschreiben](https://inf-mattermost.fh-rosenheim.de/signup_user_complete/?id=ptti4zza5fyqbg76jnz1jkjuia))
 
