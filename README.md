@@ -8,7 +8,7 @@ _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rose
 
 **Übungen**: Dienstags, 2./3.4. Stunde, S1.31; Tutor: ???
 
-**Kommunikation**: via [Mattermost](https://inf-mattermost.th-rosenheim.de/wif-prg2/channels/town-square) ([einschreiben](https://inf-mattermost.th-rosenheim.de/signup_user_complete/?id=wp3dau8xmigxtmf93z5ixur1ta))
+**Kommunikation**: via [Mattermost](https://inf-mattermost.th-rosenheim.de/wif-oop-ss19/channels/town-square) ([einschreiben](https://inf-mattermost.fh-rosenheim.de/signup_user_complete/?id=ptti4zza5fyqbg76jnz1jkjuia))
 
 **Coding Contest**: via [domjudge](http://domjudge.inf.fh-#rosenheim.de) (**Achtung**: nur übers `fhintern` Netz #(WLAN oder Kabel), oder über das VPN)
 
