@@ -32,7 +32,9 @@ Marcel Tilly
 
 Vorlesungswebseite: <https://hsro-wif-oop.github.io>
 
-Mattermost: <hhttps://inf-mattermost.fh-rosenheim.de/wif-oop-ss19>
+Moodle: **Objektorientierte Programmierung - WIF SS 2019** - Selbsteinschreibung wif-oop-ss19
+
+Mattermost: <https://inf-mattermost.fh-rosenheim.de/wif-oop-ss19>
 
 Gitlab: **wif-oop-ss19**
 
@@ -46,9 +48,7 @@ Gitlab: **wif-oop-ss19**
 
 # Daniel Herzinger
 
-.center[
-<img style="width: 40%; margin" src="{{site.baseurl}}/00-einfuehrung/mm.jpg">
-]
+![This is Daniel!]()
 
 
 ---
@@ -65,7 +65,7 @@ Gitlab: **wif-oop-ss19**
 
 ### Wichtige Termine:
 
-- ??. April: Prüfungsanmeldung im OSC
+- 00. April: Prüfungsanmeldung im OSC
 - 13. Mai: Einführung in das Contestsystem (persönliche Anwesenheit erforderlich!)
 
 ---
@@ -74,8 +74,8 @@ Gitlab: **wif-oop-ss19**
 
 ## Ablauf
 
-- 2 SWS Vorlesung (Montags 11:45) im A3.13
-- 2 SWS Übung (Dienstags, 3 Gruppen, mit Tutor) im S1.31
+- 2 SWS Vorlesung (Montags 11:45) in A3.13
+- 2 SWS Übung (Dienstags, 3 Gruppen, mit Tutor) in S1.31
 
 ## Literatur
 
@@ -110,13 +110,17 @@ Gitlab: **wif-oop-ss19**
 
 <https://hsro-wif-oop.github.io>
 
+und
+
+Moodle : Objektorientierte Programmierung - WIF SS 2019 (WIF-OOP-19)
+
 ---
 
 # Tips zu den Übungen
 
 ## Klären, _was_ eigentlich zu tun ist
 
-Die Angaben sind auf Github, lesen Sie die Readme sorgfältig durch.
+Die Angaben sind auf Gitlab, lesen Sie die Readme sorgfältig durch.
 
 ## Festlegen, _wie_ die Aufgabe zu lösen ist
 
@@ -137,6 +141,68 @@ Die Angaben sind auf Github, lesen Sie die Readme sorgfältig durch.
 
 - Verwenden Sie JUnit um Ihr Programm mit vorgegebenen Eingaben zu testen.
 - Erweitern Sie die Tests um weitere Ein- und Ausgaben.
+
+---
+
+# Motivation: "Bad design smells!"
+
+![](cheops_bad.png)
+
+---
+
+# Bad Design: Wie kann das passieren?
+
+## Problem
+- Zyklische Abhängigkeiten
+- Keine klare Struktur
+## Ursachen
+- Historisch gewachsen
+- Viele Änderungen/ ohne Design
+- adhoc
+- Keine klaren Verantwortlichkeiten
+## Effekt
+- Monolithisch
+- Nicht wartbar
+- Nicht wiederverwendbar
+- Ineffizient
+- Schwer zu testen
+- Nicht verlässlich
+
+---
+
+# Good Design
+
+![](cheops_good.png)
+
+---
+
+# Why does it matter?
+
+## Klare Struktur – klare Sprache
+- Eindeutige Abhängigkeiten
+- modular
+
+## Effekt
+- Definierte Verantwortlichkeiten
+- Einfachere Wartung
+- Einfachere Änderungen
+- Effizienter
+- Modular: Besser zu testen
+
+---
+
+# Anforderungen an Software
+
+- **Korrektheit** (Correctness): Die Software erfüllt die Anforderungen
+- **Einfache Handhabung** (Usability): Nutzer können das System problemlos nutzen
+
+- **Robustheit** (Robustness): Software reagiert angemessen bei abweichenden Bedingungen
+
+- **Erweiterbarkeit** (Extendable): beschreibt, wie leicht Software erweitert werden kann
+- **Wiederverwendbarkeit** (Reuseable): Software (Elemente) kann für anderen Anwendungen wiederverwendet werden
+- **Vereinbarkeit** (Composability): Wie leicht Software (Elemente) miteinander kombiniert werden können
+
+- **Effizienz** (Efficiency): Möglichst wenig Anforderungen an die Hardware stellen
 
 ---
 
