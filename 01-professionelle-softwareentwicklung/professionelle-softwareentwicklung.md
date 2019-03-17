@@ -1,5 +1,6 @@
 ---
-title: Professionelle Softwareentwicklung
+title: 01 Professionelle Softwareentwicklung
+
 permalink: /01-professionelle-softwareentwicklung/
 ---
 
@@ -13,7 +14,7 @@ Waren werden dann einem _Warenkorb_ hinzugefügt.
 
 Ein entsprechendes _Objektdiagramm_ könnte wie folgt aussehen:
 
-![Objektdiagramm]({{site.baseurl}}/01-professionelle-softwareentwicklung/objektdiagramm.svg)
+![Objektdiagramm](objektdiagramm.svg)
 
 Wobei der Pfeil mit der leeren Raute eine _Aggregation_ darstellt: Das Objekt `warenkorb1` enthält die Objekte `stift1` und `stift2`.
 
@@ -22,7 +23,7 @@ Wobei der Pfeil mit der leeren Raute eine _Aggregation_ darstellt: Das Objekt `w
 Möchte man diese kleine Modellwelt in einer objektorientierten Sprache wie Java implementieren, so abstrahiert man das Diagramm in ein _Klassendiagramm_.
 
 
-![KLassendiagramm]({{site.baseurl}}/01-professionelle-softwareentwicklung/klassendiagramm.svg)
+![KLassendiagramm](klassendiagramm.svg)
 
 Neben den Assoziationen sind hier auch die Sichtbarkeiten modelliert: das rote Viereck steht für `private`, also von aussen nicht zugreifbar, der grüne Punkt für `public`.
 Wie Sie sehen können spezifiziert man also Attribute in der Regel privat, Methoden aber öffentlich.
@@ -210,9 +211,9 @@ Die Versionierungssoftware Git hilft hierbei.
 Vereinfacht gesehen soll es einen Hauptbestand des Quellcodes geben (`master`), und neue Features sollen dann jeweils in separaten _Branches_ implementiert werden.
 Ist ein Feature in einem Branch fertig gestellt, so wird es in `master` durch einen _Merge_ eingebracht:
 
-![Gitflow]({{site.baseurl}}/01-professionelle-softwareentwicklung/cd-workflow-basic.png)
+![Gitflow](cd-workflow-basic.png)
 
-Die erste Übung (<http://github.com/hsro-wif-prg2/tutorial>) beinhaltet ein kleines Tutorial zu Git, bitte machen Sie sich damit vertraut.
+Die erste Übung (<https://inf-git.fh-rosenheim.de/wif-oop-ss19>) beinhaltet ein kleines Tutorial zu Git, bitte machen Sie sich damit vertraut.
 
 
 <p style="text-align: right">&#8718;</p>
