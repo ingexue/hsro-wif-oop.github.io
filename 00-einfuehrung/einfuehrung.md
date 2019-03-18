@@ -6,7 +6,6 @@ layout: page
 
 ---
 
-
 # Objektorientiertes Programmieren
 
 **(formerly known as _Programmieren 2_)**
@@ -28,20 +27,11 @@ Moodle: [**Objektorientierte Programmierung - WIF SS 2019**](https://learning-ca
 
 Mattermost: [**https://inf-mattermost.fh-rosenheim.de/wif-oop-ss19**](https://inf-mattermost.fh-rosenheim.de/wif-oop-ss19)
 
-Gitlab: [**https://inf-git.fh-rosenheim.de/wif-oop-ss19**](https://inf-git.fh-rosenheim.de/wif-oop-ss19)
-
 Übungen:
 
 - Dienstags, 2./3./4. Stunde
 - Raum: S1.31
 - Tutor: Daniel Herzinger
-
----
-
-# Daniel Herzinger
-
-![This is Daniel!]()
-
 
 ---
 
@@ -180,13 +170,10 @@ Die Angaben sind auf Gitlab, lesen Sie die Readme sorgfältig durch.
 
 - **Korrektheit** (Correctness): Die Software erfüllt die Anforderungen
 - **Einfache Handhabung** (Usability): Nutzer können das System problemlos nutzen
-
 - **Robustheit** (Robustness): Software reagiert angemessen bei abweichenden Bedingungen
-
 - **Erweiterbarkeit** (Extendable): beschreibt, wie leicht Software erweitert werden kann
 - **Wiederverwendbarkeit** (Reuseable): Software (Elemente) kann für anderen Anwendungen wiederverwendet werden
 - **Vereinbarkeit** (Composability): Wie leicht Software (Elemente) miteinander kombiniert werden können
-
 - **Effizienz** (Efficiency): Möglichst wenig Anforderungen an die Hardware stellen
 
 ---
