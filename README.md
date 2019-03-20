@@ -39,7 +39,7 @@ _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rose
 	Nach ein paar organisatorischen Dingen widmen wir uns dem Handwerkszeug professioneller Softwareentwicklung.
 	Wir wiederholen Spezifikation mit UML, Versionierung mit git, Tests und Ausnahmebehandlung.
 
-- **25. März: Liste als sequenzielle Datenstruktur** ([Skript](02-linked-list/), [Übung](https://github.com/hsro-wif-oop/uebung01))
+- **25. März: Liste als sequenzielle Datenstruktur** ([Skript](02-linked-list/), [Übung](https://github.com/hsro-wif-oop/oop-uebung01))
 
 	Bisher haben wir größere Mengen von gleichen Objekten in Feldern (Arrays) gespeichert, welche aber in ihrer Größe in Java unveränderlich sind.
 	Wir erarbeiten uns nun mithilfe der Objektorientierung eine dynamische Datenstruktur, welche nach Bedarf wachsen und schrumpfen kann und so Daten effizient verwaltet.
