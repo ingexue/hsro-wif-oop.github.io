@@ -34,7 +34,7 @@ Fakultät Informatik, Cloud Computing
 - Menschen nehmen die Welt in Objekten wahr
 - Objektorientiertes Design mit prozeduralen Systemen ist schwierig (Programme, Unterprogramme,..)
 
-=> Programm-Design wird druch Objekte und Klassen einfacher
+=> Programm-Design wird durch Objekte und Klassen einfacher
 
 ---
 # OOP Prinzipen 
