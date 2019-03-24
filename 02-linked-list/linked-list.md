@@ -1,5 +1,5 @@
 ---
-title: Verkette Liste
+title: 02 Verkettete Liste
 permalink: /02-linked-list/
 ---
 
@@ -111,7 +111,7 @@ class IntListImpl1 implements IntList {
 
 Diese _Realisierung_ wird in UML mit dem gestrichelten Pfeil sowie einer leeren Dreiecksspitze dargestellt:
 
-![Realisierung]({{site.baseurl}}/02-linked-list/realisierung.svg)
+![Realisierung](realisierung.svg)
 
 Ist `IntListImpl1` eine Realisierung von `IntList`, gilt die _is-a_ Beziehung (`IntListImpl1` _is a_ `IntList`) und wir können beide wie folgt verwenden:
 
@@ -236,7 +236,7 @@ Wir suchen also ein Modell, bei dem eine Liste beliebig lang sein kann, und bei 
 
 Oft hilft dabei ein Beispiel aus der realen Welt:
 
-![Güterzug]({{site.baseurl}}/02-linked-list/gueterzug.jpg)
+![Güterzug](gueterzug.jpg)
 
 _Quelle: [Wikipedia](https://commons.wikimedia.org/wiki/File:1016.033_mit_G%C3%BCterzug.jpg)_
 
@@ -248,19 +248,17 @@ Abstrakt betrachtet ist ein Güterzug eine Liste:
 
 Würde man einen "Güterzug" mit Ladung 11, 22 und 33 als Objektdiagram zeichnen, so könnte das so aussehen:
 
-![Objektdiagramm]({{site.baseurl}}/02-linked-list/objektdiagramm.svg)
+![Objektdiagramm](objektdiagramm.svg)
 {: .figcenter}
 
 Wir suchen also zunächst eine Klasse, welche die Lok darstellt, sowie eine Klasse welche die Wagons darstellt; die Lok soll dabei eine Liste (hier: `IntList`) sein:
 
-![Klassendiagramm]({{site.baseurl}}/02-linked-list/klassendiagramm.svg)
-{: .figcenter}
+![Klassendiagramm](klassendiagramm.svg)
 
 Ein Zug ist also eine Verkettung von Waggons.
 Da nun nicht alle [Nerds Zugfans](https://www.youtube.com/watch?v=jCNrs23r4DA) sind oder [Züge allgemein mögen](https://www.youtube.com/watch?v=5DjOL2we8ko), abstrahieren wir zur _verketteten Liste_:
 
-![Klassendiagramm 2]({{site.baseurl}}/02-linked-list/klassendiagramm2.svg)
-{: .figcenter}
+![Klassendiagramm 2](klassendiagramm2.svg)
 
 Wir brauchen also die Klassen `IntElement` und `LinkedIntList`, wobei Letztere das Interface `IntList` implementiert:
 
@@ -331,13 +329,11 @@ public void put(int i, int v) {
 Etwas trickreicher ist nun das Löschen eines Elementes.
 Hierbei wird im Endeffekt nicht gelöscht, sondern ein Element durch ändern der Verlinkung unerreichbar gemacht (was wiederum die Löschung durch die JVM bewirkt).
 
-![Objektdiagramm]({{site.baseurl}}/02-linked-list/objektdiagramm.svg)
-{: .figcenter}
+![Objektdiagramm](objektdiagramm.svg)
 
 Die Verlinkung wird nun verändert:
 
-![Objektdiagramm 2]({{site.baseurl}}/02-linked-list/objektdiagramm2.svg)
-{: .figcenter}
+![Objektdiagramm 2](objektdiagramm2.svg)
 
 
 ```java

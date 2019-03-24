@@ -23,12 +23,33 @@ Einführung in objektorientiertes Programmieren
 Fakultät Informatik, Cloud Computing
 
 ---
-Java ist natürlich nicht die erste objektorientierte Sprache (OO-Sprache), auch C++ war nicht die erste. Klassischerweise gelten Smalltalk und insbesondere Simula-67 aus dem Jahr 1967 als Stammväter aller OO-Sprachen. Die eingeführten Konzepte sind bis heute aktuell.
+- Java ist nicht die erste objektorientierte Sprache (OO-Sprache)
+- C++ war nicht die erste
+- Klassischerweise gelten Smalltalk und insbesondere Simula-67 aus dem Jahr 1967 als Stammväter aller OO-Sprachen
+- Die eingeführten Konzepte sind bis heute aktuell
+
+---
+# Warum überhaupt OOP?
+
+- Menschen nehmen die Welt in Objekten wahr
+- Objektorientiertes Design mit prozeduralen Systemen ist schwierig (Programme, Unterprogramme,..)
+
+=> Programm-Design wird druch Objekte und Klassen einfacher
 
 ---
 # OOP Prinzipen 
+OOP stützt sich auf die Konzepte von Objekten und Klassen (Typedefintion von Objekten).
 
-Die vier allgemein anerkannten Prinzipien der OOP:
+Es gilt:
+
+1. Alles ist ein Objekt (manchmal gibt es Ausnahmen, z.B. Basistypen)
+2. Objekte kommunizieren durch das Senden und Empfangen von Nachrichten (Wie funktioniert das in Java?)
+3. Jedes Objekt ist die Instanz einer Klasse. Die Klasse definiert die Struktur aller ihrer Instanzen
+
+---
+## Eigenschaften OOP
+
+Grundsätzlich bieten Objekte die folgenden Vorteile:
 
 - Abstraktion
 - Kapselung
@@ -36,14 +57,13 @@ Die vier allgemein anerkannten Prinzipien der OOP:
 - Polymorphie
 
 ---
-# Warum OOP?
 
-- Menschen nehmen die Welt in Objekten wahr
-- Objektorientiertes Design mit prozeduralen Systemen ist schwierig (Programme, Unterprogramme,..)
-- Objekte in Software haben 3 wichtige Eigentschaften:
-      - Jedes Objekt hat eine **Identität** (bleibt erhalten während der Lebenszeit!)
-      - Jedes Objekt hat einen **Zustand** (Bildet eine Einheit von Daten und Funktionaltät)
-      - Jedes Objekt hat ein Verhalten
+# Objekte haben 4 wichtige Eigentschaften
+
+- Jedes Objekt hat eine **Identität** (bleibt erhalten während der Lebenszeit!)
+- Jedes Objekt hat einen **Zustand** (Bildet eine Einheit von Daten und Funktionaltät)
+- Jedes Objekt hat ein Verhalten
+- Jedes Objekt bietet eine Schnittstelle (Interface) zur Interaktion 
 
 ---
 # Motivation: "Bad design smells!"
@@ -87,7 +107,7 @@ Die vier allgemein anerkannten Prinzipien der OOP:
 - Einfachere Wartung
 - Einfachere Änderungen
 - Effizienter
-- Modular: Besser zu testen
+- Besser zu testen
 
 ---
 
