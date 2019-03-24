@@ -213,7 +213,7 @@ Ist ein Feature in einem Branch fertig gestellt, so wird es in `master` durch ei
 
 ![Gitflow](cd-workflow-basic.png)
 
-Die erste Übung (<https://inf-git.fh-rosenheim.de/wif-oop-ss19>) beinhaltet ein kleines Tutorial zu Git, bitte machen Sie sich damit vertraut.
+Die erste Übung (<https://github.com/hsro-wif-oop/tutorial>) beinhaltet ein kleines Tutorial zu Git, bitte machen Sie sich damit vertraut.
 
 
 <p style="text-align: right">&#8718;</p>
