@@ -109,7 +109,7 @@ class CharSetImpl1 implements CharSet {
 }
 ```
 
-Das Einfügen (`add`) kann dann analog zur Liste realisiert werden, ebenso die Methoden `size`, `remove` und `toString` (siehe [ch02.ListImpl3](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/java/ch02/IntListImpl3.java) bzw. [ch03.CharListImpl1](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/java/ch03/CharListImpl1.java)).
+Das Einfügen (`add`) kann dann analog zur Liste realisiert werden, ebenso die Methoden `size`, `remove` und `toString` (siehe [ch02.ListImpl3](https://github.com/hsro-wif-oop/hsro-wif-oop.github.io/blob/master/examples/src/main/java/ch02/IntListImpl3.java) bzw. [ch03.CharListImpl1](https://github.com/hsro-wif-oop/hsro-wif-oop.github.io/blob/master/examples/src/main/java/ch03/CharListImpl1.java)).
 
 
 ```java
@@ -155,17 +155,17 @@ is.add(6);
 is.add(1);
 ```
 
-![Baum 1/6]({{site.baseurl}}/03-tree-set/tree-od1.svg)
+![Baum 1/6](tree-od1.svg)
 
-![Baum 2/6]({{site.baseurl}}/03-tree-set/tree-od2.svg)
+![Baum 2/6](tree-od2.svg)
 
-![Baum 3/6]({{site.baseurl}}/03-tree-set/tree-od3.svg)
+![Baum 3/6](tree-od3.svg)
 
-![Baum 4/6]({{site.baseurl}}/03-tree-set/tree-od4.svg)
+![Baum 4/6](tree-od4.svg)
 
-![Baum 5/6]({{site.baseurl}}/03-tree-set/tree-od5.svg)
+![Baum 5/6](tree-od5.svg)
 
-![Baum 6/6]({{site.baseurl}}/03-tree-set/tree-od6.svg)
+![Baum 6/6](tree-od6.svg)
 
 > Die Metapher _Baum_ kommt von der Verästelung bzw. Verzweigung, auch wenn ein Baum ja eigentlich von der Wurzel nach Oben wächst.
 > Aber Informatiker zählen ja auch von 0 und nicht von 1...
@@ -296,8 +296,7 @@ Würde man das auf dem obigen Beispielbaum (zur Erinnerung: 4, 2, 3, 6, 1) anwen
 
 Eine elegante Lösung für dieses Problem ist die [_Rekursion_](https://www.google.de/search?q=recursion), also der wiederholte Aufruf einer Funktion durch sich selbst.
 
-![Google Recursion]({{site.baseurl}}/03-tree-set/google-recursion.png)
-{: .figcenter}
+![Google Recursion](google-recursion.png)
 
 Wir beginnen mit der `size` Methode, welche zurück geben soll, wie viele Elemente im Baum gespeichert sind.
 
@@ -484,8 +483,8 @@ Man kann mathematisch-kombinatorisch beweisen, dass der mittlere Aufwand (Komple
 Wir erinnern uns an den Eingang dieses Kapitels: Die naive Implementierung eines Sets als Liste hatte die Komplexität $O(n)$.
 Das scheint beim Lesen nicht arg unterschiedlich, doch auch hier sagt ein Bild mehr als 1000 Worte:
 
-![Komplexität]({{site.baseurl}}/03-tree-set/o-n-logn.png)
-{: .figcenter}
+![Komplexität](o-n-logn.png)
+
 
 Man sieht: bei linear steigenden $n$ ($x$-Achse) bleibt die logarithmische Steigung sehr schnell sehr weit unter der Linearen.
 Die Baumstruktur ist also wesentlich effizienter!
