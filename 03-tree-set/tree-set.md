@@ -386,20 +386,6 @@ Zunächst gibt es drei Fälle zu betrachten:
 Ist 1. trivial, so sehen wir bei 2. und 3. zumindest eine Gemeinsamkeit: Löschen wir ein Element, so müssen wir sicherstellen, dass etwaige Teilbäume (`left` und `right`) wieder in den Baum eingefügt werden.
 Hierzu erstellt man eine Hilfsmethode `addElement`, welche analog zur bestehenden `add` Methode arbeitet, aber eben gleich statt einem _Wert_ ein Element (mit etwaigen Teilbäumen) einfügt.
 
-Schauen wir uns das Ganye mal graphisch an:
-
-1. Möglichkeit
-![Tree Delete1](tree_del1.png)
-
-2. Möglichkeit
-![Tree Delete2](tree_del2.png)
-
-3. Möglichkeit
-![Tree Delete3](tree_del3.png)
-
-4. Möglichkeit
-![Tree Delete4](tree_del4.png)
-
 
 Es verbleibt noch die Unterscheidung, ob man das Wurzelelement löschen möchte (2.) oder ein Inneres (3.). 
 Eine mögliche `remove` Implementierung könnte also wie folgt vorgehen:
@@ -465,6 +451,23 @@ private char removeRoot() {
 ```
 
 Ähnlich geht man bei inneren Elementen vor.
+
+
+Schauen wir uns das Ganze mal graphisch an:
+
+1. Möglichkeit
+![Tree Delete1](tree_del1.png)
+
+2. Möglichkeit
+![Tree Delete2](tree_del2.png)
+
+3. Möglichkeit
+![Tree Delete3](tree_del3.png)
+
+4. Möglichkeit
+![Tree Delete4](tree_del4.png)
+
+
 Da der Baum hier aber nur in eine Richtung verlinkt ist, benötigen wir zum Löschen Referenzen auf das Elternelement und das zu löschende Element.
 Man setzt dann das zu löschende Element auf `null`, und fügt etwaige Teilbäume wieder neu ein.
 
