@@ -52,7 +52,7 @@ for (int i = 0; i < a.length; i++)
 	System.out.println(a[i]);
 ```
 
-Zu Anfang dieses Semesters hatten wir die [Liste](/02-linked-list/) als sequenzielle Datenstruktur kennengelernt, welche wir dann einmal mit einem Array (`ArrayList`, [Quelle](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/java/ch05/ArrayList.java)) und einmal mit verketteter Liste (`LinkedList`, [Quelle](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/java/ch05/LinkedList.java)) implementiert hatten.
+Zu Anfang dieses Semesters hatten wir die [Liste](/02-linked-list/) als sequenzielle Datenstruktur kennengelernt, welche wir dann einmal mit einem Array (`ArrayList`, [Quelle](https://github.com/hsro-wif-oop/hsro-wif-oop.github.io/blob/master/examples/src/main/java/ch05/ArrayList.java)) und einmal mit verketteter Liste (`LinkedList`, [Quelle](https://github.com/hsro-wif-oop/hsro-wif-oop.github.io/blob/master/examples/src/main/java/ch05/LinkedList.java)) implementiert hatten.
 Beide Klassen implementieren dabei die selbe Schnittstelle:
 
 ```java
@@ -94,7 +94,7 @@ public T get(int i) {
 }
 ```
 
-Ein [kleiner Testcase](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/test/java/ch05/IterationTest.java) um die Laufzeit zu vergleichen ergibt folgendes Bild:
+Ein [kleiner Testcase](https://github.com/hsro-wif-oop/hsro-wif-oop.github.io/blob/master/examples/src/test/java/ch05/IterationTest.java) um die Laufzeit zu vergleichen ergibt folgendes Bild:
 
 ```java
 int n = 1024*32;  // wie viele Elemente?
@@ -112,7 +112,7 @@ for (int i = 0; i < li.length(); i++)
 	s += li.get(i);
 ```
 
-![Runtimes]({{site.baseurl}}/05-iterator/runtimes.png)
+![Runtimes](runtimes.png)
 {: .center}
 
 Die `ArrayList` ist hier mit 19ms um zwei Größenordnungen **schneller** als die `LinkedList` mit 1369ms -- logisch: ist ja `get` bei ersterer mit $O(1)$ nach _n_ Aufrufen im ganzen $O(n)$, so ist letztere $O(n^2)$ da für jeden `get` Aufruf von vorne bis zur Zielposition gelaufen werden muss.
@@ -249,7 +249,7 @@ class LinkedList<T> implements List<T> {
 		return new Iterator<T>() {
 			Element it = head;
 			public boolean hasNext() {
-				return it == null;
+				return it != null;
 			}
 			public T next() {
 				if (!hasNext())
@@ -338,8 +338,8 @@ Das obige Muster, in dem eine Methode eine Instanz zu einem Interface zurück gi
 Entscheidend für dieses (wie auch dem nah verwandten _factory_) Muster, dass dem Aufrufer der Methode nur das _Interface_ als Rückgabetyp bekannt ist, nicht aber die der Instanz zu Grunde liegende _implementierende Klasse_.
 Diese ist in der Regel als innere oder anonyme innere Klasse realisiert.
 
-![Factory Method]({{site.baseurl}}/05-iterator/factory-method.svg)
-{: .figcenter}
+![Factory Method](factory-method.svg)
+
 
 Das Factory Method Muster ist dabei ein Erstellungsmuster (_creational pattern_), da es die _Erstellung_ von Objekten betrifft.
 
@@ -349,8 +349,8 @@ Das Factory Method Muster ist dabei ein Erstellungsmuster (_creational pattern_)
 Der Iterator ist ein Verhaltensmuster (_behavioral pattern_), da es um die Modellierung des sequenziellen Zugriffs auf eine Containerstruktur geht.
 Es setzt die beiden Schnittstellen `Iterable` und `Iterator` in Beziehung, die wiederum von konkreten Klassen implementiert werden.
 
-![Iterator]({{site.baseurl}}/05-iterator/iterator.svg)
-{: .figcenter}
+![Iterator](iterator.svg)
+
 
 Der Iterator verwendet dabei das Factory Method Pattern.
 

@@ -237,8 +237,8 @@ Obwohl eine Baumstruktur im Mittel eine gute Wahl ist, gibt es Fälle in denen S
 Könnte man ein Schlüsselobjekt einfach auf einen Arrayindex "umrechnen," so könnte man den einfachen Direktzugriff von Arrays verwenden.
 Für diese Umrechnung verwendet man eine sogennante _Hashfunktion_, eine Funktion, welche ein Objekt in einen `int` "umrechnet."
 
-![hash function]({{site.baseurl}}/06-map/hash-table.svg)
-{: .figcenter}
+![hash function](hash-table.svg)
+
 
 Quelle: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Hash_table_3_1_1_0_1_0_0_SP.svg)
 
@@ -336,16 +336,14 @@ So zum Beispiel 170 und 42, welche sich in den letzten 4 Bit nicht unterscheiden
 Dieses Phänomen nennt man eine _Kollision_.
 Der Ausweg für eine Map ist hier, unter einem Hashwert eben nicht einen einzelnen Eintrag abzulegen, sondern eine Liste.
 
-![Collision Resolution]({{site.baseurl}}/06-map/hash-table-coll.svg)
-{: .figcenter}
+![Collision Resolution](hash-table-coll.svg)
 
 Quelle: [Wikipedia](https://en.wikipedia.org/wiki/File:Hash_table_5_0_1_1_1_1_0_LL.svg)
 
 
 # Zusammenfassung
 
-![Container in Java]({{site.baseurl}}/06-map/containers-api.svg)
-{: .figcenter}
+![Container in Java](containers-api.svg)
 
 - Die grundlegenden Datenstrukturen in der Informatik sind
 	+ `List` ist eine sequenzielle Datenstruktur, realisiert z.B. als `ArrayList` oder `LinkedList`
