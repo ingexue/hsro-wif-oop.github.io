@@ -54,7 +54,7 @@ Man bräuchte also eine Datenstruktur, welche in obigen Beispiel zu einem `Strin
 # Assoziatives Datenfeld: Map
 
 Heute fügen wir eben dafür die dritte (und für dieses Semester letzte) Datenstruktur hinzu: das assoziative Datenfeld (engl. _map_), welches zu einem Schlüsselobjekt genau ein Wertobjekt speichert bzw. liefert.
-Mathematisch betrachtet stellt die Map eine Funktion dar, welche einen Schlüsselwert auf einen Datenwert abbildet: $\text{map}: K \rightarrow V$.
+Mathematisch betrachtet stellt die Map eine Funktion dar, welche einen Schlüsselwert auf einen Datenwert abbildet: K -> V.
 
 In Java ist diese Datenstruktur als generisches Interface definiert:
 
@@ -71,7 +71,7 @@ Eine Map ähnelt einem Set dahin gehend, dass es eine Methode zum Hinzufügen vo
 Eine Map ist also dahingehend ein Set, dass jeder Schlüssel nur genau einmal enthalten ist; es können allerdings mehrere Schlüssel auf das selbe Wertelement zeigen.
 Statt einer `contains` Methode gibt es die spezifischere `containsKey` Methode, um Missverständnissen vorzubeugen.
 
-> Hinweis: Andere Sprachen wie z.B. python, C\# oder JavaScript haben assoziative Speicher als Sprachelement.
+> Hinweis: Andere Sprachen wie z.B. Python oder JavaScript haben assoziative Speicher als Sprachelement.
 > In Java wird diese Funktionalität von der Java API bereit gestellt.
 > Das "offizielle" Java Interface `java.util.Map` hat zusätzlich noch weitere Methoden, auf die wir später noch kurz eingehen werden.
 
@@ -91,7 +91,7 @@ for (String s : "In Ulm und um Ulm und um Ulm herum".split(" ")) {
 
 ## Implementierung
 
-Eine Map ist also eine eindeutige Abbildung von einem Schlüssel auf einen Wert ($m: k \rightarrow v$).
+Eine Map ist also eine eindeutige Abbildung von einem Schlüssel auf einen Wert (k -> v).
 Oder anders formuliert: eine Map ist eine Menge von Schlüssel-Wert-Paaren (Einträgen, engl. _entries_), wobei jeder Schlüssel genau einmal vorkommen darf.
 Wollen wir diese Einträge nun im Hinblick auf den Schlüssel duplikatfrei speichern, so müssen wir die [`equals` Methode überschreiben](/04-generics/#objektgleichheit-mit-equals).
 
@@ -329,7 +329,7 @@ So zum Beispiel 170 und 42, welche sich in den letzten 4 Bit nicht unterscheiden
 
 ```
  42: 0010 1010
-128: 1010 1010
+170: 1010 1010
  15: 0000 1111 (Maske)
 ```
 
