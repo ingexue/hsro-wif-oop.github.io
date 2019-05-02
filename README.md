@@ -4,26 +4,6 @@
 
 _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rosenheim.de/technik/informatik-mathematik/wirtschaftsinformatik-bachelor/) an der [Hochschule Rosenheim](https://www.th-rosenheim.de)._
 
-## Organisatorisches
-
-**Vorlesungstermin**: Montags, 11:45-13:15 A3.13
-
-**Übungen**: Dienstags, 2./3./4. Stunde, S1.31; Tutor: Daniel Herzinger
-
-**Kommunikation**: via [Mattermost](https://inf-mattermost.th-rosenheim.de/wif-oop-ss19/channels/town-square) ([einschreiben](https://inf-mattermost.fh-rosenheim.de/signup_user_complete/?id=ptti4zza5fyqbg76jnz1jkjuia))
-
-**Coding Contest**: via [domjudge](http://domjudge.inf.fh-#rosenheim.de) (**Achtung**: nur übers `fhintern` Netz #(WLAN oder Kabel), oder über das VPN)
-
-**Wichtige Termine**:
-
-- **??. April:** Prüfungsanmeldung im OSC
-- **13. Mai:** Einführung in das Contestsystem (persönliche Anwesenheit erforderlich!)
-
-
-## Leistungsnachweis
-
-- schriftliche Prüfung (SP, 90 Minuten) am Ende des Semesters
-
 
 ## Empfohlene Literatur
 
@@ -56,19 +36,19 @@ _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rose
 	_Generics_ erlauben es nun mit beliebigen, _aber festgelegten,_ Datentypen zu arbeiten.
 	Wir lernen ausserdem die Interfaces `Comparable` und `Comparator` kennen.
 
-- **15. April: Iteratoren** ([Skript](/05-iterator/), [Folien](/05-iterator/slides/), [Übung](https://github.com/hsro-wif-oop/uebung04))
+- **15. April: Iteratoren** ([Skript](/05-iterator/), [Slides](/05-iterator/slides/), [Übung](https://github.com/hsro-wif-oop/uebung04))
 
 	Arrays und Listen verfügen über einen Indexoperator (`[]` bzw. `get(int)`), welcher verwendet werden kann um alle Elemente zu besuchen.
 	Der _Iterator_ abstrahiert dieses Prinzip: Bereitgestellt vom Container selbst, ist er ein Hilfsobjekt mit dem jedes Element des Containers besucht werden kann.
 
 - 22./23. April: Vorlesung und Uebungen entfallen wg. Ostern
 
-- **29. April: Map als generischer assoziativer Container** ([Skript](/06-map/), [Folien](/06-map/slides/), [Übung](https://github.com/hsro-wif-oop/uebung05))
+- **29. April: Map als generischer assoziativer Container** ([Skript](/06-map/), [Slides](/06-map/slides/), [Übung](https://github.com/hsro-wif-oop/uebung05))
 
 	Eine Liste ist sequenziell mit potentiellen Duplikaten, ein Set ist duplikatfrei, aber ohne Reihenfolge.
 	Eine _Map_ (aus dem engl. _map_: Abbildung) ist ein assoziativer Container, welcher einem Schlüssel (_key_) eindeutig einen Wert (_value_) zuordnet.
 
-- **6. Mai: Rekursion** ([Skript](/07-rekursion/), [Folien](/07-rekursion/slides/), [Übung](https://github.com/hsro-wif-oop/uebung06))
+- **6. Mai: Rekursion** ([Skript](/07-rekursion/), [Slides](/07-rekursion/slides/), [Übung](https://github.com/hsro-wif-oop/uebung06))
 
 	Ging es um das Abarbeiten von Daten bzw. Implementieren von Algorithmen, so gingen wir bisher meist iterativ vor, also mit `for` bzw. `while`.
 	Rekursion ist nun ein Mittel, bei der eine Methoden sich selbst wieder (mit veränderten Argumenten) aufrufen, und so ohne `for` bzw. `while` auskommen.
@@ -82,7 +62,7 @@ _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rose
 	Gewappnet mit Datenstrukturen, Iteration und Rekursion erarbeiten wir Algorithmen zum Sortieren von Daten.
 	Wir begegnen wieder den Interfaces `Comparable<T>` und `Comparator<T>`, welche die Vergleichsoperation abstrahieren.
 
-- **27. Mai: Datenverarbeitung (Teil 1)** ([Skript](/10-datenverarbeitung/), [Folien](/10-datenverarbeitung/slides/), [Übung](https://github.com/hsro-wif-oop/uebung08))
+- **27. Mai: Datenverarbeitung (Teil 1)** ([Skript](/10-datenverarbeitung/), [Slides](/10-datenverarbeitung/slides/), [Übung](https://github.com/hsro-wif-oop/uebung08))
 
 	Wir lernen die Containerklassen der Java Bibliothek kennen um effizient und übersichtlich Daten zu verarbeiten.
 	Klassischerweise ist die Datenverarbeitung hier in vier Schritten zu machen: filtern, sortieren, abbilden und reduzieren.
@@ -91,20 +71,20 @@ _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rose
 
 - _10./11. Juni: Vorlesung und Übungen entfallen_
 
-- **17. Juni: Vererbung** ([Folien](/11-vererbung/vererbung-1.pdf), [Übung](https://github.com/hsro-wif-oop/uebung09))
+- **17. Juni: Vererbung** ([Slides](/11-vererbung/vererbung-1.pdf), [Übung](https://github.com/hsro-wif-oop/uebung09))
 
 	Bisher waren unsere Klassenbeziehungen vorwiegend strukturell bzw. funktional: Ein Monat besteht aus Tagen, ein Auto aus Bauteilen, usw.
 	_Vererbung_ erlaubt es nun verwandschaftliche Beziehungen zu modellieren, und so Gemeinsamkeiten in Oberklassen zu bündeln.
 	So sind z.B. sowohl Audis als auch BMWs im Grunde genommen _Autos_, doch gibt es sowohl geteilte Eigenschaften als auch spezielle.
 
-- **24. Juni: Abstrakte Basisklassen** ([Folien](/11-vererbung/vererbung-2.pdf), [Übung](https://github.com/hsro-wif-oop/uebung10))
+- **24. Juni: Abstrakte Basisklassen** ([Slides](/11-vererbung/vererbung-2.pdf), [Übung](https://github.com/hsro-wif-oop/uebung10))
 
 	Abstrakte Basisklassen sind ein weiteres Syntaxmittel, um verwandschaftliche Beziehungen zu beschreiben.
 	Da abstrakte Klassen nicht instanziiert werden können, sind sie im Grunde ähnlich zu Schnittstellen (_Interfaces_), erlauben aber genauere Modellierung der Sichtbarkeiten.
 
-- **1. Juli: Parallele Verarbeitung** ([Folien](/12-parallel/slides/), [Skript](/12-parallel/), [Übung](https://github.com/hsro-wif-oop/uebung11))
+- **1. Juli: Parallele Verarbeitung** ([Slides](/12-parallel/slides/), [Skript](/12-parallel/), [Übung](https://github.com/hsro-wif-oop/uebung11))
 
 	Folgten unsere Programme bisher einem vorgesehenen Ablaufplan, so erlauben _Threads_ die parallele Verarbeitung von Daten.
 	Wir beginnen mit der Basisimplementierung und erarbeiten einige knifflige Situationen.
 
-- **8. Juli: Zusammenfassung** ([Folien](/13-zusammenfassung/slides/))
+- **8. Juli: Zusammenfassung** ([Slides](/13-zusammenfassung/slides/))

@@ -1,7 +1,11 @@
 ---
-title: "Rekursion"
+title: "WIF-Objekorientiertes Programmieren (WIF-OOP)"
+subtitle: "07 - Rekursion"
 permalink: /07-rekursion/
 mathjax: true
+author: Fakultät Informatik, TH Rosenheim
+...
+
 ---
 
 # Rekursion
@@ -9,8 +13,8 @@ mathjax: true
 Um Rekursion zu verstehen müssen wir zuerst Rekursion verstehen.
 [Ok, Google](https://www.google.com/search?q=recursion):
 
-![Rekursion]({{site.baseurl}}/03-tree-set/google-recursion.png)
-{: .figcenter}
+![Rekursion](../03-tree-set/google-recursion.png)
+
 
 Spaß beiseite.
 Eine _rekursive Funktion_ ist eine Funktion, die sich selbst mit veränderten Argumenten wieder aufruft.
@@ -57,8 +61,8 @@ Das aus der Mathematik bekannte Substitutionsprinzip gilt übrigens auch für Pr
 
 Analog ergibt sich die Aufrufreihenfolge, hier als Sequenzdiagram:
 
-![Fakultät]({{site.baseurl}}/07-rekursion/seq-fac.svg)
-{: .figcenter}
+![Fakultät](../07-rekursion/seq-fac.svg)
+
 
 Wie man sehen kann, kehrt der Aufruf `fakultaet(4)` des Users erst zurück, nachdem die Rekursionsschritte alle wieder zurückgekehrt sind.
 Man sagt auch: Die Rekursion "steigt ab", daher auch der Begriff "Rekursionstiefe", im obigen Beispiel 4.
@@ -97,8 +101,7 @@ int ggT(int a, int b) {
 }
 ```
 
-![ggT]({{site.baseurl}}/07-rekursion/seq-ggt.svg)
-{: .figcenter}
+![ggT](../07-rekursion/seq-ggt.svg)
 
 
 ## Fibonacci
@@ -106,8 +109,7 @@ int ggT(int a, int b) {
 Die Fibonacci Zahlenreihe (0, 1, 1, 2, 3, 5, ...) hat eine interessante geometrische Eigenschaft.
 Fügt man Quadrate mit eben diesen Seitenlängen aneinander und zeichnet man jeweils einen Viertelkreis darin, so erhält man eine Annäherung der [goldenen Spirale](https://de.wikipedia.org/wiki/Goldener_Schnitt#Goldene_Spirale).
 
-![Fibonacci]({{site.baseurl}}/07-rekursion/fibonacci-spirale.svg)
-{: .figcenter}
+![Fibonacci](../07-rekursion/fibonacci-spirale.svg)
 
 Quelle: [Wikipedia](https://commons.wikimedia.org/wiki/File:FibonacciSpiral.svg)
 
@@ -271,7 +273,8 @@ class Suchen {
 		return binarySearchHelp(sorted, value, 0, sorted.length);
 	}
 
-	private static <T extends Comparable<T>> int binarySearchHelp(T[] sorted, T value, int from, int to) {
+	private static <T extends Comparable<T>> int binarySearchHelp(
+		T[] sorted, T value, int from, int to) {
 		
 		// schon zu weit gelaufen?
 		if (from >= to)
