@@ -29,7 +29,7 @@ $$
 
 # Fakultät
 
-![](seq-fac.svg)
+![Fakultät, center](seq-fac.svg){ width=70% }
 
 ---
 
@@ -66,7 +66,7 @@ $$
 \end{cases}
 $$
 
-![](fibonacci-spirale.svg)
+![Fibonacci-Spirale, center](fibonacci-spirale.svg){ width=30% }
 
 [Quelle: [Wikipedia](https://commons.wikimedia.org/wiki/File:FibonacciSpiral.svg)]
 
@@ -100,7 +100,7 @@ fib(1) + fib(0) + ...
 2. Rekursionsfälle bestimmen. Wie kann ich das Problem auf ein kleineres runterbrechen?
 3. Rekursion zusammensetzen: Brauche ich eine Hilfsmethode, wie muss die Signatur aussehen, wie müssen die Argumente beim rekursiven Aufruf verändert werden?
 
-```
+```Java
 // kein valides Java...
 int rekursiv(...) {
 	if (Terminalfall) {

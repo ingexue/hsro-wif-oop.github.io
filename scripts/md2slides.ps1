@@ -1,0 +1,1 @@
+pandoc -t beamer -s .\rekursion-slides.md -o 07-slides.pdf
