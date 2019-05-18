@@ -1,7 +1,11 @@
 ---
-title: "Datenverarbeitung"
-permalink: /10-datenverarbeitung/
+title: "WIF-Objekorientiertes Programmieren (WIF-OOP)"
+subtitle: "10 - Datenverarbeitung"
+permalink: /09-sortieren/
 mathjax: true
+author: Fakultät Informatik, TH Rosenheim
+...
+
 ---
 
 # Arbeiten mit Datenstrukturen
@@ -10,10 +14,10 @@ Wir haben in den vergangenen Wochen die wichtigsten Datenstrukturen und Sortiera
 Die Beispiele dazu waren aber meistens knapp und eher abstrakt -- in den wenigsten Fällen aber wirklich anschaulich.
 
 Heute wollen wir üben, das Gelernte praxisnah anzuwenden, in dem wir exemplarisch einige typische Problemstellungen in der Datenverarbeitung durchgehen.
-Als Datenbasis nehmen wir die Bundesligaergebnisse der Saison 2017/2018 (Quelle: [fussballdaten.de](https://www.fussballdaten.de), [Spiele](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/resources/bundesliga_Spiel.csv), [Vereine](https://github.com/hsro-wif-prg2/hsro-wif-prg2.github.io/blob/master/examples/src/main/resources/bundesliga_Verein.csv)).
+Als Datenbasis nehmen wir die Bundesligaergebnisse der Saison 2017/2018 (Quelle: [fussballdaten.de](https://www.fussballdaten.de), [Spiele](https://github.com/hsro-wif-oop/hsro-wif-oop.github.io/blob/master/examples/src/main/resources/bundesliga_Spiel.csv), [Vereine](https://github.com/hsro-wif-oop/hsro-wif-oop.github.io/blob/master/examples/src/main/resources/bundesliga_Verein.csv)).
 Es liegen Daten aus der 1. (18 Vereine), 2. (18 Vereine) und 3. Bundesliga (20 Vereine) vor, aus der 1. und 2. Liga bis einschließlich des 32. Spieltags und aus der 3. Liga bis einschließlich des 36. Spieltags.
 
-![Datenmodell]({{site.baseurl}}/10-datenverarbeitung/datenmodell.svg)
+![Datenmodell](datenmodell.svg)
 
 | Spiel\_ID | Spieltag | Datum | Uhrzeit | Heim | Gast | Tore\_Heim | Tore\_Gast |
 |-----------|----------|-------|---------|------|------|------------|------------|
@@ -34,10 +38,10 @@ Für unsere heutigen Beispiele können wir die Fabrikmethode `Bundesliga.loadFro
 
 Datenverarbeitung beruht im Wesentlichen auf vier Grundoperationen:
 
-- Sortieren, also die Daten in eine gewünschte Reihenfolge bringen;
-- Filtern, also das Entfernen gewisser Daten, bzw. das Behalten von nur gewissen Daten;
-- Abbilden, also Daten von einem Format auf ein anderes umzurechnen;
-- Reduzieren, also Daten zusammenzufassen.
+- **Sortieren**, also die Daten in eine gewünschte Reihenfolge bringen;
+- **Filtern**, also das Entfernen gewisser Daten, bzw. das Behalten von nur gewissen Daten;
+- **Abbilden**, also Daten von einem Format auf ein anderes umzurechnen;
+- **Reduzieren**, also Daten zusammenzufassen.
 
 
 ## Sortieren
