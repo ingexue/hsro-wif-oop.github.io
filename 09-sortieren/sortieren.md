@@ -1,7 +1,11 @@
 ---
-title: "Sortieren"
+title: "WIF-Objekorientiertes Programmieren (WIF-OOP)"
+subtitle: "09 - Sortieren"
 permalink: /09-sortieren/
 mathjax: true
+author: Fakultät Informatik, TH Rosenheim
+...
+
 ---
 
 # Sortieren
@@ -259,9 +263,6 @@ class Sortieren {
 	}
 }
 ```
-
-> **Hinweis:** Quicksort ist nicht klausurrelevant.
-
 
 # Comparable und Comparator
 
