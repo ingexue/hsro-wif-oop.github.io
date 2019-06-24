@@ -1,0 +1,15 @@
+@startuml
+
+title Singleton - Pattern
+
+
+class Singleton {
+
+  - static Singleton instance = null;
+
+  - Singleton() {}
+       
+  +static Singleton getInstance()
+}
+
+@enduml

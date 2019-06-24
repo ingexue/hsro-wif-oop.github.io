@@ -1,0 +1,23 @@
+@startuml
+
+title Factory - Pattern
+
+
+class SchrankFactory {
+  +Schrank createSchrank(String type)
+}
+
+class Schrank {
+    +void oeffneSchrank()
+}
+
+class WohnzimmerSchrank
+class KleiderSchrank
+class KuechenSchrank
+
+SchrankFactory .. Schrank
+Schrank <|-- WohnzimmerSchrank
+Schrank <|-- KleiderSchrank
+Schrank <|-- KuechenSchrank
+
+@enduml

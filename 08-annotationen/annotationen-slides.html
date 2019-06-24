@@ -1,27 +1,19 @@
----
-title: Annotationen
-permalink: /08-annotationen/slides/
-layout: presentation
-mathjax: true
----
+# Objektorientiertes Programmieren
 
-layout: true
 
-<footer>
-	<span class="icon github">
-	<svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
-	</svg>
-	</span>
-	<a href="https://github.com/sikoried"><span class="username">sikoried</span></a>
-</footer>
+<div style="margin-top: 20%"></div>
+Einführung in objektorientiertes Programmieren
 
----
+`Annotationen, Design Pattern, Refactoring` 
 
-# Annotationen
 
-Korbinian Riedhammer
+<div style="margin-top: 20%"></div>
+
+## Bachelor Wirtschaftsinformatik
+
+**Marcel Tilly**
+
+Fakultät Informatik, Cloud Computing
 
 ---
 
@@ -69,9 +61,7 @@ Testen mit JUnit 5
 
 ---
 
-# Vordefinierte Annotationen
-
-### `@Override`
+# Vordefinierte Annotationen `@Override`
 
 Typischer Fehler: **überladen** statt **überschreiben**
 
@@ -85,7 +75,7 @@ class MeineKlasse {
 }
 ```
 
-Durch die Annotation mit `@Override` kann der Compiler fehler erkennen:
+Durch die Annotation mit `@Override` kann der Compiler Fehler erkennen:
 
 ```java
 class MeineKlasse {
@@ -99,9 +89,7 @@ class MeineKlasse {
 
 ---
 
-# Vordefinierte Annotationen
-
-### `@SuppressWarnings`
+# Vordefinierte Annotationen `@SuppressWarnings`
 
 - Aktuelle Java Compiler erzeugen sehr viele Warnungen
 - Viele sind berechtigt und weisen auf Programmierfehler hin
@@ -121,9 +109,7 @@ public void methodWithScaryWarning() {
 
 ---
 
-# Vordefinierte Annotationen
-
-### `@Deprecated`
+# Vordefinierte Annotationen  `@Deprecated`
 
 - Hinweis an den Programmierer, eine Methode/Klasse/etc. nicht (mehr) zu verwenden
 - Oft bei Update von Toolkits bzw. Bibliotheken
@@ -208,17 +194,14 @@ public class Calculator { /* ... */ }
 # Vordefinierte Meta-Annotationen
 
 - Meta-Annotationen annotieren Annotationen. ¯\\_(ツ)_/¯
-- `@Target`
-	+ Legt fest, auf welche Elemente die Annotation anwendbar ist
+- `@Target`: Definert, auf welche Elemente die Annotation anwendbar ist
 	+ Beispiel: `@Target({ElementType.FIELD, ElementType.METHOD})`
-- `@Retention`
-	+ Legt fest, ob eine Annotation nur im Quelltext ist, oder auch in der `.class` Datei und zur Laufzeit
+- `@Retention`: Legt fest, ob eine Annotation nur im Quelltext ist, oder auch in der `.class` Datei und zur Laufzeit
 	+ Beispiele
 		* `@Retention(RetentionPolicy.RUNTIME)`
 		* `@Retention(RetentionPolicy.CLASS)`
 		* `@Retention(RetentionPolicy.SOURCE)`
-- `@Inherited`
-	+ Legt fest, ob eine Annotation durch Vererbung oder Implementierung weitergegeben wird.
+- `@Inherited`: Legt fest, ob eine Annotation durch Vererbung oder Implementierung weitergegeben wird.
 
 ---
 
@@ -257,29 +240,19 @@ Markiert einen Testcase als zu ignorieren.
 ```java
 class MeineTestSammlung {
     @BeforeAll
-    static void initAll() { 
-    	/* wird einmal vor allen ausgeführt */
-    }
+    static void initAll() { /* wird einmal vor allen ausgeführt */ }
 
     @BeforeEach
-    void init() { 
-    	/* wird vor jedem Test erneut ausgeführt */
-    }
+    void init() { /* wird vor jedem Test erneut ausgeführt */ }
 
     @Test
-    void einTestFall() {
-    	// ...
-    }
+    void einTestFall() { // ... }
 
     @AfterEach
-    void tearDown() { 
-    	/* nach jedem Test erneut ausgeführt */
-    }
+    void tearDown() { /* nach jedem Test erneut ausgeführt */ }
 
     @AfterAll
-    static void tearDownAll() { 
-    /* wird einmal am Ende ausgeführt */
-	}
+    static void tearDownAll() {  /* wird einmal am Ende ausgeführt */ }
 }
 ```
 ---
@@ -317,3 +290,537 @@ void exceptionTesting() {
 - <http://jakewharton.github.io/butterknife/>: Android GUI
 - <https://github.com/chalup/microorm/>: ORM
 
+---
+
+# Refactoring
+## - Improving the Design of Existing Code -
+
+
+„A change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behaviour.“
+-- Martin Fowler,1999
+
+---
+
+# Zur Geschichte
+
+- Ward Cunningham und Kent Beck beginnen bereits in den 1980er bei ihren Arbeiten mit Smalltalk explizit mit Refactoring. Sie erarbeiten eine Softwareprozess Xtreme Programming (XP), bei dem Refactoring integraler Bestandteil ist. [-1999]
+
+- Ebenso arbeitet Ralph Johnson bei seinen Arbeiten zu Frameworks mit Refactoring [~1990]
+
+- Die erste wissenschaftliche Arbeit schreibt William Opdyke zu diesem Thema „Erhalt von Semantic beim Einsatz von Refactoring“. Von ihm stammt auch die erste „Refactoring“ Liste [1992]
+
+- Auf Basis dieser Ideen entwickeln John Brant, Don Roberts & Ralph Johnson den Refactoring Browser in Smalltalk [1996]
+
+---
+
+
+![Buchreferenz Refactoring, center](Refactoring.jpg)
+
+[Refactoring.com]()
+
+---
+
+# Warum Refactoring?
+
+- Erhöht die Qualität des Designs
+	- “Building it this way is stupid, but we did it that way because it was faster”
+	- “Ugh, I’ll come back to this later and fix it up”
+	- “We should have done X, but ...”
+
+- Verbessert die Verständlichkeit des Codes
+
+- Hilft bei der Fehlersuche
+
+- Verbessert die Wiederverwendbarkeit
+
+---
+
+# Wann Refactoring?
+
+- `Copying and pasting is your enemy!`
+	- Gerne kopiert man Fehler!
+	- Teilweise kopiert man Code, den man nicht versteht!
+
+- also besser : **„Refactor“**
+	- bevor neue Funktionalität hinzukommt!
+	- um Fehler zu finden!
+	- beim Codereview! 
+	- wenn „Code Smells“
+
+---
+
+# Code Smells
+
+A Code Smell is a hint that something has gone wrong somewhere in your code [. . . ] Note that a CodeSmell is a hint that something might be wrong, not a certainty [. . . ] Calling something a CodeSmell is not an attack; it’s simply a sign that a closer look is warranted.
+
+-- http://xp.c2.com/CodeSmells.html
+
+
+---
+
+# Code Smell – „Duplizierter Code oder Bad Design“
+
+
+Vereinheitliche Code, wenn dieselbe Codestruktur an mehreren Stellen auftaucht:
+» Gleicher Ausdruck in Methoden derselben Klasse
+» Gleicher Ausdruck in Geschwisterunterklassen
+» Code ist ähnlich aber nicht gleich (gibt es hier Möglichkeiten?)
+» Methoden machen dasselbe mit einem anderen Algorithmus
+
+
+---
+
+# Code Smell: “Gleicher Ausdruck in Unterklassen”
+
+```java
+class Employee {...}
+
+class Salesman extends Employee {
+  get name() {...}
+}
+
+class Engineer extends Employee {
+  get name() {...}
+}
+```
+
+```java
+class Employee {
+  get name() {...}
+}
+
+class Salesman extends Employee {...}
+class Engineer extends Employee {...}
+```
+
+---
+
+# Refactoring Technik: “Pull Up to Super”
+
+Wenn Code ist gemeinsame Code über alle Subklassen, gehört er in die Superklasse.
+
+```java
+class Manager extends Employee {
+  public Manager(String name, String id, int grade) {
+    this.name = name;
+    this.id = id;
+    this.grade = grade;
+  }
+  // ...
+}
+````
+```java
+class Manager extends Employee {
+  public Manager(String name, String id, int grade) {
+    super(name, id);
+    this.grade = grade;
+  }
+  // ...
+}
+```
+
+---
+
+# Code Smell: “Switch Statements”
+
+```java
+class Bird {
+
+    public static final int EUROPEAN = 1;
+    public static final int AMERICAN = 2;
+    public static final int NORWEGIAN_BLUE = 3;
+
+    int _type;
+    ...
+
+    public double getSpeed() {
+        switch (_type) {
+            case EUROPEAN:
+                return getBaseSpeed();
+            case AMERICAN:
+                return getBaseSpeed() - getLoadFactor() * _numberOfLoad;
+            case NORWEGIAN_BLUE:
+                return getBaseSpeed(_voltage);
+        }
+        throw new RuntimeException("Unreachable");
+    }
+
+	 ...
+}
+````
+
+---
+
+# Code Smell: “Comments as Design”
+
+```java
+    /**
+     * NUR FUER INTERNEN GEBRAUCH (Aufruf durch Controller)!
+     *
+     * Aktualisiert diese View anhand der uebergebenen ViewDef.
+     *
+     * @param pViewDef ViewDef, anhand diese View aktualisiert werden soll.
+     * @return receiver modified
+     */
+    public void updateWith( ViewDef pViewDef ) {
+    	if (pViewDef==null) return;
+    	setUpdatePending(false);
+        View lView = replaceOrUpdateViewFor( pViewDef );
+        lView.updatePresentationMode( pViewDef );
+        if ( isReinitialize() )
+            lView.toReinitialize();
+    }
+
+```
+
+---
+
+# Refactoring Technik: “Extract Method”
+
+Wenn Codefragmente mehrfach verwendet werden oder logisch zusammengehören, verschieben Sie diesen Code in eine separate neue Methode und ersetzen Sie den alten Code durch einen Aufruf der Methode.
+
+```java
+void printOwing() {
+  printBanner();
+  // Print details.
+  System.out.println("name: " + name);
+  System.out.println("amount: " + getOutstanding());
+}
+```
+
+```java
+void printOwing() {
+  printBanner();
+  printDetails(getOutstanding());
+}
+
+void printDetails(double outstanding) {
+  System.out.println("name: " + name);
+  System.out.println("amount: " + outstanding);
+}
+```
+
+---
+
+# Refactoring Technik: “Extract Method”
+
+```java
+public void actionPerformed(ActionEvent e) {
+        ...
+            // out
+            for (int i = 0; i < klasses.size(); i++) {
+                System.out.println(klasses.get(i));
+            }
+            // compile
+            for (int i = 0; i < klasses.size(); i++) {
+                Compiler.compileClass((Class) klasses.get(i));
+            }
+            // create database
+            DatabaseBuilder lDatabase = new DatabaseBuilder(
+            	"mysql", "jdbc.mysql.MySqlDriver");
+            try {
+                lDatabase.executeSrcipt(script, ";");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            // load classes
+            Method lMethod = lClass.getDeclaredMethod(
+            	"newInstance", new Class[]{Properties.class});
+            ...
+}
+```
+
+---
+
+# Refactoring Technik: “Remove Dead Code”
+
+```java
+if(false) {
+  doSomethingThatUsedToMatter();
+}
+```
+
+Wird ersetzt durch
+```java
+```
+
+---
+
+# Refactoring Technik: “Replace Constructor with Factory Function”
+
+```java
+leadEngineer = new Employee(document.leadEngineer, 'E');
+```
+
+
+Wird ersetzt durch
+```java
+leadEngineer = createEngineer(document.leadEngineer);
+
+```
+---
+
+# Referenzen
+
+- [Refactoring Catalog](https://refactoring.com)
+- [Refactoring Buch](https://www.csie.ntu.edu.tw/~r95004/Refactoring_improving_the_design_of_existing_code.pdf)
+- [Refactoring Guru](https://refactoring.guru/refactoring)
+
+---
+
+# Design Pattern
+
+- Design Pattern (Entwurfsmuster) sind bewährte Lösungswege für wiederkehrende Designprobleme in der Softwareentwicklung
+- Sie beschreiben die essenziellen Entwurfsentscheidungen (Klassen- und Objektarrangements)
+- Durch den Einsatz von Design Pattern wird ein Entwurf flexibel, wiederverwendbar, erweiterbar, einfacher zu verwenden und änderungsstabil
+- In den Design Patterns manifestiert sich die jahrelange Berufserfahrung vieler Softewareentwicklern.
+- Zeitgleich schulen Design Pattern die Fähigkeit zur effektiven objektorientierten Modellierung
+
+---
+
+# Design Pattern
+
+- Do not reinvent the wheel!
+- Use Patterns and learn from others!
+
+
+![Pattern Books, center](pattern.png)
+
+---
+
+# The “gang of four” (GoF): Design Pattern
+
+- 23 verschiedene Design Patterns (Java, C++ & Smalltalk)
+- 3 Kategorien (creational, structural, behavioral)
+- Definierte Beschreibungsstruktur
+	- Name (einschließlich Synonyme)
+	- Aufgabe und Kontext
+	- Beschreibung der Lösung
+	- Struktur (Komponenten, Beziehungen) 
+	- Interaktionen und Konsequenzen
+	- Implementierung
+	- Beispielcode
+
+---
+
+# Design Pattern in Kategorien
+
+## Creational Pattern
+
+- Abstraktion
+- Macht ein System unabhängig davon, wie sein Objekte instanziiert, zusammengesetzt und repräsentiert werden
+
+`Factory`
+`Abstract Factory`
+`Builder`
+`Prototype`
+`Singleton`
+
+---
+
+# Design Pattern in Kategorien
+
+## Structural Pattern
+
+- Zusammensetzung von Klassen/Objekten zu größeren Strukturen, um neue Funktionalität zu realisieren
+
+`Adapter`
+`Bridge`
+`Composite`
+`Decorator`
+`Facade`
+`Flyweight`
+`Proxy`
+
+---
+
+# Design Pattern in Kategorien
+
+## Behavioral Pattern
+
+-Zusammensetzung, Arbeitsteilung, Verantwortlichkeiten zwischen Klassen oder Objekten
+
+`Interpreter`
+`Template Method`
+`Chain of Responsibility`
+`Command`
+`Iterator`
+`Mediator`
+`Memento`
+`Observer`
+`State`
+`Strategy`
+`Visitor`
+
+---
+
+# Design Pattern: _Factory_
+
+Das Factory Method Entwurfsmuster dient der Entkopplung des Clients von der konkreten Instanziierung einer Klasse. Das erstellte Objekt kann elegant ausgetauscht werden. Oft wird es zur Trennung von (zentraler) Objektverarbeitung und (individueller) Objektherstellung verwendet. 
+
+![Factory, center](factory.svg)
+
+---
+
+# Design Pattern: _Factory_
+
+```java
+public static void main(String[] args) {
+   Schrank schrank = new Kleiderschrank();
+   schrank.oeffneSchrank();
+}
+```
+
+```java
+public class SchrankFactory {
+
+  public static Schrank createSchrank(String schrankArt) {
+	if (schrankArt.equals("Kleiderschrank")){
+		return new Kleiderschrank();
+	}
+	if (schrankArt.equals("Kuechenschrank")){
+		return new Kuechenschrank();
+	}
+	if (schrankArt.equals("Wohnzimmerschrank")){
+		return new Wohnzimmerschrank();
+	}
+	return null;
+  }
+}
+```
+
+---
+
+# Design Pattern: _Factory_
+
+```java
+public static void main(String[] args) {
+  Schrank schrank = SchrankFactory.
+  	createSchrank("Kleiderschrank");
+  schrank.oeffneSchrank();
+}
+```
+
+Instanzieeren des Schranks ohne _recompile_:
+
+```java
+public static void main(String[] args) {
+  Schrank schrank = SchrankFactory.createSchrank(args[0]);
+  schrank.oeffneSchrank();
+}
+```
+
+---
+
+# Design Pattern: _Singleton_
+
+- Das Singleton-Entwurfsmuster gilt im Bezug auf die Komplexität als das einfachste Entwurfsmuster, da es nur aus einer einzigen Klasse besteht. 
+ 
+- Eine Klasse wird immer dann als Singleton implementiert, wenn es nur eine einzige Instanz von ihr geben darf. 
+- Singleton garantiert, dass es von einer Klasse höchstens eine Instanz geben kann und bietet dazu einen globalen Zugriffspunkt auf diese Instanz.
+- Beispiele:
+
+    - Datenbankverbindungen
+    - Dialoge
+    - Logging-Objekte
+    - Objekte, die globale Daten und Einstellungen verwalten
+
+---
+
+# Design Pattern: _Singleton_
+
+Wie bereits erwähnt, besteht das Singleton-Entwurfsmuster nur aus einer einzigen Klasse. Diese verfügt im Wesentlichen über die folgenden Merkmale:
+
+- Eine statische Variable des gleichen Typs
+- Einen privaten Konstruktor
+- Einer statischen Methode, welche die Instanz zurück gibt
+
+![Singelton-Pattern, center](singleton.svg)
+
+---
+
+# Design Pattern: _Singleton_
+
+
+```java
+package singleton;
+
+public class Singleton {
+  private static Singleton instance = null;
+
+  private Singleton() {
+  	/* Initialisation goes here! */
+  }
+
+  public static synchronized Singleton getInstance() {
+    if (Singleton.instance == null) {
+      Singleton.instance = new Singleton(); 
+    }
+    return Singleton.instance;
+  }
+}
+```
+
+---
+
+# Design Pattern: _Composite_
+
+ Das Composite Entwurfsmuster ermöglicht es, eine verschachtelte Struktur einheitlich zu behandeln, unabhängig davon, ob es sich um ein atomares Element oder um ein Behälter für weitere Elemente handelt
+
+- Es wird eine gemeinsame Schnittstelle für die Elementbehälter (Composite, Kompositum; Aggregat, Knoten) und für die atomaren Elemente (Leaf, Blatt) definiert: Component. 
+- Diese Schnittstelle Component definiert die Methoden, die gleichermaßen auf Composites und auf Leafs angewandt werden sollen. Composites delegieren oft Aufrufe (operate()) an ihre Components, die atomare Leafs oder wiederrum zusammengesetzte Composites seien können.
+
+Ein Client muss nicht mehr zwischen Composite und Leaf unterscheiden!
+
+---
+
+# Design Pattern: _Composite_
+
+![Composite Pattern, center](composite.svg)
+
+---
+
+# Design Pattern: _Composite_ (Alteranative!)
+
+![Composite Pattern, center](composite2.svg)
+
+
+---
+
+# Design Pattern: _Composite_
+
+```java
+class Composite extends Component{
+    
+    //hier: Components als Liste vorgehalten
+    private List<Component> childComponents = new ArrayList<Component>();
+
+    //rekursiver Aufruf auf kindComponents
+    public void operation() {
+        System.out.println("Ich bin ein Composite. Meine Kinder sind:");
+        for (Component childComps : childComponents) {
+            childComps.operation();
+        }
+    }
+    
+    //Überschreiben der Defaulimplementierung
+    public void add(Component comp) {
+        childComponents.add(comp);
+    }
+    public void remove(Component comp) {
+        childComponents.remove(comp);
+    }
+    public Component getChild(int index) {
+        return childComponents.get(index);
+    }
+}		
+```
+
+---
+
+# Referenzen
+
+- [Design Patterns @ Refactoring Guru](https://refactoring.guru/design-patterns)
+- [TutorialPoint - Design Pattern](https://www.tutorialspoint.com/design_pattern/design_pattern_overview.htm)
+- [GeeksForGeeks - Design Pattern] (https://www.geeksforgeeks.org/design-patterns-set-1-introduction/)
+- [OODesign - GoF Pattern](https://www.oodesign.com/)

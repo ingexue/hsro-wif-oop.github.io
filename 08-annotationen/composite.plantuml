@@ -1,0 +1,28 @@
+@startuml
+
+title Composite - Pattern
+
+
+abstract class Component {
+
+  + void operation();
+
+}
+
+class Leaf {
+    +void operation();
+}
+
+class Composite {
+  + void operation();
+  + void add(Component c);
+  + void remove(Component c);
+  +Component getChild(int i);
+}
+
+
+Component <|-- Leaf
+Component <|-- Composite
+Composite -->"*"  Component : childComponents
+
+@enduml
