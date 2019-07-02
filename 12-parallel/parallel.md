@@ -42,7 +42,7 @@ Test: 2
 
 Ein _Sequenzdiagramm_ zeigt den Programmablauf; Methoden sind dabei als Spalten aufgetragen:
 
-![single-process](/12-parallel/process.svg)
+![single-process](process.svg)
 
 Dies entspricht auch der Reihenfolge im Debugger, wenn wir das Programm schrittweise ausführen (mit der _step-into_ Anweisung).
 
@@ -98,7 +98,7 @@ Erbsenzähler 2 is done!
 main() done!
 ```
 
-![bureaucrats-1](/12-parallel/bureaucrats.svg)
+![bureaucrats-1](bureaucrats.svg)
 
 Möchte man diese Erbsenzähler nun gleichzeitig (nebenläufig, parallel) arbeiten lassen, so kann man die [`Thread` -Klasse](https://docs.oracle.com/javase/9/docs/api/java/lang/Thread.html) verwenden.
 Diese nimmt eine Instanz von `Runnable` entgegen, deren `run()` -Methode in einem separaten Ausführungsstrang (engl. _thread_) abläuft, sobald die Methode `start()` des Threads aufgerufen wird.
@@ -115,7 +115,7 @@ public static void main(String[] args) {
 }
 ```
 
-![bureaucrats-2](/12-parallel/bureaucrats_001.svg)
+![bureaucrats-2](bureaucrats_001.svg)
 
 Die Ausgabe könnte nun so aussehen:
 
@@ -303,7 +303,7 @@ Es können so also Wechselwirkungen zwischen zwei oder mehreren Threads entstehe
 | 4 |          | ++tmp2   | tmp2 = 1 |
 | 5 | c = tmp1 |          | c = 1  |
 | 6 |          | c = tmp2 | **c = 1 !** |
-{: .table.pure-table.pure-table-bordered.pure-table-striped}
+
 
 Da Threads den Speicher teilen, lesen beide zunächst den selben Wert von `c` in eine eigene Hilfsvariable (`tmp1` und `tmp2`, zu Beginn `0`).
 Dann erhöhen beide separat ihre Hilfsvariablen, bevor sie die interne Zählvariable `c` mit ihrem (nun falschen) Wert überschreiben.
@@ -355,7 +355,7 @@ Total beans: 400000
 Das `synchronized`-Schlüsselwort erlaubt es uns, sicher Werte zu verändern, welche von mehreren Threads verwendet werden.
 Manchmal ist aber ein einfaches Sperren nicht genug, wie das folgende Diagramm veranschaulicht:
 
-![Deadlock](/12-parallel/threads-deadlock.svg)
+![Deadlock](threads-deadlock.svg)
 
 Hierbei handelt es sich um einen klassischen _Deadlock_, wie man es manchmal auch von Behörden kennt:
 `threadA` braucht `lock2`, welches aber von `threadB` verwendet wird; `threadB` braucht `lock1`, welches aber von `threadA` verwendet wird.
@@ -364,7 +364,7 @@ Das Ergebnis ist, dass nichts vorwärts geht, die Situation ist festgefahren.
 Um solchen Situationen nun vorzubeugen, kann man innerhalb von `synchronized` Abschnitten die Methoden `wait()`, `notify()` und `notifyAll()` des Schlüsselobjekts verwenden, um an bestimmten Stellen zu _warten_, bis man von einem anderen Thread _benachrichtigt_ wird.
 Dieser Mechanismus kann verwendet werden, um Threads nur dann arbeiten zu lassen, wenn es auch etwas zu tun gibt.
 
-![threads-wait-notify](/12-parallel/threads-wait-notify.svg)
+![threads-wait-notify](threads-wait-notify.svg)
 
 > Hinweis: Diese Methoden sind teil der Java Thread API und bereits als `final` Methoden in `Object` definiert.
 
@@ -377,7 +377,7 @@ Das klassische Beispiel zur Demonstation von `wait()` und `notify()` (bzw. `noti
 Ein oder mehrere Erzeuger speichern Daten in eine Warteschlange, ein oder mehrere Verbraucher verarbeiten Daten, in der Reihenfolge in der sie bereit gestellt wurden.
 Eine typische Anwendung dieses Musters ist ein Videostreamplayer: der Erzeuger ist der Decoder, welcher den Datenstrom in Bildsequenzen umrechnet; der Verbraucher ist der Grafiktreiber, welcher die Bilder dann tatsächlich darstellt.
 
-![consumer-producer](/12-parallel/consumer-producer.png)
+![consumer-producer](consumer-producer.png)
 
 Ein einfaches Beispiel ist eine Erweiterung des bereits betrachteten `Counter`, hier als Klasse `ErzeugerVerbraucher` modelliert.
 Erzeuger rufen nun `erzeugen()` auf, um den internen Zähler zu erhöhen; Verbraucher rufen `verbrauchen()` auf, um ihn zu verringern:
@@ -405,7 +405,7 @@ class ErzeugerVerbraucher {
 }
 ```
 
-Was passiert nun aber, wenn `c == 0` und `abholen()` aufgerufen wird, oder wenn `c == max` und `bereitstellen()`?
+Was passiert nun aber, wenn `c == 0` und `verbrauchen()` aufgerufen wird, oder wenn `c == max` und `erzeugen()`?
 Dann würde `c` in einen nicht zugelassenen Wertebereich gehen!
 
 Eine Möglichkeit wäre es, in den entsprechenden Fällen eine `Exception` zu werfen:
@@ -422,8 +422,8 @@ Das hat aber den Nachteil, dass der aufrufende Thread dann zum einen die Ausnahm
 
 Der Schlüssel liegt in der Abstimmung der Threads untereinander:
 
-- Wenn einer `bereitstellen()` möchte und kein Platz ist, so muss zunächst _gewartet_ werden bis etwas abgeholt wurde.
-- Wenn einer `abholen()` möchte und nichts da ist, so muss zunächst _gewartet_ werden, bis etwas bereitgestellt wurde.
+- Wenn einer `erzeugen()` möchte und kein Platz ist, so muss zunächst _gewartet_ werden bis etwas abgeholt wurde.
+- Wenn einer `verbrauchen()` möchte und nichts da ist, so muss zunächst _gewartet_ werden, bis etwas bereitgestellt wurde.
 
 Diese Synchronisierung wird durch `wait` und `notify` (bzw. `notifyAll`) am Schlüsselobjekt und innerhalb der `synchronized` Methode bzw. Blocks realisiert:
 
@@ -431,7 +431,7 @@ Diese Synchronisierung wird durch `wait` und `notify` (bzw. `notifyAll`) am Schl
 class ErzeugerVerbraucher {
 	// ...
 
-	synchronized void bereitstellen() throws InterruptedException {
+	synchronized void erzuegen() throws InterruptedException {
 		// solange warten, bis wieder was rein passt
 		while (c >= max)
 			wait();
@@ -443,7 +443,7 @@ class ErzeugerVerbraucher {
 		notifyAll();
 	}
 
-	synchronized void abholen() throws InterruptedException {
+	synchronized void verbrauchen() throws InterruptedException {
 		// solange nicht mind. 1 Element da ist, warten!
 		while (c < 0)
 			wait();
@@ -458,8 +458,8 @@ class ErzeugerVerbraucher {
 ```
 
 So können nun mehrere Verbraucher- und Erzeugerthreads dieselbe `ErzeugerVerbraucher` Instanz verwenden, und dabei einen inkonsistenten Zustand ausschließen.
-Wenn ein Thread `abholen()` aufruft, aber nichts verfügbar ist, so wird er so lange warten (`wait()`) bis etwas bereit gestellt wurde.
-Wenn ein Thread `bereitstellen()` aufruft, aber kein Platz ist, so wird er warten, bis wieder Platz ist.
+Wenn ein Thread `verbrauchen()` aufruft, aber nichts verfügbar ist, so wird er so lange warten (`wait()`) bis etwas bereit gestellt wurde.
+Wenn ein Thread `erzeugen()` aufruft, aber kein Platz ist, so wird er warten, bis wieder Platz ist.
 
 All das funktioniert, da immer genau ein Thread gleichzeitig in den kritischen Abschnitten aktiv ist.
 Das ist auch der Grund, warum `wait` und `notify` **nur in kritischen Abschnitten**, also innerhalb einer `synchronized` Methode oder eines `synchronized (...)` Blocks, verwendet werden können.
@@ -469,7 +469,7 @@ Das ist auch der Grund, warum `wait` und `notify` **nur in kritischen Abschnitte
 
 Zum Abschluss noch der vollständige Lebenszyklus eines Threads, welcher die Wirkung von `start`, `wait`, `sleep` und `join` veranschaulicht.
 
-![thread-lifecycle](/12-parallel/thread-lifecycle.svg)
+![thread-lifecycle](thread-lifecycle.svg)
 
 
 # Weitere Literatur

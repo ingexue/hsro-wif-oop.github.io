@@ -1,0 +1,11 @@
+@startuml
+
+title Komposition
+
+class Auto
+
+Auto *-->"1" Motor
+Auto *-->"1..*" Reifen
+Auto *-->"1..*" Sitze
+
+@enduml

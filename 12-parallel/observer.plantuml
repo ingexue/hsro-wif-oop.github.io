@@ -1,0 +1,30 @@
+@startuml
+
+title Ovserver-Pattern
+
+interface Observable {
+    + addObserver(Observer ob)
+    + notifyObservers()
+    + setChanged()
+}
+
+interface Observer {
+    + notify()
+}
+
+class Subject implements Observable {
+    - state
+    + getState()
+    + setState(state)
+ }
+ 
+class ConcreteObserver implements Observer {
+    
+}
+
+
+Observable *-->"*" Observer
+ConcreteObserver --> Subject
+
+
+@enduml
