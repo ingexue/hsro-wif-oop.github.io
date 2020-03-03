@@ -1,33 +1,17 @@
----
-title: Einführung
-permalink: /05-iterator/slides/
-layout: presentation
----
+class: title-slide  
 
-layout: true
+# Modul - Objektorientierte Programmierung
+### Bachelor Wirtschaftsinformatik
 
-<footer>
-	<span class="icon github">
-	<svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
-	</svg>
-	</span>
-	<a href="https://github.com/sikoried"><span class="username">sikoried</span></a>
-</footer>
-
----
-
-# Iterator
-
-Korbinian Riedhammer
-
+## 05 - Factory, Iterator und Klassen
+### Prof. Dr. Marcel Tilly
+Fakultät für Informatik, Cloud Computing
 
 ---
 
 # Factory Method
 
-![Factory Method]({{site.baseurl}}/05-iterator/factory-method.svg)
+.center[![:scale 70%](./factory-method.svg)]
 
 - Methode gibt Instanz zu Interface zurück
 - Aufrufer der Methode kennt nur das _Interface_ als Rückgabetyp bekannt ist, nicht aber die der Instanz zu Grunde liegende _implementierende Klasse_.
@@ -37,7 +21,7 @@ Korbinian Riedhammer
 
 # Iterator
 
-![Iterator]({{site.baseurl}}/05-iterator/iterator.svg)
+.center[![:scale 70%](./iterator.svg)]
 
 - Modellierung des sequenziellen Zugriffs auf eine Containerstruktur
 - Setzt `Iterable` und `Iterator` in Beziehung
@@ -69,10 +53,13 @@ for (int i : intset)
 
 In Java sind folgende Klassen möglich:
 
-## (normale) Klasse
-## _innere_ Klasse
-## _statische innere_ Klasse
-## _anonyme innere_ Klasse
+- (normale) Klasse
+
+- _innere_ Klasse
+
+- _statische innere_ Klasse
+
+- _anonyme innere_ Klasse
 
 ---
 
@@ -133,6 +120,10 @@ class Aeussere {
 }
 ```
 
+---
+
+# (Nicht-statische) Innere Klasse
+
 - Zugriff auf alle Attribute der `Aeussere` Instanz
 - Bei Namenskonflikten mit `<KlassenName>.this.*` disambiguieren
 - keine `static` Attribute in inneren Klassen
@@ -148,7 +139,6 @@ class Aeussere {
 		String attribut = "Z";
 		void zugriff() {
 			System.out.println(attribut);  // "Z"
-
 			// Compilerfehler! Statische Innere hat keinen Aeussere-Scope
 			System.out.println(Aeussere.this.attribut);
 		}
@@ -188,6 +178,10 @@ Intf inst = new Intf() {
 };
 ```
 
+---
+
+# Anonyme Innere Klasse
+
 - Erstellt ein Objekt das ein Interface implementiert
 - Klassendefinition aber zur Laufzeit unbekannt ("anonym")
 - Zugriff auf äußere Attribute nur, wenn diese quasi-final sind.
@@ -202,3 +196,9 @@ Intf inst = new Intf() {
 - **Iteratoren für sequenzielle Datenstrukturen** sind im Allgemeinen einfach zu implementieren: sie erinnern die aktuelle Position.
 - **Iteratoren für Baumstrukturen**, also Datenstrukturen deren Elemente mehr als einen Nachfolger haben, verwenden hingegen eine **Agenda:** eine Liste von noch zu besuchenden Elementen.
 - Es gibt _normale_, _innere_, _statische innere_ und _anonyme innere_ Klassen
+
+---
+
+<div style="margin-top: 30%"></div>
+
+# Fragen?

@@ -1,17 +1,18 @@
----
-title:  'Objektorientiertes Programmieren (OOP)'
-subtitle: "10-Datenverarbeitung"
-author: Dr. Marcel Tilly
-institute: Bachelor Wirtschaftsinformatik, Fakultät Informatik
-subject: 10-Datenverarbeitung
-...
+class: title-slide  
+
+# Modul - Objektorientierte Programmierung
+### Bachelor Wirtschaftsinformatik
+
+## 10 - Datenverarbeitung
+### Prof. Dr. Marcel Tilly
+Fakultät für Informatik, Cloud Computing
 
 ---
 
 # Datenmodell
 
 
-![Datenmodell, center](datenmodell.svg)
+.center[![:scale 30%](./datenmodell.svg)]
 
 ---
 
@@ -191,7 +192,9 @@ static <T, R> List<R> abbilden(List<T> liste, Function<T, R> func) {
 
 ---
 
-# Reduzieren (Version 1)
+# Reduzieren 
+
+#### Version 1
 
 ```java
 interface BinaryOperator<T> {
@@ -199,7 +202,8 @@ interface BinaryOperator<T> {
 }
 
 
-static <T> T reduzieren(Collection<T> liste, T identity, BinaryOperator<T> op) {
+static <T> T reduzieren(Collection<T> liste, T identity, 
+	BinaryOperator<T> op) {
 	T a = identity;
 	for (T t : liste)
 		a = op.apply(a, t);
@@ -209,7 +213,9 @@ static <T> T reduzieren(Collection<T> liste, T identity, BinaryOperator<T> op) {
 
 ---
 
-# Reduzieren (Version 2)
+# Reduzieren 
+
+#### Version 2
 
 ```java
 interface BiFunction<A, B, C> {
@@ -217,7 +223,8 @@ interface BiFunction<A, B, C> {
 }
 
 
-static <T, U> U reduzieren(Collection<T> liste, U identity, BiFunction<U, T, U> op) {
+static <T, U> U reduzieren(Collection<T> liste, U identity, 
+	BiFunction<U, T, U> op) {
 	U a = identity;
 	
 	for (T t : liste)
@@ -230,7 +237,7 @@ static <T, U> U reduzieren(Collection<T> liste, U identity, BiFunction<U, T, U> 
 
 ---
 
-# Lambdaausdrücke
+# Lambda-Ausdrücke
 
 ```java
 Predicate<Integer> istGerade = new Predicate<Integer> () {
@@ -255,7 +262,7 @@ Predicate<Integer> istGerade = i -> i % 2 == 0;
 
 ---
 
-# Lambdaausdrücke
+# Lambda-Ausdrücke
 
 - drastische **Reduktion** von Code!
 - drastische **Steigerung** der Lesbarkeit!
@@ -276,9 +283,9 @@ for (Integer i) {
 
 ---
 
-# Lambdaausdrücke
+# Lambda-Ausdrücke
 
-## Mit Grundoperationen
+### Mit Grundoperationen
 
 ```java
 List<Integer> li = Arrays.asList(3, 2, 4, 1, 9, 7, 6);
@@ -288,7 +295,7 @@ List<Double> ld = abbilden(li, i -> Math.sqrt(i));
 fuerJedes(li, i -> System.out.println(i));
 ```
 
-## Oder als Stream
+### Oder als Stream
 
 ```java
 Arrays.asList(3, 2, 4, 1, 9, 7, 6).stream()
@@ -299,3 +306,9 @@ Arrays.asList(3, 2, 4, 1, 9, 7, 6).stream()
 ```
 
 Ist das nicht wirklich kurz und prägnant?!
+
+---
+
+<div style="margin-top: 30%"></div>
+
+# Fragen?

@@ -1,22 +1,12 @@
----
 
-title: Einführung
-permalink: /00-einfuehrung/
-layout: page
+class: title-slide  
 
----
+# Modul - Objektorientierte Programmierung
+### Bachelor Wirtschaftsinformatik
 
-# Objektorientiertes Programmieren
-
-**(formerly known as _Programmieren 2_)**
-
-<div style="margin-top: 40%"></div>
-
-## Bachelor Wirtschaftsinformatik
-
-**Marcel Tilly**
-
-Fakultät Informatik, Cloud Computing
+## 00 - Einführung
+### Prof. Dr. Marcel Tilly
+Fakultät für Informatik, Cloud Computing
 
 ---
 
@@ -47,8 +37,8 @@ Mattermost: [**https://inf-mattermost.fh-rosenheim.de/wif-oop-ss19**](https://in
 
 ### Wichtige Termine:
 
--?. April: Prüfungsanmeldung im OSC
--13. Mai: Einführung in das Contestsystem (persönliche Anwesenheit erforderlich!)
+- April: Prüfungsanmeldung im OSC
+- 13. Mai: Einführung in das Contestsystem (persönliche Anwesenheit erforderlich!)
 
 ---
 
@@ -74,11 +64,14 @@ Mattermost: [**https://inf-mattermost.fh-rosenheim.de/wif-oop-ss19**](https://in
 	+ Vererbung
 	+ Abstrakte Basisklassen
 	+ Entwurfsmuster (Design Pattern)
+
 - Abstrakte Datentypen
+
 - Algorithmik:
 	+ Sortieren
 	+ Rekursion
 	+ parallele Verarbeitung
+
 - Grundlagen professioneller Softwareentwicklung
 	+ Modellierung (Entwurf)
 	+ Versionierung
@@ -112,10 +105,11 @@ Die Angaben sind auf Gitlab, lesen Sie die Readme sorgfältig durch.
 - Verwenden Sie JUnit um Ihr Programm mit vorgegebenen Eingaben zu testen.
 - Erweitern Sie die Tests um weitere Ein- und Ausgaben.
 
---- 
+---
 
 # Motivation: "Bad design smells!"
-![](cheops_bad.png)
+
+.center[![:scale 65%](./cheops_bad.png)]
 
 ---
 
@@ -134,20 +128,27 @@ Die Angaben sind auf Gitlab, lesen Sie die Readme sorgfältig durch.
 
 ---
 
-# Effekt
+# Effekte 
 
-- Monolithisch
-- Nicht wartbar
-- Nicht wiederverwendbar
-- Ineffizient
-- Schwer zu testen
-- Nicht verlässlich
+Probleme, die auftreten können, bei _Bad Design_:
+
+- **Monolithisch**: Es entsteht ein grosser, zusammenhängender _Haufen_ an Software
+
+- **Nicht wartbar**: Unverständlich und komplex
+
+- **Nicht wiederverwendbar**: Teile lassen sich leider nur schwer wiederverwenden wg. Abhängigkeiten
+
+- **Ineffizient**: Durch Komplexität kann es passieren, dass der Code _ineffizient_ wird
+
+- **Schwer zu testen**: Keine klare Gliederung (_Modularisierung_), daher auch schwer testbar
+
+- **Nicht verlässlich**: Fehleranfällig
 
 ---
 
 # Good Design
 
-![](cheops_good.png)
+.center[![:scale 80%](./cheops_good.png)]
 
 ---
 
@@ -157,11 +158,15 @@ Die Angaben sind auf Gitlab, lesen Sie die Readme sorgfältig durch.
 - Eindeutige Abhängigkeiten
 - modular
 
-**Effekt**
+**Effekte**
 - Definierte Verantwortlichkeiten
+
 - Einfachere Wartung
+
 - Einfachere Änderungen
+
 - Effizienter
+
 - Modular: Besser zu testen
 
 ---
@@ -169,11 +174,17 @@ Die Angaben sind auf Gitlab, lesen Sie die Readme sorgfältig durch.
 # Anforderungen an Software
 
 - **Korrektheit** (Correctness): Die Software erfüllt die Anforderungen
+
 - **Einfache Handhabung** (Usability): Nutzer können das System problemlos nutzen
+
 - **Robustheit** (Robustness): Software reagiert angemessen bei abweichenden Bedingungen
+
 - **Erweiterbarkeit** (Extendable): beschreibt, wie leicht Software erweitert werden kann
+
 - **Wiederverwendbarkeit** (Reuseable): Software (Elemente) kann für anderen Anwendungen wiederverwendet werden
+
 - **Vereinbarkeit** (Composability): Wie leicht Software (Elemente) miteinander kombiniert werden können
+
 - **Effizienz** (Efficiency): Möglichst wenig Anforderungen an die Hardware stellen
 
 ---

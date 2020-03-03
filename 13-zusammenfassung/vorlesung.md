@@ -1,20 +1,11 @@
-# Objektorientiertes Programmieren
+class: title-slide  
 
+# Modul - Objektorientierte Programmierung
+### Bachelor Wirtschaftsinformatik
 
-<div style="margin-top: 20%"></div>
-Einführung in objektorientiertes Programmieren
-
-`14 - Zusammenfassung` 
-
-
-<div style="margin-top: 20%"></div>
-
-## Bachelor Wirtschaftsinformatik
-
-**Marcel Tilly**
-
+## 13 - Zusammenfassung
+### Prof. Dr. Marcel Tilly
 Fakultät für Informatik, Cloud Computing
-
 
 ---
 
@@ -33,9 +24,7 @@ Fakultät für Informatik, Cloud Computing
 
 # OOP Konzepte
 
----
-
-# OOP Konzepte
+--
 
 - Generalisierung (Abstraktion)
 - Vererbung
@@ -47,9 +36,7 @@ Fakultät für Informatik, Cloud Computing
 
 # Werkzeuge der Softwareentwicklung
 
----
-
-# Werkzeuge der Softwareentwicklung
+--
 
 - Versionierung mit Git
 	- `git clone` um Repository lokal auszuchecken
@@ -66,9 +53,7 @@ Fakultät für Informatik, Cloud Computing
 
 # Datenstrukturen
 
----
-
-# Datenstrukturen
+--
 
 ## Konzepte (Interfaces)
 
@@ -86,9 +71,7 @@ Fakultät für Informatik, Cloud Computing
 
 # Iteration und Rekursion
 
----
-
-# Iteration
+--
 
 ```java
 List<String> list = ...;
@@ -126,10 +109,9 @@ int fak(int i) {
 
 # Generics
 
----
+--
 
-# Generics
-
+.small[
 ```java
 interface List {
 	Object get(int i);
@@ -141,13 +123,12 @@ list.add("Hans");
 String s = (String) list.get(0);    // OK
 Integer i = (Integer) list.get(0);  // oops!
 ```
-
+]
 $\rightarrow$ Keine Typsicherheit zur Laufzeit!
 
----
+--
 
-# Generics
-
+.small[
 ```java
 interface List<T> {
 	T get(int i);
@@ -163,6 +144,7 @@ String s = liste.get(0);
 liste.add(4);             // COMPILERFEHLER!
 Integer i = liste.get(0); // COMPILERFEHLER
 ```
+]
 
 - Einführung von **Typvariablen** (hier: `T`)
 - Typsicherheit zur Compilezeit $\rightarrow$ Typsicherheit zur Laufzeit!
@@ -193,9 +175,7 @@ class SetImpl<T extends Comparable<T>> implements Set<T> {
 
 # Datenverarbeitung
 
----
-
-# Datenverarbeitung
+--
 
 ## Filter
 
@@ -224,9 +204,7 @@ class SetImpl<T extends Comparable<T>> implements Set<T> {
 
 # Interfaces und Vererbung 
 
----
-
-# Interfaces und Vererbung 
+--
 
 ```java
 interface Set<T> {
@@ -254,9 +232,7 @@ class ChattyStringSetImpl extends StringSetImpl {
 
 # Abstrakte Basisklassen
 
----
-
-# Abstrakte Basisklassen
+--
 
 - Interfaces: Schreiben Methoden vor, keine Attribute
 - Unterklassen: Erben Methoden _und_ Attribute
@@ -300,15 +276,13 @@ class Trompeter extends Musiker {
 - Komposition
 - Aggregation
 
-![Fuhrpark, center](fuhrpark.svg)
+.center[![:scale 30%](./fuhrpark.svg)]
 
 ---
 
 # Parallele Verarbeitung
 
----
-
-# Parallele Verarbeitung
+--
 
 ```java
 public static void main(String[] args) {
@@ -333,8 +307,10 @@ public static void main(String[] args) {
 
 # Parallele Verarbeitung
 
-![bureaucrats-2, center](bureaucrats_001.svg)
+.center[![:scale 50%](./bureaucrats_001.svg)]
 
 ---
+
+<div style="margin-top: 30%"></div>
 
 # Fragen?

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TH Rosenheim - Vorlesung INF FPK</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="https://sfc-arch.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+  </head>
+  <body>
+
+    <script>
+        remark.macros.scale = function (percentage) {
+          var url = this;
+          return '<img src="' + url + '" style="width: ' + percentage + '" />';
+        };
+        
+        // convert parameter to folder
+        var side = window.location.search.substring(1);
+        var page = "vorlesung.md";
+        var slideshow = remark.create({ sourceUrl: "./" + side + "/" + page});
+
+        // replace image pfad  
+        var images = document.getElementsByTagName("img");
+        for (var i=0; i < images.length; i++) {
+          var image = images[i];
+          if (image.src.startsWith(document.location.origin)) {
+            var url = image.attributes["src"].value.replace("../", "assets/" );
+            url = url.replace("./", side + "/" );
+            images[i].src = document.location.origin + "/" + url;
+          }
+        }
+
+        // Setup MathJax
+        MathJax.Hub.Config({
+            tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        });
+
+        MathJax.Hub.Configured();
+    </script>
+
+  </body>
+</html>

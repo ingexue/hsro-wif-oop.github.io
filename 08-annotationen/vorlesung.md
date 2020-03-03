@@ -1,19 +1,11 @@
-# Objektorientiertes Programmieren
+class: title-slide  
 
+# Modul - Objektorientierte Programmierung
+### Bachelor Wirtschaftsinformatik
 
-<div style="margin-top: 20%"></div>
-Einführung in objektorientiertes Programmieren
-
-`Annotationen, Design Pattern, Refactoring` 
-
-
-<div style="margin-top: 20%"></div>
-
-## Bachelor Wirtschaftsinformatik
-
-**Marcel Tilly**
-
-Fakultät Informatik, Cloud Computing
+## 08 - Annotationen, Refactoring und DP
+### Prof. Dr. Marcel Tilly
+Fakultät für Informatik, Cloud Computing
 
 ---
 
@@ -26,7 +18,6 @@ Fakultät Informatik, Cloud Computing
 - Stellen zusätzliche semantische Informationen zum Programm bereit.
 - Semantik wird vom Compiler nicht direkt bearbeitet, d.h. sie haben keinen direkten Einfluss auf den Programmablauf
 - Annotationen beeinflussen die Semantik von "Dingen," die diese Elemente verwenden
-
 
 ---
 
@@ -61,7 +52,9 @@ Testen mit JUnit 5
 
 ---
 
-# Vordefinierte Annotationen `@Override`
+# Vordefinierte Annotationen
+
+### `@Override`
 
 Typischer Fehler: **überladen** statt **überschreiben**
 
@@ -74,6 +67,12 @@ class MeineKlasse {
 	public boolean equals(Object o) { /* ... */ }
 }
 ```
+
+---
+
+# Vordefinierte Annotationen
+
+### `@Override`
 
 Durch die Annotation mit `@Override` kann der Compiler Fehler erkennen:
 
@@ -89,7 +88,9 @@ class MeineKlasse {
 
 ---
 
-# Vordefinierte Annotationen `@SuppressWarnings`
+# Vordefinierte Annotationen 
+
+### `@SuppressWarnings`
 
 - Aktuelle Java Compiler erzeugen sehr viele Warnungen
 - Viele sind berechtigt und weisen auf Programmierfehler hin
@@ -109,7 +110,9 @@ public void methodWithScaryWarning() {
 
 ---
 
-# Vordefinierte Annotationen  `@Deprecated`
+# Vordefinierte Annotationen  
+
+### `@Deprecated`
 
 - Hinweis an den Programmierer, eine Methode/Klasse/etc. nicht (mehr) zu verwenden
 - Oft bei Update von Toolkits bzw. Bibliotheken
@@ -121,8 +124,6 @@ class AlteKlasse {
 	@Deprecated
 	public static void doofeAlteMethode() { /* ... */ }
 }
-```
-```java
 class NeueKlasse {
     public boolean meineNeueMethode() {
         doofeAlteMethode();  // Compiler Warning
@@ -132,13 +133,17 @@ class NeueKlasse {
 
 ---
 
-# Definition von neuen Annotationen
+# Definition von Annotationen
 
 - Annotationen werden ähnlich wie Interfaces definiert, jedoch mit dem `@`-Zeichen vor dem Schlüsselwort Interface:
 - In der Definition einer Annotation können Methoden deklariert werden, die Elemente der Annotation beschreiben.
 	+ Methoden in Annotationen besitzen keine Parameter.
 	+ Erlaubte Rückgabetypen: `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `Class`, `Annotation` und `Enumeration` sowie Felder über diese Typen
 	+ Definition von Defaultwerten möglich.
+
+---
+
+# Definition von Annotationen
 
 **Beispiel:** Annotation `@BugFix` um anzuzeigen, wer wann welchen Fehler zu beheben versucht hat.
 
@@ -156,7 +161,7 @@ public @interface BugFix {
 # Verwendung von Annotationen
 
 ```java
-@BugFix(author="riko493", date="04.05.2018")
+@BugFix(author="max", date="04.05.2018")
 public void tolleFunktion() {
 	// ...
 }
@@ -169,12 +174,12 @@ public void tolleFunktion() {
 
 # Schreibvereinfachungen 
 
-### Annotationen ohne Methoden: **Markerannotationen**
+#### Annotationen ohne Methoden: **Markerannotationen**
 
 - Runde Klammern können entfallen
 - Beispiele: `@Override`, `@Deprecated`
 
-### Annotationen mit genau einer Methode: **Value-Annotationen**
+#### Annotationen mit genau einer Methode: **Value-Annotationen**
 
 - Nur eine einzige Methode mit Namen `value`
 - Bezeichner `value` kann bei Verwendung weggelassen werden
@@ -207,29 +212,28 @@ public class Calculator { /* ... */ }
 
 # Annotationen in der Praxis
 
-### Häufig verwenden, selten definieren
+#### Häufig verwenden, selten definieren
 
-### Reflection API
+#### Reflection API
 
 - Erlaubt das Abfragen von Annotationen zur Laufzeit eines Java-Programms.
 - Interface `AnnotatedElement` 
 	+ Von den Reflection-Klassen `Class`, `Method`, `Field` etc. implementiert 
 	+ Enthält Methoden zum Zugriff auf die Annotationen (wie `getAnnotations` oder `isAnnotationPresent` etc.)
 
-
 ---
 
 # Annotationen für JUnit5
 
-### `@Test`
+#### `@Test`
 
 Markiert eine Methode als Testmethode &rarr; Ausführung als Testcase in IntelliJ oder `gradle test`.
 
-### `@BeforeEach`, `@BeforeAll`, `@AfterEach`, `@AfterAll`
+#### `@BeforeEach`, `@BeforeAll`, `@AfterEach`, `@AfterAll`
 
 Markiert Methoden, welche vor oder nach Testcases ausgeführt werden soll, um z.B. Datenstrukturen zu initialisieren.
 
-### `@Disabled`
+#### `@Disabled`
 
 Markiert einen Testcase als zu ignorieren.
 
@@ -271,7 +275,8 @@ class MeineTestSammlung {
 ```java
 @Test
 void exceptionTesting() {
-    Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+    Throwable exception = assertThrows(IllegalArgumentException.class, 
+    () -> {
         throw new IllegalArgumentException("a message");
     });
     assertEquals("a message", exception.getMessage());
@@ -313,8 +318,9 @@ void exceptionTesting() {
 
 ---
 
+# Buch
 
-![Buchreferenz Refactoring, center](Refactoring.jpg)
+.center[![:scale 40%](./Refactoring.jpg)]
 
 [Refactoring.com]()
 
@@ -388,7 +394,6 @@ class Engineer extends Employee {
 class Employee {
   get name() {...}
 }
-
 class Salesman extends Employee {...}
 class Engineer extends Employee {...}
 ```
@@ -408,7 +413,7 @@ class Manager extends Employee {
   }
   // ...
 }
-````
+```
 ```java
 class Manager extends Employee {
   public Manager(String name, String id, int grade) {
@@ -423,6 +428,7 @@ class Manager extends Employee {
 
 # Code Smell: “Switch Statements”
 
+.small[
 ```java
 class Bird {
 
@@ -448,6 +454,7 @@ class Bird {
 	 ...
 }
 ````
+]
 
 ---
 
@@ -479,6 +486,7 @@ class Bird {
 
 Wenn Codefragmente mehrfach verwendet werden oder logisch zusammengehören, verschieben Sie diesen Code in eine separate neue Methode und ersetzen Sie den alten Code durch einen Aufruf der Methode.
 
+.small[
 ```java
 void printOwing() {
   printBanner();
@@ -487,7 +495,8 @@ void printOwing() {
   System.out.println("amount: " + getOutstanding());
 }
 ```
-
+]
+.small[
 ```java
 void printOwing() {
   printBanner();
@@ -499,11 +508,13 @@ void printDetails(double outstanding) {
   System.out.println("amount: " + outstanding);
 }
 ```
+]
 
 ---
 
 # Refactoring Technik: “Extract Method”
 
+.small[
 ```java
 public void actionPerformed(ActionEvent e) {
         ...
@@ -529,6 +540,7 @@ public void actionPerformed(ActionEvent e) {
             ...
 }
 ```
+]
 
 ---
 
@@ -542,6 +554,7 @@ if(false) {
 
 Wird ersetzt durch
 ```java
+\\nichts
 ```
 
 ---
@@ -571,9 +584,13 @@ leadEngineer = createEngineer(document.leadEngineer);
 # Design Pattern
 
 - Design Pattern (Entwurfsmuster) sind bewährte Lösungswege für wiederkehrende Designprobleme in der Softwareentwicklung
+
 - Sie beschreiben die essenziellen Entwurfsentscheidungen (Klassen- und Objektarrangements)
+
 - Durch den Einsatz von Design Pattern wird ein Entwurf flexibel, wiederverwendbar, erweiterbar, einfacher zu verwenden und änderungsstabil
+
 - In den Design Patterns manifestiert sich die jahrelange Berufserfahrung vieler Softewareentwicklern.
+
 - Zeitgleich schulen Design Pattern die Fähigkeit zur effektiven objektorientierten Modellierung
 
 ---
@@ -584,7 +601,7 @@ leadEngineer = createEngineer(document.leadEngineer);
 - Use Patterns and learn from others!
 
 
-![Pattern Books, center](pattern.png)
+.center[![:scale 80%](./pattern.png)]
 
 ---
 
@@ -610,11 +627,11 @@ leadEngineer = createEngineer(document.leadEngineer);
 - Abstraktion
 - Macht ein System unabhängig davon, wie sein Objekte instanziiert, zusammengesetzt und repräsentiert werden
 
-`Factory`
-`Abstract Factory`
-`Builder`
-`Prototype`
-`Singleton`
+- `Factory`
+- `Abstract Factory`
+- `Builder`
+- `Prototype`
+- `Singleton`
 
 ---
 
@@ -624,13 +641,13 @@ leadEngineer = createEngineer(document.leadEngineer);
 
 - Zusammensetzung von Klassen/Objekten zu größeren Strukturen, um neue Funktionalität zu realisieren
 
-`Adapter`
-`Bridge`
-`Composite`
-`Decorator`
-`Facade`
-`Flyweight`
-`Proxy`
+- `Adapter`
+- `Bridge`
+- `Composite`
+- `Decorator`
+- `Facade`
+- `Flyweight`
+- `Proxy`
 
 ---
 
@@ -658,19 +675,21 @@ leadEngineer = createEngineer(document.leadEngineer);
 
 Das Factory Method Entwurfsmuster dient der Entkopplung des Clients von der konkreten Instanziierung einer Klasse. Das erstellte Objekt kann elegant ausgetauscht werden. Oft wird es zur Trennung von (zentraler) Objektverarbeitung und (individueller) Objektherstellung verwendet. 
 
-![Factory, center](factory.svg)
+.center[![:scale 50%](./factory.svg)]
 
 ---
 
 # Design Pattern: _Factory_
 
+.small[
 ```java
 public static void main(String[] args) {
    Schrank schrank = new Kleiderschrank();
    schrank.oeffneSchrank();
 }
 ```
-
+]
+.small[
 ```java
 public class SchrankFactory {
 
@@ -688,6 +707,7 @@ public class SchrankFactory {
   }
 }
 ```
+]
 
 ---
 
@@ -735,7 +755,7 @@ Wie bereits erwähnt, besteht das Singleton-Entwurfsmuster nur aus einer einzige
 - Einen privaten Konstruktor
 - Einer statischen Methode, welche die Instanz zurück gibt
 
-![Singelton-Pattern, center](singleton.svg)
+.center[![:scale 40%](./singleton.svg)]
 
 ---
 
@@ -776,19 +796,20 @@ Ein Client muss nicht mehr zwischen Composite und Leaf unterscheiden!
 
 # Design Pattern: _Composite_
 
-![Composite Pattern, center](composite.svg)
+.center[![:scale 60%](./composite.svg)]
 
 ---
 
-# Design Pattern: _Composite_ (Alteranative!)
+# Design Pattern: _Composite_ (Alternative!)
 
-![Composite Pattern, center](composite2.svg)
+.center[![:scale 55%](./composite2.svg)]
 
 
 ---
 
 # Design Pattern: _Composite_
 
+.small[
 ```java
 class Composite extends Component{
     
@@ -815,6 +836,7 @@ class Composite extends Component{
     }
 }		
 ```
+]
 
 ---
 
@@ -824,3 +846,10 @@ class Composite extends Component{
 - [TutorialPoint - Design Pattern](https://www.tutorialspoint.com/design_pattern/design_pattern_overview.htm)
 - [GeeksForGeeks - Design Pattern] (https://www.geeksforgeeks.org/design-patterns-set-1-introduction/)
 - [OODesign - GoF Pattern](https://www.oodesign.com/)
+
+---
+
+<div style="margin-top: 30%"></div>
+
+# Fragen?
+

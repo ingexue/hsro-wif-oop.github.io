@@ -1,0 +1,112 @@
+@import url(//fonts.googleapis.com/css?family=Lato);
+
+body {
+  font-family: 'Lato';
+  font-size: medium;
+}
+
+
+h1 {
+  color: #F39100;
+  font-weight: 400;
+  margin-bottom: 0;
+  padding-right: 30%;
+}
+
+h2, h3 {
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.small * {
+  font-size: small !important;
+}
+
+code {
+  border-radius: 5px;
+}
+
+.remark-inline-code {
+  background-color: #f0f0f0;
+}
+
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.footnote {
+  position: absolute;
+  font-size: small;
+  bottom: 5em;
+  left: 6em;
+}
+
+.column:first-of-type {float:left}
+.column:last-of-type {float:right}
+
+.split .column:first-of-type {width: 70%}
+.split .column:last-of-type {width: 30%}
+
+.split-50 .column:first-of-type {width: 50%}
+.split-50 .column:last-of-type {width: 50%; margin-left: 30pt}
+
+.left-column {
+  width: 50%;
+  float: left;
+}
+
+.right-column {
+  width: 40%;
+  float: right;
+  padding-left: 10pt;
+}
+
+.remark-slide-number {
+  font-size: 10pt;
+  margin-right: 10px;
+  opacity: 1; /* default: 0.5 */
+}
+
+.title-slide h1 {
+  font-size: 2em;
+  font-weight: bold;
+  margin-top: 250px;
+  padding-right: 0%;
+}
+
+.title-slide h2 {
+  font-size: 1.8em;
+  margin-bottom: 80x;
+}
+
+.title-slide h3 {
+  font-size: 1.2em;
+}
+
+.title-slide .remark-slide-number {
+  display: none;
+}
+
+.remark-slide-content {
+  background-image: url("thro.svg");
+  background-position: 97% 20px;
+  background-size: 28%;
+  border-bottom: 35px solid #F39100;
+  padding-bottom: 0em;
+}
+
+.remark-slide-content::after {
+  content: "© Technische Hochschule Rosenheim";
+  position: absolute;
+  bottom: 10px;
+  font-size: 10pt;
+  left: 35%;
+}

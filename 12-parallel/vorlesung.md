@@ -1,21 +1,14 @@
-# Objektorientiertes Programmieren
+class: title-slide  
 
+# Modul - Objektorientierte Programmierung
+### Bachelor Wirtschaftsinformatik
 
-<div style="margin-top: 20%"></div>
-Einführung in objektorientiertes Programmieren
-
-`13 - Referenzen, Design Pattern II, Parallele Verarbeitung` 
-
-
-<div style="margin-top: 20%"></div>
-
-## Bachelor Wirtschaftsinformatik
-
-**Marcel Tilly**
-
-Fakultät Informatik, Cloud Computing
+## 12 - UML (recap) & Parallel
+### Prof. Dr. Marcel Tilly
+Fakultät für Informatik, Cloud Computing
 
 ---
+
 # Vererbung (Wiederholung)
 
 - Vererbung bildet in der OOP eine _ist-ein_-Beziehung ab
@@ -30,17 +23,20 @@ Fakultät Informatik, Cloud Computing
 	- Member die als _private_ deklariert sind
 	
 ---
+class: split
 
 # Assoziation
 
+.column[
 - lose Verbindung zwischen Objekten (Referenz)
 - Objekte kennen sich (Richtung der Referenz)
 - Kardinalitäten
 - Name
+]
 
-
-![Assoziation, center](assoziation.svg)
-
+.column[
+.center[![:scale 20%](./assoziation.svg)]
+]
 
 ---
 
@@ -53,7 +49,7 @@ Fakultät Informatik, Cloud Computing
 - im objektorientierten Paradigma nennt man diese Beziehung: **Komposition**
 - bildet eine _besteht aus_ oder _hat ein_ Beziehung ab
 
-![Komposition, center](komposition.svg)
+.center[![:scale 40%](./komposition.svg)]
 
 ---
 
@@ -65,7 +61,7 @@ Fakultät Informatik, Cloud Computing
 	- Referenzierten Klassen leben weiter und werden nicht zerstört wenn die Klasse zerstört wird
 	- Referenzierten Klassen werden auch nicht automatisch erstellt wenn die referenzierende Klasse erstellt wird
 
-![Aggregation, center](hochschule.svg)
+.center[![:scale 40%](./hochschule.svg)]
 
 ---
 
@@ -96,9 +92,11 @@ public interface Observer {
 
 ---
 
-# Design Pattern: Oberserver-Pattern (II)
+# Design Pattern
 
-![Observer, center](observer.svg)
+#### Oberserver-Pattern (II)
+
+.center[![:scale 25%](./observer.svg)]
 
 ---
 
@@ -126,7 +124,7 @@ class MyProgram {
 
 # Prozesse
 
-![single-process](process.svg)
+.center[![:scale 70%](./process.svg)]
 
 ---
 
@@ -158,7 +156,7 @@ class BeanCounter implements Runnable {
 
 # Erbsenzähler
 
-![bureaucrats-1](bureaucrats.svg)
+.center[![:scale 70%](./bureaucrats.svg)]
 
 ---
 
@@ -177,9 +175,7 @@ public static void main(String[] args) {
 ---
 # Fleissige Erbsenzähler mit Threads
 
-.w80[
-![bureaucrats-2](bureaucrats_001.svg)
-]
+.center[![:scale 60%](./bureaucrats_001.svg)]
 
 ---
 
@@ -241,7 +237,9 @@ Total beans: 362537
 
 # Geteilte Ressourcen: Inkonsistenz!
 
-.pure-table.pure-table-bordered.pure-table-striped[
+Geteilte Ressourcen koennen problematisch sein!
+
+
 |   | Thread 1 | Thread 2 | _result_ |
 | - | -------- | -------- | -------- |
 | 1 | tmp1 = c |          | tmp1 = 0 |
@@ -250,28 +248,38 @@ Total beans: 362537
 | 4 |          | ++tmp2   | tmp2 = 1 |
 | 5 | c = tmp1 |          | c = 1    |
 | 6 |          | c = tmp2 | **c = 1 !** |
-]
+
 
 ---
 
 # Deadlock
 
-![Deadlock](threads-deadlock.svg)
+<div style="margin-top: 30%"></div>
+
+.center[![:scale 90%](./threads-deadlock.svg)]
 
 ---
 
 # `wait` und `notify`
 
-![threads-wait-notify](threads-wait-notify.svg)
+.center[![:scale 50%](./threads-wait-notify.svg)]
 
 ---
 
 # Erzeuger-Verbraucher-Problem
 
-![consumer-producer](consumer-producer.png)
+.center[![:scale 90%](./consumer-producer.png)]
 
 ---
 
 # Threads: Lebenszyklus
 
-![thread-lifecycle](thread-lifecycle.svg)
+<div style="margin-top: 10%"></div>
+
+.center[![:scale 90%](./thread-lifecycle.svg)]
+
+---
+
+<div style="margin-top: 30%"></div>
+
+# Fragen?

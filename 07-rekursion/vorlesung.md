@@ -1,27 +1,11 @@
----
-title: Rekursion
-permalink: /07-rekursion/slides/
-layout: presentation
-mathjax: true
----
+class: title-slide  
 
-layout: true
+# Modul - Objektorientierte Programmierung
+### Bachelor Wirtschaftsinformatik
 
-<footer>
-	<span class="icon github">
-	<svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
-	</svg>
-	</span>
-	<a href="https://github.com/sikoried"><span class="username">sikoried</span></a>
-</footer>
-
----
-
-# Rekursion
-
-Korbinian Riedhammer
+## 07 - Rekursion
+### Prof. Dr. Marcel Tilly
+Fakultät für Informatik, Cloud Computing
 
 ---
 
@@ -29,15 +13,19 @@ Korbinian Riedhammer
 
 .skip[]
 
-![Rekursion]({{site.baseurl}}/03-tree-set/google-recursion.png)
+.center[![:scale 80%](./google-recursion.png)]
 
 ---
 
 # Fakultät
 
+- Die Fakultät ist in der Mathematik eine Funktion, die einer natürlichen Zahl das Produkt aller natürlichen Zahlen (ohne Null) kleiner und gleich dieser Zahl zuordnet.
+- Sie wird durch ein dem Argument nachgestelltes Ausrufezeichen („!“) abgekürzt. 
+- Diese Notation wurde erstmals 1808 von dem elsässischen Mathematiker Christian Kramp (1760–1826) verwendet, der um 1798 auch die Bezeichnung faculté „Fähigkeit“ dafür einführte. 
+
 $$
 n! = \begin{cases}
-    1 & \text{für n = 1 (terminal)}.\\
+    1 & \text{für n = 1 (terminal)}.\\\
     n \cdot (n-1)! & \text{für n > 1 (rekursiv)}.
   \end{cases}
 $$
@@ -46,9 +34,7 @@ $$
 
 # Fakultät
 
-<div style="text-align: center">
-<img src="{{site.baseurl}}/07-rekursion/seq-fac.svg" style="width: 65%">
-</div>
+.center[![:scale 50%](./seq-fac.svg)]
 
 ---
 
@@ -71,9 +57,7 @@ int ggT(int a, int b) {
 
 # Größter gemeinsamer Teiler (GGT)
 
-<div style="text-align: center">
-<img src="{{site.baseurl}}/07-rekursion/seq-ggt.svg" style="width: 85%">
-</div>
+.center[![:scale 50%](./seq-ggt.svg)]
 
 ---
 
@@ -81,17 +65,15 @@ int ggT(int a, int b) {
 
 $$
 \text{fib}(n) = \begin{cases}
-	0 & \text{für } n = 0 \\
-	1 & \text{für } n = 1 \\
+	0 & \text{für } n = 0 \\\
+	1 & \text{für } n = 1 \\\
 	\text{fib}(n-1) + \text{fib}(n-2) & \text{für } n > 1
 \end{cases}
 $$
 
-<div style="text-align: center">
-<img src="{{site.baseurl}}/07-rekursion/fibonacci-spirale.svg" style="width: 50%">
-</div>
+.center[![:scale 50%](./fibonacci-spirale.svg)]
 
-.right[
+.footnote[
 Quelle: [Wikipedia](https://commons.wikimedia.org/wiki/File:FibonacciSpiral.svg)
 ]
 
@@ -121,11 +103,13 @@ fib(1) + fib(0) + ...
 
 # Kochrezept
 
-1. Terminalfälle bestimmen. Wann ist die Lösung trivial?
-2. Rekursionsfälle bestimmen. Wie kann ich das Problem auf ein kleineres runterbrechen?
+1. **Terminalfälle** bestimmen: Wann ist die Lösung trivial?
+
+2. **Rekursionsfälle** bestimmen: Wie kann ich das Problem auf ein kleineres runterbrechen?
+
 3. Rekursion zusammensetzen: Brauche ich eine Hilfsmethode, wie muss die Signatur aussehen, wie müssen die Argumente beim rekursiven Aufruf verändert werden?
 
-```
+```java
 // kein valides Java...
 int rekursiv(...) {
 	if (Terminalfall) {
@@ -142,10 +126,19 @@ int rekursiv(...) {
 # Arten der Rekursion
 
 - **Lineare Rekursion:** genau ein rekursiver Aufruf, z.B. Fakultät.
+
 - **Repetetive Rekursion** (Rumpfrekursion, engl. _tail recursion_): Spezialfall der linearen Rekursion, bei der der rekursive Aufruf die letzte Rechenanweisung ist.
 	Diese Rumpfrekursionen können direkt in eine iterative Schleife umgewandelt werden (und umgekehrt).
 	Beispiel: verbesserte Implementierung der Fibonacci Funktion.
+
 - **Kaskadenartige Rekursion:** in einem Zweig der Fallunterscheidung treten _mehrere_ rekursive Aufrufe auf, was ein lawinenartiges Anwachsen der Funktionsaufrufe mit sich bringt.
 	Beispiel: einfache Implementierung der Fibonacci Funktion.
+
 - **Verschränkte Rekursion:** Eine Methode `f()` ruft eine Methode `g()`, die wiederum `f()` aufruft.
+
+---
+
+<div style="margin-top: 30%"></div>
+
+# Fragen?
 
