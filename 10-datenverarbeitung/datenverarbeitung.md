@@ -1,7 +1,7 @@
 ---
 title: "WIF-Objekorientiertes Programmieren (WIF-OOP)"
 subtitle: "10 - Datenverarbeitung"
-permalink: /09-sortieren/
+permalink: /10-datenverarbeitung/
 mathjax: true
 author: Fakultät Informatik, TH Rosenheim
 ...

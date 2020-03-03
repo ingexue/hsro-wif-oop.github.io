@@ -14,7 +14,7 @@ _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rose
 
 
 ## Inhalt
-- **18. März: Professionelle Softwareentwicklung** ([Einführung](/slides.html?00-einfuehrung), [Skript](01-professionelle-softwareentwicklung/), [Übung 1](https://github.com/hsro-wif-oop/tutorial), [Übung 2](https://github.com/hsro-wif-oop/example))
+- **18. März: Professionelle Softwareentwicklung** ([Einführung](/slides.html?00-einfuehrung), [Skript](/01-professionelle-softwareentwicklung/), [Übung 1](https://github.com/hsro-wif-oop/tutorial), [Übung 2](https://github.com/hsro-wif-oop/example))
 
 	Nach ein paar organisatorischen Dingen widmen wir uns dem Handwerkszeug professioneller Softwareentwicklung.
 	Wir wiederholen Spezifikation mit UML, Versionierung mit git, Tests und Ausnahmebehandlung.
@@ -53,9 +53,9 @@ _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rose
 	Ging es um das Abarbeiten von Daten bzw. Implementieren von Algorithmen, so gingen wir bisher meist iterativ vor, also mit `for` bzw. `while`.
 	Rekursion ist nun ein Mittel, bei der eine Methoden sich selbst wieder (mit veränderten Argumenten) aufrufen, und so ohne `for` bzw. `while` auskommen.
 
-- **13. Mai: Annotationen** ([Slides](/slides.html?08-annotationen)
+- **13. Mai: Annotationen, Refactoring und Design Pattern** ([Slides](/slides.html?08-annotationen))
 
-	Ein kurzer Exkurs zum Thema _Annotationen_ und deren Einsatzgebieten.
+	Ein kurzer Exkurs zum Thema _Annotationen_ und deren Einsatzgebieten. Danach geht es thematisch tiefer in OOP Design. Wir sehen und das Thema _Refactoring_ und _Design Pattern_ an.
 
 - **20. Mai: Sortieren** ([Skript](/09-sortieren/), [Übung](https://github.com/hsro-wif-oop/uebung07))
 
@@ -71,13 +71,13 @@ _Pflichtmodul im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rose
 
 - _10./11. Juni: Vorlesung und Übungen entfallen_
 
-- **17. Juni: Vererbung** ([Slides](/11-vererbung/vererbung-1.pdf), [Übung](https://github.com/hsro-wif-oop/uebung09))
+- **17. Juni: Vererbung** ([Slides](/11-vererbung/11_1-vererbung.pdf), [Übung](https://github.com/hsro-wif-oop/uebung09))
 
 	Bisher waren unsere Klassenbeziehungen vorwiegend strukturell bzw. funktional: Ein Monat besteht aus Tagen, ein Auto aus Bauteilen, usw.
 	_Vererbung_ erlaubt es nun verwandschaftliche Beziehungen zu modellieren, und so Gemeinsamkeiten in Oberklassen zu bündeln.
 	So sind z.B. sowohl Audis als auch BMWs im Grunde genommen _Autos_, doch gibt es sowohl geteilte Eigenschaften als auch spezielle.
 
-- **24. Juni: Abstrakte Basisklassen** ([Slides](/11-vererbung/vererbung-2.pdf), [Übung](https://github.com/hsro-wif-oop/uebung10))
+- **24. Juni: Abstrakte Basisklassen** ([Slides](/11-vererbung/11_2-vererbung.pdf), [Übung](https://github.com/hsro-wif-oop/uebung10))
 
 	Abstrakte Basisklassen sind ein weiteres Syntaxmittel, um verwandschaftliche Beziehungen zu beschreiben.
 	Da abstrakte Klassen nicht instanziiert werden können, sind sie im Grunde ähnlich zu Schnittstellen (_Interfaces_), erlauben aber genauere Modellierung der Sichtbarkeiten.
