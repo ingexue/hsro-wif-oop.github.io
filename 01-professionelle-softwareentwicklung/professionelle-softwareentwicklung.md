@@ -1,10 +1,10 @@
-
-# Modul - Objektorientierte Programmierung (OOP)
-### Bachelor Wirtschaftsinformatik
-
-## 01 - Professionelle Softwareentwicklung
-### Prof. Dr. Marcel Tilly
-Fakultät für Informatik, Cloud Computing
+---
+title: "WIF-Objekorientiertes Programmieren (WIF-OOP)"
+subtitle: "01 - Professionelle Softwareentwicklung"
+permalink: /01-professionelle-softwareentwicklung/
+mathjax: true
+author: Fakultät Informatik, TH Rosenheim
+...
 
 ---
 
